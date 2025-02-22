@@ -19,7 +19,9 @@ The guidelines in this project follow the [Verilog Coding Style](https://github.
   Example: `led_rgb_e`, `led_rgb_t`
 - **Variables, functions, tasks`:** Use lowercase with underscores.
   Example: task read_bmp;
-
+- **Module Parameters:** `UpperCamelCase` 
+- **Enum set member:** `ALL_CAPS`. 
+  Example: `typedef enum {GREEN, BLUE, ...}`
 
 ## Clock and Reset
 ***All clock signals must begin with `clk`.***
