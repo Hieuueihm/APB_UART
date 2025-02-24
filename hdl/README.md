@@ -126,3 +126,53 @@ module my_module #(
 
 endmodule
 ```
+
+## FSM
+In this project, we use the 4-always block coding style with registered outputs. This coding style improve the synthesis results to match the results observed with 1-always block style and reduce the verbose of code. 
+```systemverilog {.good}
+module always_4 (
+    input logic clk,
+    input logic rst_n
+
+);
+
+  localparam IDLE = 1'b0;
+  reg [W - 1 : 0] current_state, next_state;
+  // present state logic
+  always_ff @(posedge clk or negedge rst_n) begin 
+      if(~rst_n) begin
+           current_state <= IDLE;
+      end else begin
+           current_state <= next_state;
+      end
+  end
+
+
+  always_comb begin
+    next_state = XXX;
+    case (current_state) begin
+
+        IDLE: if(go) next_state = READ;
+    endcase
+  end
+
+  always_comb begin
+    n_rd = '0;
+    n_ds = '0;
+
+    case (current_state) begin
+        READ: n_rd = 1;
+    end
+
+  end
+
+  always_ff @(posedge clk or negedge rst_n) begin 
+      if(~rst_n) begin
+            rd <= 0;
+      end else begin
+            rd <= n_rd;
+      end
+  end
+endmodule
+
+```
