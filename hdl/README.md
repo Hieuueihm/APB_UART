@@ -1,4 +1,4 @@
-# Verilog Naming Convention Guide
+# Verilog Convention Guide
 This repository provides guidelines on how to set names for **modules**, **instances**, **macros**, and other components in SystemVerilog projects.
 ## 📖 Overview
 The guidelines in this project follow the [Verilog Coding Style](https://github.com/lowRISC/style-guides/blob/master/VerilogCodingStyle.md#default-to-c-like-formatting).
