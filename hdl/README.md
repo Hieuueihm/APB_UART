@@ -129,6 +129,8 @@ endmodule
 
 ## FSM
 In this project, we use the 4-always block coding style with registered outputs. This coding style improve the synthesis results to match the results observed with 1-always block style and reduce the verbose of code. 
+Using default X for next state consistently gave better synthesis results over the pre-default `next = state` assignment style. 
+Placing default output assignments before the output-assignment case statements. 
 ```systemverilog {.good}
 module always_4 (
     input logic clk,
