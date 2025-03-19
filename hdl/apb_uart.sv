@@ -1,5 +1,6 @@
 
 import apb_package::*;
+import uart_package::*;
 
 module apb_uart (
     apb_interface.slave apb_if
