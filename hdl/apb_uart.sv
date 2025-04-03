@@ -1,6 +1,6 @@
 
 import apb_package::*;
-import uart_package::*;
+//import uart_package::*;
 
 module apb_uart (
     apb_interface.slave apb_if
@@ -77,7 +77,7 @@ module apb_uart (
       mcr <= 32'h0;
       ier <= 32'h0;
       iir <= 32'h0;
-    end else if (current_state == SETUP && apb_if.apb_slv.pwrite) begin
+    end else if (current_state == SETUP & apb_if.apb_slv.pwrite) begin
       case (apb_if.apb_slv.paddr)
         ADDR_TDR:
         tdr <= (apb_if.apb_slv.pstrb[3] ? {apb_if.apb_slv.pwdata[31:24], tdr[23:0]} : tdr) |
