@@ -1,0 +1,50 @@
+@startuml
+clock   "clk"   as clk with period 10
+binary  "reset_n"  as reset_n
+concise "baud_sl" as baud_sl
+binary "start"  as start_
+binary "tick" as tick
+binary "ready" as ready
+binary "finish" as finish
+
+
+concise "State" as stat
+
+@0
+baud_sl is 0
+stat is IDLE
+@20
+reset_n is 1
+@30
+start_ is 1
+@40
+stat is PS
+@50
+ready is 1
+stat is GENERATOR
+@60
+ready is 0
+@70
+tick is 1
+start_ is 0
+@90
+tick is 0
+
+@110
+tick is 1
+@130 
+tick is 0
+@150
+stat is FIN
+@160 
+finish is 1
+stat is IDLE
+@170 
+finish is 0
+@200
+
+stat@50<->@150: GENERATING TICKs
+stat@40->ready@50: 
+stat@150->finish@160
+
+@enduml

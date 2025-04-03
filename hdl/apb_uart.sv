@@ -28,7 +28,6 @@ module apb_uart (
   logic int_pslverr;
   logic [31:0] int_prdata;
 
-
   state_e current_state, next_state;
 
   // Next state logic

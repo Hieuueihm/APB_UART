@@ -141,7 +141,7 @@ module always_4 (
   localparam IDLE = 1'b0;
   reg [W - 1 : 0] current_state, next_state;
   // present state logic
-  always_ff @(posedge clk or negedge rst_n) begin 
+  always_ff @(posedge clk) begin 
       if(~rst_n) begin
            current_state <= IDLE;
       end else begin
@@ -152,7 +152,7 @@ module always_4 (
 
   always_comb begin
     next_state = XXX;
-    case (current_state) begin
+    case (current_state) 
 
         IDLE: if(go) next_state = READ;
     endcase
@@ -162,13 +162,13 @@ module always_4 (
     n_rd = '0;
     n_ds = '0;
 
-    case (current_state) begin
+    case (current_state) 
         READ: n_rd = 1;
-    end
+    endcase
 
   end
 
-  always_ff @(posedge clk or negedge rst_n) begin 
+  always_ff @(posedge clk ) begin 
       if(~rst_n) begin
             rd <= 0;
       end else begin
