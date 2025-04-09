@@ -95,8 +95,8 @@ module my_module #(
   parameter Width = 80,
   parameter Height = 24
 ) (
-  input              clk_i,
-  input              rst_ni,
+  input              clk,
+  input              rst_n,
   input              req_valid_i,
   input  [Width-1:0] req_data_i,
   output             req_ready_o,
@@ -106,8 +106,8 @@ module my_module #(
   logic [Width-1:0] req_data_masked;
 
   submodule u_submodule (
-    .clk_i,
-    .rst_ni,
+    .clk,
+    .rst_n,
     .req_valid_i,
     .req_data_i (req_data_masked),
     .req_ready_o(req_ready),

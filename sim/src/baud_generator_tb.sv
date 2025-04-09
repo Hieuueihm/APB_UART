@@ -5,7 +5,7 @@ module baud_generator_tb ();
   logic reset_n;
   logic [2:0] baud_sl;
   logic start;
-  logic isTx;
+  logic is_tx;
   wire tick;
   wire ready;
   wire finish;
@@ -15,7 +15,7 @@ module baud_generator_tb ();
       .reset_n(reset_n),
       .baud_sl(baud_sl),
       .start  (start),
-      .isTx   (isTx),
+      .is_tx   (is_tx),
       .tick   (tick),
       .ready  (ready),
       .finish (finish)

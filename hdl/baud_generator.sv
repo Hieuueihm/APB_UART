@@ -6,7 +6,7 @@ module baud_generator #(
     input reset_n,
     input [2:0] baud_sl,  // input lcr 
     input start,
-    input isTx,
+    input is_tx,
     output tick,
     output logic ready,
     output logic finish
@@ -17,7 +17,7 @@ module baud_generator #(
   logic [ 3:0] clock_left;
   logic [31:0] BIT_PERIOD;
   wire [31:0] sampling_value;
-  assign sampling_value = (isTx == 1) ?  1 : SAMPLING_RATE;
+  assign sampling_value = (is_tx == 1) ?  1 : SAMPLING_RATE;
   assign is_clk_left_not_zero = |clock_left;
   assign is_clk_left_zero = ~is_clk_left_not_zero;
   // use LUT 
