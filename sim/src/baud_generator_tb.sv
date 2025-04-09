@@ -1,59 +1,54 @@
-`timescale 1ns / 1ps
-`define clk_period 10
-module baud_generator_tb ();
+`timescale 1ns/1ps
+
+module baud_generator_tb;
+
+  // Parameters
+  parameter SYSTEM_FREQUENCY = 100000000; 
+  parameter SAMPLING_RATE = 16;
+
+  // Inputs
   logic clk;
   logic reset_n;
-  logic [2:0] baud_sl;
-  logic start;
-  logic is_tx;
-  wire tick;
-  wire ready;
-  wire finish;
+  logic [2:0] baud_sl_i;
 
-  baud_generator inst_baud_generator (
-      .clk    (clk),
-      .reset_n(reset_n),
-      .baud_sl(baud_sl),
-      .start  (start),
-      .is_tx   (is_tx),
-      .tick   (tick),
-      .ready  (ready),
-      .finish (finish)
+  // Outputs
+  logic tick_tx;
+  logic tick_rx;
+
+  initial clk = 0;
+  always #5 clk = ~clk;  
+
+  // Instantiate DUT
+  baud_generator #(
+    .SYSTEM_FREQUENCY(SYSTEM_FREQUENCY),
+    .SAMPLING_RATE(SAMPLING_RATE)
+  ) dut (
+    .clk(clk),
+    .reset_n(reset_n),
+    .baud_sl_i(baud_sl_i),
+    .tick_tx(tick_tx),
+    .tick_rx(tick_rx)
   );
 
-
+  // Test sequence
   initial begin
-    clk <= 0;
+    $display("Starting testbench...");
+    reset_n = 0;
+    baud_sl_i = 3'b001;
+    #100;
+
+    reset_n = 1;
+    #2000000;  
+
+    $finish;
   end
-  always #(`clk_period / 2) clk <= ~clk;
 
-
-
-  initial begin
-    // reset
-    reset_n <= 1'b0;
-    baud_sl <= 3'b110;
-    start   <= 1'b0;
-    isTx <= 1'b1;
-
-    #(`clk_period * 3);
-
-    reset_n <= 1'b1;
-
-    #(`clk_period * 5);
-
-    start <= 1'b1;
-    #(`clk_period);
-
-
-
-    wait (finish);
-    #100;
-    wait (finish);
-    #100;
-    $stop;
-
-
+  // Monitor ticks
+  always_ff @(posedge clk) begin
+    if (tick_tx)
+      $display("TX Tick at time %t", $time);
+    if (tick_rx)
+      $display("RX Tick at time %t", $time);
   end
 
 endmodule
