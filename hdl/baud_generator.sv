@@ -6,6 +6,7 @@ module baud_generator #(
     input reset_n,
     input [2:0] baud_sl,  // input lcr 
     input start,
+    input isTx,
     output tick,
     output logic ready,
     output logic finish
@@ -15,24 +16,25 @@ module baud_generator #(
   `define NUMBER_OF_CLK 11
   logic [ 3:0] clock_left;
   logic [31:0] BIT_PERIOD;
-
+  wire [31:0] sampling_value;
+  assign sampling_value = (isTx == 1) ?  1 : SAMPLING_RATE;
   assign is_clk_left_not_zero = |clock_left;
   assign is_clk_left_zero = ~is_clk_left_not_zero;
   // use LUT 
   always_ff @(posedge clk or negedge reset_n) begin
     if (!reset_n) begin
-      BIT_PERIOD <= SYSTEM_FREQUENCY / (SAMPLING_RATE * 115200);
+      BIT_PERIOD <= SYSTEM_FREQUENCY / ( sampling_value * 115200);
     end else begin
       case (baud_sl)
-        3'b000:  BIT_PERIOD <= SYSTEM_FREQUENCY / (SAMPLING_RATE * 4800);
-        3'b001:  BIT_PERIOD <= SYSTEM_FREQUENCY / (SAMPLING_RATE * 9600);
-        3'b010:  BIT_PERIOD <= SYSTEM_FREQUENCY / (SAMPLING_RATE * 14400);
-        3'b011:  BIT_PERIOD <= SYSTEM_FREQUENCY / (SAMPLING_RATE * 19200);
-        3'b100:  BIT_PERIOD <= SYSTEM_FREQUENCY / (SAMPLING_RATE * 38400);
-        3'b101:  BIT_PERIOD <= SYSTEM_FREQUENCY / (SAMPLING_RATE * 57600);
-        3'b110:  BIT_PERIOD <= SYSTEM_FREQUENCY / (SAMPLING_RATE * 115200);
-        3'b111:  BIT_PERIOD <= SYSTEM_FREQUENCY / (SAMPLING_RATE * 230400);
-        default: BIT_PERIOD <= SYSTEM_FREQUENCY / (SAMPLING_RATE * 115200);
+        3'b000:  BIT_PERIOD <= SYSTEM_FREQUENCY / (sampling_value * 4800);
+        3'b001:  BIT_PERIOD <= SYSTEM_FREQUENCY / (sampling_value * 9600);
+        3'b010:  BIT_PERIOD <= SYSTEM_FREQUENCY / (sampling_value * 14400);
+        3'b011:  BIT_PERIOD <= SYSTEM_FREQUENCY / (sampling_value * 19200);
+        3'b100:  BIT_PERIOD <= SYSTEM_FREQUENCY / (sampling_value * 38400);
+        3'b101:  BIT_PERIOD <= SYSTEM_FREQUENCY / (sampling_value * 57600);
+        3'b110:  BIT_PERIOD <= SYSTEM_FREQUENCY / (sampling_value * 115200);
+        3'b111:  BIT_PERIOD <= SYSTEM_FREQUENCY / (sampling_value * 230400);
+        default: BIT_PERIOD <= SYSTEM_FREQUENCY / (sampling_value * 115200);
       endcase
     end
   end

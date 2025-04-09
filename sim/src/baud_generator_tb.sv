@@ -5,6 +5,7 @@ module baud_generator_tb ();
   logic reset_n;
   logic [2:0] baud_sl;
   logic start;
+  logic isTx;
   wire tick;
   wire ready;
   wire finish;
@@ -14,6 +15,7 @@ module baud_generator_tb ();
       .reset_n(reset_n),
       .baud_sl(baud_sl),
       .start  (start),
+      .isTx   (isTx),
       .tick   (tick),
       .ready  (ready),
       .finish (finish)
@@ -32,6 +34,7 @@ module baud_generator_tb ();
     reset_n <= 1'b0;
     baud_sl <= 3'b110;
     start   <= 1'b0;
+    isTx <= 1'b1;
 
     #(`clk_period * 3);
 
