@@ -62,8 +62,11 @@ module baud_generator #(
         end else begin
             if (counter_tx == BIT_PERIOD_TX-1) begin
                 counter_tx <= 0;
-                tick_tx <= ~tick_tx;
-            end else counter_tx <= counter_tx+1; 
+                tick_tx <= 1;
+            end else begin
+                counter_tx <= counter_tx +1;
+                tick_tx <= 0;
+            end 
         end
     end
 
@@ -73,10 +76,13 @@ module baud_generator #(
             counter_rx <= 0;
             tick_rx <= 0;
         end else begin
-        if (counter_rx == BIT_PERIOD_RX-1) begin
-            counter_rx <= 0;
-            tick_rx <= ~tick_rx;
-        end else counter_rx <= counter_rx +1;
+            if (counter_rx == BIT_PERIOD_RX-1) begin
+                counter_rx <= 0;
+                tick_rx <= 1;
+            end else begin
+                counter_rx <= counter_rx +1;
+                tick_rx <= 0;
+            end
         end
     end
 
