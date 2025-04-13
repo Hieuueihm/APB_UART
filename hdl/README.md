@@ -106,9 +106,9 @@ module my_module #(
   logic [Width-1:0] req_data_masked;
 
   submodule u_submodule (
-    .clk,
-    .rst_n,
-    .req_valid_i,
+    .clk(clk),
+    .rst_n(rst_n),
+    .req_valid_i(req_valid_i),
     .req_data_i (req_data_masked),
     .req_ready_o(req_ready),
     ...
