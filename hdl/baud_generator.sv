@@ -80,8 +80,8 @@ module baud_generator #(
             counter_rx <= 0;
             tick_rx <= 1;
         end else 
-        counter_rx <= counter_rx +1;
-        tick_rx <= 0;
+            counter_rx <= counter_rx +1;
+            tick_rx <= 0;
         end
     end
 
