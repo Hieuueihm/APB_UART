@@ -38,6 +38,7 @@ module piso_tb(
     logic tx_o;
     logic active_flag;
     logic done_flag;
+    logic [3:0] total_bits;
 
     // Instantiate the PISO module
     piso dut (
@@ -49,6 +50,7 @@ module piso_tb(
         .data_bit_num_i(data_bit_num_i),
         .stop_bit_num_i(stop_bit_num_i),
         .data_i(data_i),
+        .total_bits(total_bits),
         .tx_o(tx_o),
         .active_flag(active_flag),
         .done_flag(done_flag)
@@ -62,10 +64,12 @@ module piso_tb(
     // Stimulus process
     initial begin
         // Initialize signals
+        
         reset_n = 0;
         tx_en_i = 0;
         tick_i = 0;
         parity_type_i = 0;
+        total_bits = 11;
         stop_bit_num_i = 2'b00;
         data_bit_num_i =2'b11;
         data_i = 8'b01010101; // Example data input: 0x55
