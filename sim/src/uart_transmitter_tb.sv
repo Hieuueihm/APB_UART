@@ -14,7 +14,7 @@ module uart_tb;
     logic tx_en_i;
     logic start_tx_i;
     logic [2:0] baud_sl_i;
-    logic [1:0] stop_bit_num;
+    logic stop_bit_num;
     logic [1:0] data_bit_num;
     logic parity_en_i;
     logic parity_type;
@@ -54,78 +54,61 @@ module uart_tb;
     #200 reset_n = 1;
 
     // --- TEST CASE 1: 7-bit, 1 stop bit, even parity ---
-    #100;
+    @(posedge clk);
     data_i = 8'h6A; //  01101010
-    data_bit_num = 2'b10; // 7 bits
-    stop_bit_num = 2'b00; // 1 stop bit
+    data_bit_num = 2'b11; // 7 bits
+    stop_bit_num = 1'b0; // 1 stop bit
     parity_en_i = 0;
     parity_type = 1; // Even parity
     tx_en_i = 1;
     start_tx_i = 1;
-    #10 
+    @(posedge clk);
+        @(posedge clk);
+
     start_tx_i = 0;
     wait(trans_fi_o);
     #100000;
+    @(posedge clk);
+
     data_i = 8'hAB; //  10101011 
     data_bit_num = 2'b11; // 8 bits
     start_tx_i = 1'b1;
-    #10;
+    @(posedge clk);
+        @(posedge clk);
+
     start_tx_i = 1'b0;
     wait(trans_fi_o);
 
        #100000;
+           @(posedge clk);
+
     data_i = 8'h6B; //  01101011 
-    data_bit_num = 2'b11; // 8 bits
+    data_bit_num = 2'b01; // 8 bits
     start_tx_i = 1'b1;
-    parity_type = 1; // Odd parity
+    stop_bit_num = 1'b1; // 1 stop bit
+    parity_type = 0; // Odd parity
     parity_en_i = 1'b1;
-    #10;
+    @(posedge clk);
+        @(posedge clk);
+
     start_tx_i = 1'b0;
     wait(trans_fi_o);
 
            #100000;
+               @(posedge clk);
+
     data_i = 8'h6B; //  01101011 
-    data_bit_num = 2'b11; // 8 bits
+    data_bit_num = 2'b00; // 8 bits
     start_tx_i = 1'b1;
-    parity_type = 0; // Odd parity
+    parity_type = 1; // Odd parity
     parity_en_i = 1'b1;
-    stop_bit_num = 2'b10; // 1 stop bit
-    #10;
+    stop_bit_num = 1'b1; // 1 stop bit
+    @(posedge clk);
+        @(posedge clk);
+
     start_tx_i = 1'b0;
     wait(trans_fi_o);
 
-
-    // --- TEST CASE 2: 8-bit, 2 stop bits, odd parity ---
-    // data_i = 8'hC3;
-    // data_bit_num = 2'b11; // 8 bits
-    // stop_bit_num = 2'b01; // 2 stop bits
-    // parity_en_i = 1;
-    // parity_type = 0; // Odd parity
-    // start_tx_i = 1;
-    // #200000 start_tx_i = 0;
-    // #1500000;
-
-    // // --- TEST CASE 3: 5-bit, 2 stop bits, no parity ---
-    // data_i = 8'h0A;
-    // data_bit_num = 2'b00; // 5 bits
-    // stop_bit_num = 2'b10; // 2 stop bits
-    // parity_en_i = 0;
-    // start_tx_i = 1;
-    // #200000 start_tx_i = 0;
-    // #1500000;
-
-    // // --- TEST CASE 4: 6-bit, 1 stop bit, even parity ---
-    // data_i = 8'h3E;
-    // data_bit_num = 2'b01; // 6 bits
-    // stop_bit_num = 2'b00; // 1 stop bit
-    // parity_en_i = 1;
-    // parity_type = 1; // Even parity
-    // start_tx_i = 1;
-    // #200000 start_tx_i = 0;
-    // #1500000;
-
-    // tx_en_i = 0;
-    // $display("Simulation finished.");
     #1000;
     $stop;
 end

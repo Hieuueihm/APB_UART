@@ -1,6 +1,4 @@
 module parity (
-	input clk,    // Clock
-	input reset_n,  // Asynchronous reset active low
 	input parity_type_i,
 	input [7:0] data_i,
 	output parity_bit_o

@@ -5,39 +5,28 @@ module transmitter_controller (
 	input reset_n,  // Asynchronous reset active low
 	input tx_en_i,
 	input start_tx_i,
-	input parity_en_i,
 	input trans_data_fi_i,
-	input trans_parity_fi_i,
 	input trans_stop_fi_i,
-	input trans_start_fi_i,
-	input tick_i,
-	output logic load_data,
-	output logic load_d1,
-	output logic load_d2,
-	output logic load_d0,
-	output logic shift_en,
-	output logic trans_fi,
-	output logic trans_process
+	input tick_d_i,
+	input parity_en_i,
+	output logic trans_en_o,
+	output logic tx_finish_o
 	
 );
 	
-	typedef enum logic [3:0] {
+	typedef enum logic [2:0] {
         IDLE,
         WAIT,
-        LOAD_START,
         TRANS_START,
-        LOAD_DATA,
         TRANS_DATA,
-        LOAD_PARITY,
         TRANS_PARITY,
-        LOAD_STOP,
         TRANS_STOP,
         FINISH
     } state_t; 
 	state_t current_state, next_state;
 
 		// hold state
-	always_ff @(posedge clk) begin 
+	always_ff @(posedge clk or negedge reset_n) begin 
 		if(~reset_n) begin
 				current_state <= IDLE;
 		end else begin
@@ -48,103 +37,34 @@ module transmitter_controller (
 	// next state logic
 	always_comb begin
 		case (current_state)
-			IDLE: begin
-				if(tx_en_i) begin
-					next_state = WAIT;
-				end else begin
-					next_state = IDLE;
-				end
-			end
-
-			WAIT: begin
-				if(start_tx_i) begin
-					next_state = LOAD_START;
-				end else if(~tx_en_i) begin
-					next_state = IDLE;
-				end
-			end
-			LOAD_START: begin
-				next_state = TRANS_START;
-			end
-			TRANS_START: begin
-				if(trans_start_fi_i) begin
-					next_state = LOAD_DATA;
-				end
-			end
-			LOAD_DATA: begin
-				next_state = TRANS_DATA;
-			end
-
-			TRANS_DATA: begin
-				if(trans_data_fi_i & parity_en_i) begin
-					next_state = LOAD_PARITY;
-				end else if(trans_data_fi_i ) begin
-					next_state = LOAD_STOP;
-				end
-			end
-
-			LOAD_PARITY: begin
-				next_state = TRANS_PARITY;
-				
-			end
-			TRANS_PARITY: begin
-				if(trans_parity_fi_i) begin
-					next_state = LOAD_STOP;
-				end 
-			end
-
-			LOAD_STOP: begin
-				next_state = TRANS_STOP;
-			end
-			TRANS_STOP: begin
-				if(trans_stop_fi_i) begin
-					next_state = FINISH;
-				end
-			end
-			FINISH: begin
-				next_state = IDLE;
-			end
-			default : next_state = IDLE;
+			IDLE:  next_state = (tx_en_i) ? WAIT: IDLE;
+			WAIT: next_state = (~tx_en_i)? IDLE : (start_tx_i) ? TRANS_START : WAIT;
+			TRANS_START: next_state =  (tick_d_i) ? TRANS_DATA: TRANS_START;
+			TRANS_DATA: next_state = (trans_data_fi_i & parity_en_i) ? TRANS_PARITY : (trans_data_fi_i & ~parity_en_i) ? TRANS_STOP : TRANS_DATA;
+			TRANS_PARITY: next_state = (tick_d_i) ? TRANS_STOP : TRANS_PARITY;
+			TRANS_STOP: next_state = (trans_stop_fi_i) ? FINISH : TRANS_STOP;
+			FINISH:	next_state = IDLE;
+			default: next_state = IDLE; 
 		endcase
 		
 	end
-	// output logic
-
 	always_comb begin
-		load_data = 1'b0;
-		load_d1 = 0;
-		load_d2 = 0;
-	   shift_en = 0;
-	   load_d0 = 0;
-	   trans_fi = 0;
+		trans_en_o = 1'b0;
+		tx_finish_o = 1'b0;
 		case (current_state)
-			LOAD_START: begin
-				load_d0 = 1'b1;
-				trans_process = 1'b1;
+			TRANS_START: begin
+				trans_en_o = 1'b1;
 			end
-		TRANS_START: shift_en = tick_i;
-			LOAD_DATA: load_data = 1'b1;
-			TRANS_DATA: shift_en = tick_i;
-			LOAD_PARITY: begin
-				load_d1 = 1'b1;
+			TRANS_DATA: begin
+				trans_en_o = 1'b1;
 			end
-			TRANS_PARITY: shift_en = tick_i;
-			LOAD_STOP: begin
-				load_d2 = 1'b1;
+			TRANS_PARITY: begin
+				trans_en_o = 1'b1;
 			end
-			FINISH: begin
-				trans_process = 1'b0;
-				trans_fi = 1'b1;
+			TRANS_STOP: begin
+				trans_en_o = 1'b1;
 			end
-			TRANS_STOP: shift_en = tick_i;
-		
-			default : begin
-				trans_process = 1'b0;
-				load_data = 0;
-				load_d1 = 0;
-				load_d2 = 0;
-				shift_en = 0;
-			end
+			FINISH:	tx_finish_o = 1'b1;
 		endcase
 	end
 

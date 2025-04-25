@@ -1,34 +1,35 @@
 module piso (
 	input clk,    // Clock
 	input reset_n,  // Asynchronous reset active low
-	input load_data_i,
-	input load_d0_i,
-	input load_d1_i,
-	input load_d2_i,
-	input [7:0] data_i,
-	input parity_i,
-	input [1:0] stop_bit_i,
 	input shift_en_i,
-	output tx_o
-	
+	input load_en_i,
+	input load_d0_i,
+	input [7:0] data_i,
+	output logic tx_o
 );	
-	wire Q7, Q6, Q5, Q4, Q3, Q2, Q1, Q0;
-	// wire [7:0] data_transfer = {Q0, Q1, Q2, Q3, Q4, Q5, Q6, Q7};
-	// always_ff @(posedge clk or negedge reset_n) begin : proc_
-	// 	if(~reset_n) begin
-	// 		 <= 0;
-	// 	end else begin
-	// 		 <= ;
-	// 	end
-	// end
-	ff #(.BIT_RESET(1)) ff_inst_tx (.clk(clk),.reset_n(reset_n), .D(Q0),.S(0) ,.RS(0), .en(shift_en_i), .Q(tx_o));
-	ff #(.BIT_RESET(1)) ff_inst_0 (.clk(clk), .reset_n(reset_n), .D(Q1),.S(load_d2_i) ,.RS((~data_i[0] & load_data_i) | load_d0_i | ((~parity_i & load_d1_i))), .en(shift_en_i), .Q(Q0));
-	ff #(.BIT_RESET(1)) ff_inst_1 (.clk(clk), .reset_n(reset_n), .D(Q2),.S(0) ,.RS((~data_i[1] & load_data_i)), .en(shift_en_i), .Q(Q1));
-	ff #(.BIT_RESET(1)) ff_inst_2 (.clk(clk), .reset_n(reset_n), .D(Q3),.S(0) ,.RS((~data_i[2] & load_data_i )) , .en(shift_en_i), .Q(Q2));
-	ff #(.BIT_RESET(1)) ff_inst_3 (.clk(clk), .reset_n(reset_n), .D(Q4),.S(0) ,.RS(~data_i[3] & load_data_i), .en(shift_en_i), .Q(Q3));
-	ff #(.BIT_RESET(1)) ff_inst_4 (.clk(clk), .reset_n(reset_n), .D(Q5),.S(0) ,.RS(~data_i[4] & load_data_i), .en(shift_en_i), .Q(Q4));
-	ff #(.BIT_RESET(1)) ff_inst_5 (.clk(clk), .reset_n(reset_n), .D(Q6),.S(0) ,.RS(~data_i[5] & load_data_i), .en(shift_en_i), .Q(Q5));
-	ff #(.BIT_RESET(1)) ff_inst_6 (.clk(clk), .reset_n(reset_n), .D(Q7),.S(0) ,.RS(~data_i[6] & load_data_i), .en(shift_en_i), .Q(Q6));
-	ff #(.BIT_RESET(1)) ff_inst_7 (.clk(clk), .reset_n(reset_n), .D(1), .S(0) ,.RS(~data_i[7] & load_data_i), .en(shift_en_i), .Q(Q7));
+	logic [7:0] data;
+	wire  f1, f2, f3, f4, f5, f6, f7;
+	assign data[7] = load_en_i ? data_i[7] : 1;
+	assign data[6] = load_en_i ? data_i[6] : f7;
+	assign data[5] = load_en_i ? data_i[5] : f6;
+	assign data[4] = load_en_i ? data_i[4] : f5;
+	assign data[3] = load_en_i ? data_i[3] : f4;
+	assign data[2] = load_en_i ? data_i[2] : f3;
+	assign data[1] = load_en_i ? data_i[1] : f2;
+	assign data[0] = (load_d0_i) ? 0 : (load_en_i ? data_i[0] : f1);
+
+	ff ff_1_inst (.clk(clk), .reset_n(reset_n), .en_i(shift_en_i), .D(data[0]), .Q(tx_o));
+	ff ff_2_inst (.clk(clk), .reset_n(reset_n), .en_i(shift_en_i), .D(data[1]), .Q(f1));
+	ff ff_3_inst (.clk(clk), .reset_n(reset_n), .en_i(shift_en_i), .D(data[2]), .Q(f2));
+	ff ff_4_inst (.clk(clk), .reset_n(reset_n), .en_i(shift_en_i), .D(data[3]), .Q(f3));
+	ff ff_5_inst (.clk(clk), .reset_n(reset_n), .en_i(shift_en_i), .D(data[4]), .Q(f4));
+	ff ff_6_inst (.clk(clk), .reset_n(reset_n), .en_i(shift_en_i), .D(data[5]), .Q(f5));
+	ff ff_7_inst (.clk(clk), .reset_n(reset_n), .en_i(shift_en_i), .D(data[6]), .Q(f6));
+	ff ff_8_inst (.clk(clk), .reset_n(reset_n), .en_i(shift_en_i), .D(data[7]), .Q(f7));
+
+
+
+
+
 
 endmodule 

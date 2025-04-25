@@ -25,7 +25,7 @@ logic [31:0] mcr;
 logic [31:0] ier;
 logic [31:0] iir;
 	logic register_access_en;
-	apb_controller inst_apb_controller
+	apb_controller apb_controller_inst
 		(
 			.clk        (clk),
 			.reset_n    (preset_n),
@@ -36,7 +36,7 @@ logic [31:0] iir;
 			.act_en_o   (register_access_en),
 			.pslverr_o  (pslverr)
 		);
-	register_file inst_register_file
+	register_file register_file_inst
 		(
 			.clk           (clk),
 			.reset_n       (preset_n),
