@@ -104,7 +104,9 @@ module apb_slave_tb;
     $display("[TB] Reading back from TDR...");
     apb_read(12'h000, read_data);
     $display("[TB] Read data = 0x%08X", read_data);
-
+    // test pslverr
+    $display("[TB] Writing 0xA5A5_F00D to TDR...");
+    apb_write(12'h030, 32'hA5A5_F00D, 4'b1111);
     #50;
     $finish;
   end

@@ -26,7 +26,7 @@ The guidelines in this project follow the [Verilog Coding Style](https://github.
 ## Clock and Reset
 ***All clock signals must begin with `clk`.***
 If the module contains multiple clocks that are not the system clock should be named with a unique identifier, preceeded by the `clk_` prefix. For example, `clk_dram`, `clk_apb`...
-***Reset is active-low and asynchronous. The default name is `rst_n`.***
+***Reset is active-low and asynchronous. The default name is `reset_n`.***
 
 
 

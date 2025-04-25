@@ -1,23 +1,16 @@
-module ff #(parameter BIT_RESET = 1)(
+module ff #(parameter BIT_RESET = 1) (
 	input clk,    // Clock
 	input reset_n,  // Asynchronous reset active low
 	input D,
-	input RS,
-	input S,
-	input en,
+	input en_i,
 	output logic Q
 );
-	always_ff @(posedge clk ) begin 
+	always_ff @(posedge clk or negedge reset_n) begin : proc_
 		if(~reset_n) begin
-			 Q<= BIT_RESET;
-		end else if(S) begin
-			 Q <= 1;
-		end else if(RS) begin
-			Q <= 0;
-		
-		end else if(en) begin
+			Q <= BIT_RESET;
+		end else if(en_i) begin
 			Q <= D;
-		end
+		end else Q <= Q;
 	end
 
-endmodule
+endmodule : ff
