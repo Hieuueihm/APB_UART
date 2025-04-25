@@ -13,8 +13,15 @@ module piso (
 	
 );	
 	wire Q7, Q6, Q5, Q4, Q3, Q2, Q1, Q0;
-	wire [7:0] data_transfer = {Q0, Q1, Q2, Q3, Q4, Q5, Q6, Q7};
-	ff #(.BIT_RESET(1)) ff_inst_tx (.clk(clk), .reset_n(reset_n),.D(Q0),.S(0) ,.RS(0), .en(shift_en_i), .Q(tx_o));
+	// wire [7:0] data_transfer = {Q0, Q1, Q2, Q3, Q4, Q5, Q6, Q7};
+	// always_ff @(posedge clk or negedge reset_n) begin : proc_
+	// 	if(~reset_n) begin
+	// 		 <= 0;
+	// 	end else begin
+	// 		 <= ;
+	// 	end
+	// end
+	ff #(.BIT_RESET(1)) ff_inst_tx (.clk(clk),.reset_n(reset_n), .D(Q0),.S(0) ,.RS(0), .en(shift_en_i), .Q(tx_o));
 	ff #(.BIT_RESET(1)) ff_inst_0 (.clk(clk), .reset_n(reset_n), .D(Q1),.S(load_d2_i) ,.RS((~data_i[0] & load_data_i) | load_d0_i | ((~parity_i & load_d1_i))), .en(shift_en_i), .Q(Q0));
 	ff #(.BIT_RESET(1)) ff_inst_1 (.clk(clk), .reset_n(reset_n), .D(Q2),.S(0) ,.RS((~data_i[1] & load_data_i)), .en(shift_en_i), .Q(Q1));
 	ff #(.BIT_RESET(1)) ff_inst_2 (.clk(clk), .reset_n(reset_n), .D(Q3),.S(0) ,.RS((~data_i[2] & load_data_i )) , .en(shift_en_i), .Q(Q2));
