@@ -62,7 +62,6 @@ module uart_transmitter(
         end 
 
 
-    assign trans_fi = (cnt_data_trans == (total_data));  
 
 
     wire parity_bit_o;
@@ -77,7 +76,7 @@ module uart_transmitter(
     assign trans_stop_fi = (cnt_data_trans == total_data);
 
     wire load_d0;
-    assign load_d0 = (~|cnt_data_trans) | (parity_en_i & ~parity_bit_o & trans_data_fi)? 1'b1: 1'b0;
+    assign load_d0 = (~|cnt_data_trans) | (parity_en_i & ~parity_bit_o & trans_data_fi);
     wire shift_en; 
     assign shift_en = trans_en ? tick_i : 1'b0;
 
