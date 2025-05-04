@@ -56,7 +56,7 @@ module baud_generator #(
 
   // Counter và tick cho TX (1x)
     always_ff @(posedge clk or negedge reset_n) begin
-        if (!reset_n) begin
+        if (~reset_n) begin
             counter_tx <= 0;
             tick_tx <= 0;
         end else begin
@@ -72,16 +72,17 @@ module baud_generator #(
 
   // Counter và tick cho RX (16x)
     always_ff @(posedge clk or negedge reset_n) begin
-        if (!reset_n) begin
+        if (~reset_n) begin
             counter_rx <= 0;
             tick_rx <= 0;
         end else begin
         if (counter_rx == BIT_PERIOD_RX-1) begin
             counter_rx <= 0;
-            tick_rx <= 1;
-        end else 
+            tick_rx <= 1'b1;
+        end else begin
             counter_rx <= counter_rx +1;
             tick_rx <= 0;
+        end
         end
     end
 
