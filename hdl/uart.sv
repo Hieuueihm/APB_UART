@@ -10,7 +10,7 @@ module uart #(
     input rx_en_i,
     input start_tx_i,
     input [2:0] baud_sl_i,
-    input [1:0] stop_bit_num,
+    input  stop_bit_num,
     input [1:0] data_bit_num,
     input parity_en_i,
     input parity_type,

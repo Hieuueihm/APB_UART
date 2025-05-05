@@ -3,7 +3,7 @@ module receiver_fifo #(
     parameter int TRIG_LEVELS[3:0] = '{1, 4, 8, 14}  // Can redefine for deeper FIFOs
 )(
     input  logic           clk,
-    input  logic           reset_n  ,
+    input  logic           reset_n,
 
     input  logic [7:0] fifo_rx_i,
     input  logic             fifo_rx_push_i,
