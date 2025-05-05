@@ -33,17 +33,25 @@ module transmitter_controller (
 				 current_state<= next_state;
 			end
 		end
-
+	logic start_tx_d;
+	always_ff @(posedge clk or negedge reset_n) begin 
+		if(~reset_n) begin
+			 start_tx_d<= 0;
+		end else begin
+			start_tx_d<= start_tx_i;
+		end
+	end
+	assign negedge_start = start_tx_d & ~start_tx_i; 
 	// next state logic
 	always_comb begin
 		case (current_state)
 			IDLE:  next_state = (tx_en_i) ? WAIT: IDLE;
-			WAIT: next_state = (~tx_en_i)? IDLE : (start_tx_i) ? TRANS_START : WAIT;
+			WAIT: next_state = (~tx_en_i)? IDLE : (negedge_start) ? TRANS_START : WAIT;
 			TRANS_START: next_state =  (tick_d_i) ? TRANS_DATA: TRANS_START;
 			TRANS_DATA: next_state = (trans_data_fi_i & parity_en_i) ? TRANS_PARITY : (trans_data_fi_i & ~parity_en_i) ? TRANS_STOP : TRANS_DATA;
 			TRANS_PARITY: next_state = (tick_d_i) ? TRANS_STOP : TRANS_PARITY;
 			TRANS_STOP: next_state = (trans_stop_fi_i) ? FINISH : TRANS_STOP;
-			FINISH:	next_state = IDLE;
+			FINISH:	next_state = (tx_en_i) ? WAIT: IDLE;
 			default: next_state = IDLE; 
 		endcase
 		

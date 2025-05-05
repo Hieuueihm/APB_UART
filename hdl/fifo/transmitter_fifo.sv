@@ -14,10 +14,11 @@ module transmitter_fifo #(parameter DEPTH = 16)(
    logic [PTR_WIDTH-1:0] rd_ptr, wr_ptr;
    logic [PTR_WIDTH:0]   count;
 
-    assign fifo_tx_empty_o = (count == 0);
+    assign  fifo_tx_empty_o = (count == 0);
     assign fifo_tx_full_o  = (count == DEPTH);
+    // logic [7:0] fifo_tx_o_reg;
     assign fifo_tx_o = mem[rd_ptr];
-
+   
      always_ff @(posedge clk or negedge reset_n) begin
         if (~reset_n | fifo_tx_reset_i) begin
             rd_ptr <= 0;
