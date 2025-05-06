@@ -8,7 +8,7 @@ module register_file (
 	input [3:0]  byte_strobe_i,
 	output logic [31:0] prdata_o,
 	output logic [31:0] tdr_o,
-	output logic [31:0] rdr_o,
+	input logic [31:0] rdr_o,
 	output logic [31:0] lcr_o,
 	output logic [31:0] ocr_o,
 	output logic [31:0] lsr_o,
@@ -34,12 +34,19 @@ module register_file (
   } apb_addr_e;
 
 
+logic start_tx_pulse;
 
+always_ff @(posedge clk or negedge reset_n) begin
+  if (!reset_n) begin
+    start_tx_pulse <= 1'b0;
+  end else begin
+    start_tx_pulse <= (ocr_o[1] == 1'b1);
+  end
+end
 
   always_ff @(posedge clk or negedge reset_n) begin
     if (~reset_n) begin
       tdr_o       <= 32'b0;
-      rdr_o       <= 32'b0;
       lcr_o       <= 32'b0;
       ocr_o       <= 32'b0;
       lsr_o       <= 32'b0;
@@ -52,8 +59,10 @@ module register_file (
       addr_err_o  <= 1'b0;
     end else begin
       addr_err_o <= 1'b0;
-
-      if (en_i && wr_rd_i) begin  // Write
+      if (start_tx_pulse) begin
+        ocr_o[1] <= 1'b0; 
+      end
+      if (en_i & wr_rd_i) begin  // Write
   unique case (addr_i)
     ADDR_TDR: begin
       if (byte_strobe_i[0]) tdr_o[7:0]    <= pwdata_i[7:0];
@@ -62,12 +71,7 @@ module register_file (
       if (byte_strobe_i[3]) tdr_o[31:24]  <= pwdata_i[31:24];
     end
 
-    ADDR_RDR: begin
-      if (byte_strobe_i[0]) rdr_o[7:0]    <= pwdata_i[7:0];
-      if (byte_strobe_i[1]) rdr_o[15:8]   <= pwdata_i[15:8];
-      if (byte_strobe_i[2]) rdr_o[23:16]  <= pwdata_i[23:16];
-      if (byte_strobe_i[3]) rdr_o[31:24]  <= pwdata_i[31:24];
-    end
+ 
 
     ADDR_LCR: begin
       if (byte_strobe_i[0]) lcr_o[7:0]    <= pwdata_i[7:0];
@@ -128,7 +132,7 @@ module register_file (
     default: addr_err_o <= 1'b1;
 
   endcase
-end else if (en_i && !wr_rd_i) begin  // Read
+end else if (en_i & !wr_rd_i) begin  // Read
         unique case (addr_i)
           ADDR_TDR: prdata_o <= tdr_o;
           ADDR_RDR: prdata_o <= rdr_o;
@@ -145,8 +149,6 @@ end else if (en_i && !wr_rd_i) begin  // Read
             addr_err_o <= 1'b1;
           end
         endcase
-      end else begin
-        prdata_o <= 32'b0;
       end
     end
   end
