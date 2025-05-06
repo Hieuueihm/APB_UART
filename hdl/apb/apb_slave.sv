@@ -10,20 +10,21 @@ module apb_slave (
 	input[31:0] pwdata,
 	output pready,
 	output pslverr,
-	output[31:0] prdata
+	output[31:0] prdata,
+	output logic [31:0] tdr,
+	input logic [31:0] rdr,
+	output logic [31:0] lcr,
+	output logic [31:0] ocr,
+	output logic [31:0] lsr,
+	output logic [31:0] fcr,
+	output logic [31:0] msr,
+	output logic [31:0] mcr,
+	output logic [31:0] ier,
+	output logic [31:0] iir
 );
 
 	logic addr_err;
-	logic [31:0] tdr;
-logic [31:0] rdr;
-logic [31:0] lcr;
-logic [31:0] ocr;
-logic [31:0] lsr;
-logic [31:0] fcr;
-logic [31:0] msr;
-logic [31:0] mcr;
-logic [31:0] ier;
-logic [31:0] iir;
+	
 	logic register_access_en;
 	apb_controller apb_controller_inst
 		(

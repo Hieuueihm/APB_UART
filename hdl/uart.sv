@@ -1,3 +1,4 @@
+// test module
 module uart #(
     parameter SYSTEM_FREQUENCY = 100000000,
     parameter SAMPLING_RATE = 16
