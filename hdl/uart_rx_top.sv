@@ -10,13 +10,11 @@ module uart_rx_top (
     input        stop_bit_num_i,
     input [1:0]  data_bit_num_i,
     input        fifo_en_i,                    
-    input [1:0]  fifo_rx_trig_level_i,
     input        fifo_rx_pop_i,
     output logic [7:0]  data_o,
     output logic        data_o_valid,
     output logic        parity_err_o,
     output logic        stop_bit_err_o,
-    output logic        fifo_rx_triggered_o,
     output logic        fifo_rx_empty_o,
     output fifo_rx_overrun
 );
@@ -54,12 +52,9 @@ module uart_rx_top (
         .fifo_rx_push_i(fifo_push),
         .fifo_rx_pop_i(fifo_rx_pop_i),
         .fifo_rx_reset_i(fifo_rx_reset_i),  
-        .fifo_rx_trig_level_i(fifo_rx_trig_level_i),
         .fifo_rx_o(fifo_out),
         .fifo_rx_empty_o(fifo_rx_empty_o),
-        .fifo_rx_full_o(fifo_rx_full_o),
-        .fifo_rx_triggered_o(fifo_rx_triggered_o)
-    );
+        .fifo_rx_full_o(fifo_rx_full_o)    );
     logic fifo_rx_pop_d;
     always_ff @(posedge clk or negedge reset_n) begin 
         if(~reset_n) begin

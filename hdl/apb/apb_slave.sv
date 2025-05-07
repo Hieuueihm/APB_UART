@@ -20,7 +20,7 @@ module apb_slave (
 	output logic [31:0] msr,
 	output logic [31:0] mcr,
 	output logic [31:0] ier,
-	output logic [31:0] iir
+	input [31:0] iir
 );
 
 	logic addr_err;

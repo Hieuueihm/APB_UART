@@ -1,6 +1,5 @@
 module receiver_fifo #(
-    parameter DEPTH = 16,
-    parameter int TRIG_LEVELS[3:0] = '{1, 4, 8, 14}  // Can redefine for deeper FIFOs
+    parameter DEPTH = 16
 )(
     input  logic           clk,
     input  logic           reset_n,
@@ -10,13 +9,10 @@ module receiver_fifo #(
     input  logic             fifo_rx_pop_i,
     input  logic             fifo_rx_reset_i,
 
-    input  logic [1:0]       fifo_rx_trig_level_i,
-
     output logic [7:0] fifo_rx_o,
     output              fifo_rx_empty_o,
-    output              fifo_rx_full_o,
-    output             fifo_rx_triggered_o
-);
+    output              fifo_rx_full_o
+    );
 
     localparam PTR_WIDTH = $clog2(DEPTH);
     logic [7:0] mem [0:DEPTH-1];
@@ -25,11 +21,10 @@ module receiver_fifo #(
 
     assign fifo_rx_empty_o = (count == 0);
     assign fifo_rx_full_o  = (count == DEPTH);
-    assign fifo_rx_triggered_o = (count >= TRIG_LEVELS[fifo_rx_trig_level_i]);
     assign fifo_rx_o = mem[rd_ptr];
 
     always_ff @(posedge clk or negedge  reset_n) begin
-        if (fifo_rx_reset_i || ~reset_n) begin
+        if (fifo_rx_reset_i | ~reset_n) begin
             rd_ptr <= 0;
             wr_ptr <= 0;
             count  <= 0;

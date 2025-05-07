@@ -18,7 +18,7 @@ module register_file (
 	output logic [31:0] msr_o,
 	output logic [31:0] mcr_o,
 	output logic [31:0] ier_o,
-	output logic [31:0] iir_o,
+	input [31:0] iir_o,
 	output logic        addr_err_o
 );
 
@@ -37,7 +37,6 @@ module register_file (
       msr_o       <= 32'b0;
       mcr_o       <= 32'b0;
       ier_o       <= 32'b0;
-      iir_o       <= 32'b0;
       prdata_o    <= 32'b0;
       addr_err_o  <= 1'b0;
     end else begin
@@ -97,13 +96,6 @@ module register_file (
       if (byte_strobe_i[1]) ier_o[15:8]   <= pwdata_i[15:8];
       if (byte_strobe_i[2]) ier_o[23:16]  <= pwdata_i[23:16];
       if (byte_strobe_i[3]) ier_o[31:24]  <= pwdata_i[31:24];
-    end
-
-    ADDR_IIR: begin
-      if (byte_strobe_i[0]) iir_o[7:0]    <= pwdata_i[7:0];
-      if (byte_strobe_i[1]) iir_o[15:8]   <= pwdata_i[15:8];
-      if (byte_strobe_i[2]) iir_o[23:16]  <= pwdata_i[23:16];
-      if (byte_strobe_i[3]) iir_o[31:24]  <= pwdata_i[31:24];
     end
 
     default: addr_err_o <= 1'b1;

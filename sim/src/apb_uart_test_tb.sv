@@ -24,8 +24,7 @@ module apb_uart_test_tb;
   wire pready;
   wire pslverr;
   wire [31:0] prdata;
-  wire fifo_rx_triggered_o;
-
+  wire iir;
   logic [31:0] read_data;
   uart_apb_test  inst_uart_apb_test (
       .clk                 (clk),
@@ -39,7 +38,8 @@ module apb_uart_test_tb;
       .pready              (pready),
       .pslverr             (pslverr),
       .prdata              (prdata),
-      .fifo_rx_triggered_o (fifo_rx_triggered_o)    );
+      .irq             (irq)
+         );
 
   task apb_write(input logic [11:0] addr, input logic [31:0] data, input [3:0] strb);
     paddr   = addr;
@@ -88,6 +88,7 @@ module apb_uart_test_tb;
     // 101000011
     apb_write(ADDR_LCR, 32'h00000173, 4'h3);  // LCR = 0x03
     apb_write(ADDR_FCR, 32'h00000001, 4'h1);  // FCR = 0x01 // enable fifo
+    apb_write(ADDR_IER, 32'h00000001, 4'h1);  // FCR = 0x01 // enable fifo
 
     // Set OCR[2] = 1 (rx_en), OCR[0] = 1 (tx_en)
     apb_write(ADDR_OCR, 32'h00000005, 4'h1);  // OCR = 0b000...0101 (rx_en + tx_en)
