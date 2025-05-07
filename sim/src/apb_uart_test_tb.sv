@@ -24,15 +24,8 @@ module apb_uart_test_tb;
   wire pready;
   wire pslverr;
   wire [31:0] prdata;
-  wire fifo_tx_full_o;
-  wire fifo_tx_empty_o;
-
-  wire fifo_rx_empty_o;
   wire fifo_rx_triggered_o;
-  wire fifo_rx_full_o;
 
-  wire parity_err_o;
-  wire stop_bit_err_o;
   logic [31:0] read_data;
   uart_apb_test  inst_uart_apb_test (
       .clk                 (clk),
@@ -46,13 +39,7 @@ module apb_uart_test_tb;
       .pready              (pready),
       .pslverr             (pslverr),
       .prdata              (prdata),
-      .fifo_tx_empty_o     (fifo_tx_empty_o),
-      .fifo_tx_full_o      (fifo_tx_full_o),
-      .parity_err_o        (parity_err_o),
-      .stop_bit_err_o      (stop_bit_err_o),
-      .fifo_rx_triggered_o (fifo_rx_triggered_o),
-      .fifo_rx_empty_o     (fifo_rx_empty_o),
-      .fifo_rx_full_o      (fifo_rx_full_o)    );
+      .fifo_rx_triggered_o (fifo_rx_triggered_o)    );
 
   task apb_write(input logic [11:0] addr, input logic [31:0] data, input [3:0] strb);
     paddr   = addr;
@@ -63,7 +50,7 @@ module apb_uart_test_tb;
     pstrb   = strb;
     #10;
     penable = 1'b1;
-    @(posedge pready);
+    @(negedge pready);
     psel     = 1'b0;
     penable = 1'b0;
   endtask
@@ -106,17 +93,31 @@ module apb_uart_test_tb;
     apb_write(ADDR_OCR, 32'h00000005, 4'h1);  // OCR = 0b000...0101 (rx_en + tx_en)
 
     $display("Writing to TDR...");
-    apb_write(ADDR_TDR, 32'h000000A5, 4'h1);  // Write data to TDR // 00000005
+    // apb_write(ADDR_TDR, 32'h000000A5, 4'h1);  // Write data to TDR // 00000005
 
+    for (int i = 1; i <= 17; i++) begin
+        apb_write(ADDR_TDR, i, 4'h1);  
+        #10; 
+    end
     apb_write(ADDR_OCR, 32'h00000007, 4'h1);  // OCR = 0b000...0111 (rx_en + start_tx + tx_en)
+ 
+
+    #20000000;
+     for (int i = 1; i <= 17; i++) begin
+        apb_write(ADDR_TDR, i, 4'h1);  
+        #10; 
+    end
+        apb_write(ADDR_OCR, 32'h00000007, 4'h1);  // OCR = 0b000...0111 (rx_en + start_tx + tx_en)
+
+
 
     // apb_write(ADDR_OCR, 32'h00000005, 4'h1);  // OCR = 0b000...0111 (rx_en + start_tx + tx_en)
 
     // Optional: Read RDR back after some delay
-    #2000000;
-    $display("Reading from RDR...");
-    apb_read(ADDR_RDR, read_data);
-    $display("RDR Data Read: %h", read_data);
+    #50000000;
+    // $display("Reading from RDR...");
+    // apb_read(ADDR_RDR, read_data);
+    // $display("RDR Data Read: %h", read_data);
 
     #200;
 

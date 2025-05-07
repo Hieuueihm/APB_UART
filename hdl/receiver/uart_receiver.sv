@@ -88,8 +88,8 @@ module uart_receiver(
   	
   	assign stop_bit_1_check = (count_data == data_size + parity_en_i + 1) && data_receive_en; 
   	assign stop_bit_2_check = (count_data == data_size + parity_en_i + 2) && data_receive_en;
-  	assign stop_bit_err_o = (stop_bit_1_check && (tx_sync != 1'b1)) ||
-                      ((stop_bit_size == 2) && stop_bit_2_check && (tx_sync != 1'b1));
+  	assign stop_bit_err_o = (stop_bit_1_check & (tx_sync != 1'b1)) |
+                      ((stop_bit_size == 2) & stop_bit_2_check & (tx_sync != 1'b1));
 
 
 	logic [3:0] clk_div;

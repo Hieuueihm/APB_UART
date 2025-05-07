@@ -1,3 +1,5 @@
+import apb_package::*;
+
 module register_file (
 	input        clk,           // Clock
 	input        reset_n,
@@ -8,10 +10,10 @@ module register_file (
 	input [3:0]  byte_strobe_i,
 	output logic [31:0] prdata_o,
 	output logic [31:0] tdr_o,
-	input logic [31:0] rdr_o,
+	input [31:0] rdr_o,
 	output logic [31:0] lcr_o,
 	output logic [31:0] ocr_o,
-	output logic [31:0] lsr_o,
+	input [31:0] lsr_o,
 	output logic [31:0] fcr_o,
 	output logic [31:0] msr_o,
 	output logic [31:0] mcr_o,
@@ -20,36 +22,17 @@ module register_file (
 	output logic        addr_err_o
 );
 
-  typedef enum logic [11:0] {
-    ADDR_TDR = 12'h000,
-    ADDR_RDR = 12'h004,
-    ADDR_LCR = 12'h008,
-    ADDR_OCR = 12'h00C,
-    ADDR_LSR = 12'h010,
-    ADDR_FCR = 12'h014,
-    ADDR_MSR = 12'h018,
-    ADDR_MCR = 12'h01C,
-    ADDR_IER = 12'h020,
-    ADDR_IIR = 12'h024
-  } apb_addr_e;
 
 
-logic start_tx_pulse;
 
-always_ff @(posedge clk or negedge reset_n) begin
-  if (!reset_n) begin
-    start_tx_pulse <= 1'b0;
-  end else begin
-    start_tx_pulse <= (ocr_o[1] == 1'b1);
-  end
-end
+  wire start_tx_pulse;
+  assign start_tx_pulse = ocr_o[1];
 
   always_ff @(posedge clk or negedge reset_n) begin
     if (~reset_n) begin
       tdr_o       <= 32'b0;
       lcr_o       <= 32'b0;
       ocr_o       <= 32'b0;
-      lsr_o       <= 32'b0;
       fcr_o       <= 32'b0;
       msr_o       <= 32'b0;
       mcr_o       <= 32'b0;
@@ -87,12 +70,6 @@ end
       if (byte_strobe_i[3]) ocr_o[31:24]  <= pwdata_i[31:24];
     end
 
-    ADDR_LSR: begin
-      if (byte_strobe_i[0]) lsr_o[7:0]    <= pwdata_i[7:0];
-      if (byte_strobe_i[1]) lsr_o[15:8]   <= pwdata_i[15:8];
-      if (byte_strobe_i[2]) lsr_o[23:16]  <= pwdata_i[23:16];
-      if (byte_strobe_i[3]) lsr_o[31:24]  <= pwdata_i[31:24];
-    end
 
     ADDR_FCR: begin
       if (byte_strobe_i[0]) fcr_o[7:0]    <= pwdata_i[7:0];
