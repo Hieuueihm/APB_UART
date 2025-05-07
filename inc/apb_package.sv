@@ -1,7 +1,4 @@
 package apb_package;
-
-  typedef logic [31:0] apb_data_t;
-
   typedef enum logic [11:0] {
     ADDR_TDR = 12'h000,
     ADDR_RDR = 12'h004,
@@ -14,31 +11,8 @@ package apb_package;
     ADDR_IER = 12'h020,
     ADDR_IIR = 12'h024
   } apb_addr_e;
-
-  typedef struct {
-    logic [11:0] paddr;
-    logic penable;
-    apb_data_t pwdata;
-    logic pwrite;
-    logic [3:0] pstrb;
-  } apb_slv_t;
-
-  typedef struct {
-    logic pready;
-    logic pslverr;
-    apb_data_t prdata;
-  } apb_mas_t;
-
-
+    `define SET_BIT_REGISTER(register ,cond, bit_set) if (cond) register <= bit_set;
+    `define SET 1
+    `define RST 0
+  
 endpackage
-interface apb_interface;
-  import apb_package::*;
-
-  logic pclk;
-  logic preset_n;
-  logic psel;
-  apb_slv_t apb_slv;
-  apb_mas_t apb_mas;
-
-  modport slave(input apb_slv, output apb_mas, input pclk, input preset_n, input psel);
-endinterface

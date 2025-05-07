@@ -6,25 +6,25 @@ module uart_rx_top (
     input        parity_type_i,
     input        parity_en_i,
     input        tx_i,
+    input fifo_rx_reset_i,
     input        stop_bit_num_i,
     input [1:0]  data_bit_num_i,
-    input        fifo_en,                    
+    input        fifo_en_i,                    
     input [1:0]  fifo_rx_trig_level_i,
     input        fifo_rx_pop_i,
-
     output logic [7:0]  data_o,
     output logic        data_o_valid,
     output logic        parity_err_o,
     output logic        stop_bit_err_o,
     output logic        fifo_rx_triggered_o,
     output logic        fifo_rx_empty_o,
-    output logic        fifo_rx_full_o
+    output fifo_rx_overrun
 );
 
     // UART Receiver 
     logic [7:0] receiver_data;
     logic       receiver_data_valid;
-
+    wire fifo_rx_full_o;
     uart_receiver uart_rx_inst (
         .clk(clk),
         .reset_n(reset_n),
@@ -45,7 +45,7 @@ module uart_rx_top (
     logic [7:0] fifo_out;
     logic       fifo_push;
 
-    assign fifo_push = fifo_en && receiver_data_valid;
+    assign fifo_push = fifo_en_i && receiver_data_valid;
 
     receiver_fifo fifo_inst (
         .clk(clk),
@@ -53,19 +53,27 @@ module uart_rx_top (
         .fifo_rx_i(receiver_data),
         .fifo_rx_push_i(fifo_push),
         .fifo_rx_pop_i(fifo_rx_pop_i),
-        .fifo_rx_reset_i(~reset_n),  
+        .fifo_rx_reset_i(fifo_rx_reset_i),  
         .fifo_rx_trig_level_i(fifo_rx_trig_level_i),
         .fifo_rx_o(fifo_out),
         .fifo_rx_empty_o(fifo_rx_empty_o),
         .fifo_rx_full_o(fifo_rx_full_o),
         .fifo_rx_triggered_o(fifo_rx_triggered_o)
     );
-
-    //Output Multiplexer
+    logic fifo_rx_pop_d;
+    always_ff @(posedge clk or negedge reset_n) begin 
+        if(~reset_n) begin
+            fifo_rx_pop_d <= 0;
+        end else begin
+            fifo_rx_pop_d <= fifo_rx_pop_i;
+        end
+    end
+    wire negedge_rx_pop= ~fifo_rx_pop_i & fifo_rx_pop_d;
+    assign fifo_rx_overrun = fifo_en_i & fifo_rx_full_o & receiver_data_valid;
     always_comb begin
-        if (fifo_en) begin
+        if (fifo_en_i) begin
             data_o       = fifo_out;
-            data_o_valid = ~fifo_rx_empty_o;
+            data_o_valid = (fifo_rx_empty_o & receiver_data_valid) | (~fifo_rx_empty_o & negedge_rx_pop );
         end else begin
             data_o       = receiver_data;
             data_o_valid = receiver_data_valid;

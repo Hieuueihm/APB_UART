@@ -1,4 +1,5 @@
-// test module
+// test module -> main
+import apb_package::*;
 
 module uart_apb_test #(
     parameter SYSTEM_FREQUENCY = 100000000,
@@ -17,16 +18,9 @@ module uart_apb_test #(
     output pslverr,
     output[31:0] prdata,
     
-    // UART TX output
-    output fifo_tx_empty_o,
-    output fifo_tx_full_o,
-    // UART RX output
 
-    output parity_err_o,
-    output stop_bit_err_o,
-    output fifo_rx_triggered_o,
-    output fifo_rx_empty_o,
-    output fifo_rx_full_o
+    // UART RX output
+    output fifo_rx_triggered_o
     // output [7:0] data_o,
     // output data_o_valid
 );
@@ -65,7 +59,20 @@ module uart_apb_test #(
             .ier      (ier),
             .iir      (iir)
         );
-    assign fifo_rx_pop_ready = pready & !pwrite & paddr == 12'h004;
+    assign cpu_read_rdr = pready & !pwrite & paddr == ADDR_RDR;
+    assign cpu_write_tdr = pready & pwrite & paddr == ADDR_TDR;
+    assign cpu_read_lsr = pready & !pwrite & paddr == ADDR_LSR;
+    logic tdr_empty;
+    always_ff @(posedge clk or negedge preset_n) begin 
+        if(~preset_n) begin
+             tdr_empty<= 1;
+        end else if(cpu_write_tdr) begin
+             tdr_empty <= 0;
+        end else if(~tdr_empty & ocr[1]) begin
+            tdr_empty <= 1;
+        end
+    end
+    assign fifo_rx_pop_ready = cpu_read_rdr & ~fifo_rx_empty;
     logic fifo_rx_pop;
     always_ff @(posedge clk or negedge preset_n) begin
         if(~preset_n) begin
@@ -94,6 +101,8 @@ module uart_apb_test #(
     // wire tx;
     // wire trans_fi_o;
     wire [7:0] data_received;
+    wire fifo_tx_empty;
+    wire fifo_tx_full;
     uart_tx_top inst_uart_tx_top
         (
             .clk             (clk),
@@ -105,13 +114,20 @@ module uart_apb_test #(
             .tick_i          (tick_tx),
             .stop_bit_num_i  (lcr[2]),
             .data_bit_num_i  (lcr[1:0]),
+            .fifo_tx_reset_i(fcr[2]),
             .data_i          (tdr[7:0]),
-            .write_data_i    (ocr[1]), // start tx
+            .write_data_i    (cpu_write_tdr), 
+            .start_tx_i  (ocr[1]), 
             .tx_o            (tx),
-            .fifo_tx_empty_o (fifo_tx_empty_o),
-            .fifo_tx_full_o  (fifo_tx_full_o)
+            .fifo_tx_empty_o (fifo_tx_empty),
+            .fifo_tx_full_o  (fifo_tx_full),
+            .trans_fi_o       (lsr0_set)
         );
     wire data_o_valid;
+    wire fifo_rx_empty;
+    wire fifo_rx_overrun;
+    wire parity_err;
+    wire stop_bit_err;
     uart_rx_top inst_uart_rx_top
         (
             .clk                  (clk),
@@ -123,23 +139,81 @@ module uart_apb_test #(
             .tx_i                 (tx),
             .stop_bit_num_i       (lcr[2]),
             .data_bit_num_i       (lcr[1:0]),
-            .fifo_en              (fcr[0]),
+            .fifo_en_i              (fcr[0]),
+            .fifo_rx_reset_i     (fcr[1]),
             .fifo_rx_trig_level_i (fcr[4:3]),
             .fifo_rx_pop_i        (fifo_rx_pop),
             .data_o               (data_received),
             .data_o_valid         (data_o_valid),
-            .parity_err_o         (parity_err_o),
-            .stop_bit_err_o       (stop_bit_err_o),
+            .parity_err_o         (parity_err),
+            .stop_bit_err_o       (stop_bit_err),
             .fifo_rx_triggered_o  (fifo_rx_triggered_o),
-            .fifo_rx_empty_o      (fifo_rx_empty_o),
-            .fifo_rx_full_o       (fifo_rx_full_o)
+            .fifo_rx_empty_o      (fifo_rx_empty),
+            .fifo_rx_overrun     (fifo_rx_overrun)
         );
+    wire lsr0_set;
+    wire lsr7_set;
+    assign lsr1_set = (~fcr[0] & ~rdr_empty) | (fcr[0] & ~fifo_rx_empty);
+    assign lsr2_set = parity_err;
+    assign lsr3_set = stop_bit_err;
+    assign lsr4_set = (~fcr[0] & tdr_empty) | (fcr[0] & fifo_tx_empty);
+    assign lsr5_set = (fcr[0] & parity_err & stop_bit_err);
+    assign lsr6_set = (~fcr[0] & ~rdr_empty & data_o_valid) | fifo_rx_overrun;
+
+
+    assign lsr0_reset = cpu_read_lsr;
+    assign lsr1_reset = (~fcr[0] & rdr_empty) | | (fcr[0] & fifo_rx_empty);
+    assign lsr2_reset = cpu_read_lsr;
+    assign lsr3_reset = cpu_read_lsr;
+    assign lsr4_reset = (~fcr[0] & ~tdr_empty) | (fcr[0] & ~fifo_tx_empty);
+    assign lsr5_reset = cpu_read_lsr;
+    assign lsr6_reset = cpu_read_lsr;
+
+
+
 
     always_ff @(posedge clk or negedge preset_n) begin 
         if(~preset_n) begin
+            lsr <= 0;
+        end else begin
+            `SET_BIT_REGISTER(lsr[0], lsr0_set, SET);
+            `SET_BIT_REGISTER(lsr[0], lsr0_reset, RST);
+
+
+            `SET_BIT_REGISTER(lsr[1], lsr1_set, SET);
+            `SET_BIT_REGISTER(lsr[1], lsr1_reset, RST);
+
+
+            `SET_BIT_REGISTER(lsr[2], lsr2_set, SET);
+            `SET_BIT_REGISTER(lsr[2], lsr2_reset, RST);
+
+            `SET_BIT_REGISTER(lsr[3], lsr3_set, SET);
+            `SET_BIT_REGISTER(lsr[3], lsr3_reset, RST);
+
+            `SET_BIT_REGISTER(lsr[4], lsr4_set, SET);
+            `SET_BIT_REGISTER(lsr[4], lsr4_reset, RST);
+
+            `SET_BIT_REGISTER(lsr[5], lsr5_set, SET);
+            `SET_BIT_REGISTER(lsr[5], lsr5_reset, RST);
+
+            `SET_BIT_REGISTER(lsr[6], lsr6_set, SET);
+            `SET_BIT_REGISTER(lsr[6], lsr6_reset, RST);
+
+
+        end
+    end
+    logic rdr_empty;
+
+    // rdr set
+    always_ff @(posedge clk or negedge preset_n) begin 
+        if(~preset_n) begin
             rdr <= 0;
+            rdr_empty <= 1;
         end else if(data_o_valid) begin
             rdr <= {24'b0, data_received};
+            rdr_empty <= 1'b0;
+        end else if(cpu_read_rdr) begin
+            rdr_empty <= 1'b1;
         end
     end
 
