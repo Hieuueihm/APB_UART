@@ -17,12 +17,9 @@ module uart_apb_test #(
     output pready,
     output pslverr,
     output[31:0] prdata,
+    output irq
     
 
-    // UART RX output
-    output fifo_rx_triggered_o
-    // output [7:0] data_o,
-    // output data_o_valid
 );
     logic [31:0] tdr;
     logic [31:0] rdr;
@@ -62,6 +59,7 @@ module uart_apb_test #(
     assign cpu_read_rdr = pready & !pwrite & paddr == ADDR_RDR;
     assign cpu_write_tdr = pready & pwrite & paddr == ADDR_TDR;
     assign cpu_read_lsr = pready & !pwrite & paddr == ADDR_LSR;
+    assign cpu_read_iir = pready & !pwrite & paddr == ADDR_IIR;
     logic tdr_empty;
     always_ff @(posedge clk or negedge preset_n) begin 
         if(~preset_n) begin
@@ -141,18 +139,15 @@ module uart_apb_test #(
             .data_bit_num_i       (lcr[1:0]),
             .fifo_en_i              (fcr[0]),
             .fifo_rx_reset_i     (fcr[1]),
-            .fifo_rx_trig_level_i (fcr[4:3]),
             .fifo_rx_pop_i        (fifo_rx_pop),
             .data_o               (data_received),
             .data_o_valid         (data_o_valid),
             .parity_err_o         (parity_err),
             .stop_bit_err_o       (stop_bit_err),
-            .fifo_rx_triggered_o  (fifo_rx_triggered_o),
             .fifo_rx_empty_o      (fifo_rx_empty),
             .fifo_rx_overrun     (fifo_rx_overrun)
         );
     wire lsr0_set;
-    wire lsr7_set;
     assign lsr1_set = (~fcr[0] & ~rdr_empty) | (fcr[0] & ~fifo_rx_empty);
     assign lsr2_set = parity_err;
     assign lsr3_set = stop_bit_err;
@@ -162,7 +157,7 @@ module uart_apb_test #(
 
 
     assign lsr0_reset = cpu_read_lsr;
-    assign lsr1_reset = (~fcr[0] & rdr_empty) | | (fcr[0] & fifo_rx_empty);
+    assign lsr1_reset = (~fcr[0] & rdr_empty) | (fcr[0] & fifo_rx_empty);
     assign lsr2_reset = cpu_read_lsr;
     assign lsr3_reset = cpu_read_lsr;
     assign lsr4_reset = (~fcr[0] & ~tdr_empty) | (fcr[0] & ~fifo_tx_empty);
@@ -176,28 +171,28 @@ module uart_apb_test #(
         if(~preset_n) begin
             lsr <= 0;
         end else begin
-            `SET_BIT_REGISTER(lsr[0], lsr0_set, SET);
-            `SET_BIT_REGISTER(lsr[0], lsr0_reset, RST);
+            `SET_BIT_REGISTER(lsr[0], lsr0_set, `SET);
+            `SET_BIT_REGISTER(lsr[0], lsr0_reset, `RST);
 
 
-            `SET_BIT_REGISTER(lsr[1], lsr1_set, SET);
-            `SET_BIT_REGISTER(lsr[1], lsr1_reset, RST);
+            `SET_BIT_REGISTER(lsr[1], lsr1_set, `SET);
+            `SET_BIT_REGISTER(lsr[1], lsr1_reset, `RST);
 
 
-            `SET_BIT_REGISTER(lsr[2], lsr2_set, SET);
-            `SET_BIT_REGISTER(lsr[2], lsr2_reset, RST);
+            `SET_BIT_REGISTER(lsr[2], lsr2_set, `SET);
+            `SET_BIT_REGISTER(lsr[2], lsr2_reset, `RST);
 
-            `SET_BIT_REGISTER(lsr[3], lsr3_set, SET);
-            `SET_BIT_REGISTER(lsr[3], lsr3_reset, RST);
+            `SET_BIT_REGISTER(lsr[3], lsr3_set, `SET);
+            `SET_BIT_REGISTER(lsr[3], lsr3_reset, `RST);
 
-            `SET_BIT_REGISTER(lsr[4], lsr4_set, SET);
-            `SET_BIT_REGISTER(lsr[4], lsr4_reset, RST);
+            `SET_BIT_REGISTER(lsr[4], lsr4_set, `SET);
+            `SET_BIT_REGISTER(lsr[4], lsr4_reset, `RST);
 
-            `SET_BIT_REGISTER(lsr[5], lsr5_set, SET);
-            `SET_BIT_REGISTER(lsr[5], lsr5_reset, RST);
+            `SET_BIT_REGISTER(lsr[5], lsr5_set, `SET);
+            `SET_BIT_REGISTER(lsr[5], lsr5_reset, `RST);
 
-            `SET_BIT_REGISTER(lsr[6], lsr6_set, SET);
-            `SET_BIT_REGISTER(lsr[6], lsr6_reset, RST);
+            `SET_BIT_REGISTER(lsr[6], lsr6_set, `SET);
+            `SET_BIT_REGISTER(lsr[6], lsr6_reset, `RST);
 
 
         end
@@ -216,6 +211,35 @@ module uart_apb_test #(
             rdr_empty <= 1'b1;
         end
     end
+
+
+    // interrupt handler
+    wire data_rdy_intr = ier[0];
+    wire tdr_empty_intr = ier[1];
+    wire received_lsr_intr = ier[2];
+    wire modem_stt_intr = ier[3];
+    wire lsr_stt = (lsr[2] | lsr[3] | lsr[4] | lsr[5] | lsr[6]);
+    // iir write
+       always_ff @(posedge clk or negedge preset_n) begin 
+        if(~preset_n) begin
+            iir <= 32'h00000001; 
+        end else begin
+            if(cpu_read_iir) begin
+                iir[2:0] <=  3'b001; 
+            end else begin
+                if(ier[2] & lsr_stt) begin
+                    iir[2:0] <=  3'b011; 
+                end else if(ier[0] & ~rdr_empty) begin
+                    iir[2:0] <=  3'b010; 
+                end else if(ier[1] & tdr_empty & ocr[1]) begin
+                    iir[2:0] <=  3'b100; 
+                end 
+            end
+        end
+    end
+
+    assign irq = ~iir[0];
+
 
 
 endmodule
