@@ -48,15 +48,15 @@ module apb_slave (
 			.byte_strobe_i (pstrb),
 			.prdata_o      (prdata),
 			.tdr_o         (tdr),
-			.rdr_o         (rdr),
+			.rdr_i         (rdr),
 			.lcr_o         (lcr),
 			.ocr_o         (ocr),
-			.lsr_o         (lsr),
+			.lsr_i         (lsr),
 			.fcr_o         (fcr),
 			.msr_o         (msr),
 			.mcr_o         (mcr),
 			.ier_o         (ier),
-			.iir_o         (iir),
+			.iir_i         (iir),
 			.addr_err_o    (addr_err)
 		);
 

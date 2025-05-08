@@ -10,15 +10,15 @@ module register_file (
 	input [3:0]  byte_strobe_i,
 	output logic [31:0] prdata_o,
 	output logic [31:0] tdr_o,
-	input [31:0] rdr_o,
+	input [31:0] rdr_i,
 	output logic [31:0] lcr_o,
 	output logic [31:0] ocr_o,
-	input [31:0] lsr_o,
+	input [31:0] lsr_i,
 	output logic [31:0] fcr_o,
 	output logic [31:0] msr_o,
 	output logic [31:0] mcr_o,
 	output logic [31:0] ier_o,
-	input [31:0] iir_o,
+	input [31:0] iir_i,
 	output logic        addr_err_o
 );
 
@@ -104,15 +104,15 @@ module register_file (
 end else if (en_i & !wr_rd_i) begin  // Read
         unique case (addr_i)
           ADDR_TDR: prdata_o <= tdr_o;
-          ADDR_RDR: prdata_o <= rdr_o;
+          ADDR_RDR: prdata_o <= rdr_i;
           ADDR_LCR: prdata_o <= lcr_o;
           ADDR_OCR: prdata_o <= ocr_o;
-          ADDR_LSR: prdata_o <= lsr_o;
+          ADDR_LSR: prdata_o <= lsr_i;
           ADDR_FCR: prdata_o <= fcr_o;
           ADDR_MSR: prdata_o <= msr_o;
           ADDR_MCR: prdata_o <= mcr_o;
           ADDR_IER: prdata_o <= ier_o;
-          ADDR_IIR: prdata_o <= iir_o;
+          ADDR_IIR: prdata_o <= iir_i;
           default: begin
             prdata_o   <= 32'b0;
             addr_err_o <= 1'b1;
