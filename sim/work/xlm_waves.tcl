@@ -1,2 +1,2 @@
 database -open wave -shm -default -event
-probe -create testbench -depth all -all -shm -database wave
+probe -create apb_uart_tb -depth all -all -shm -database wave
