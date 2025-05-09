@@ -14,7 +14,24 @@ module uart_receiver(
     	output logic parity_err_o,
     	output logic stop_bit_err_o
     	);
+	// sync tx with rx
+	wire tx_sync;
+	synchronizer sync(
+		.clk(clk),
+		.reset_n(reset_n),
+		.async(tx_i),
+		.sync(tx_sync)
+		);
 
+	// detect start bit
+	logic d1;
+	always_ff @(posedge clk or negedge reset_n) begin 
+		if(~reset_n) begin
+			d1 <= 0;
+		end else begin
+			d1 <= tx_sync;
+		end
+	end
   	logic [3:0] data_size;
     logic [1:0] stop_bit_size;
     logic [3:0] total_data_size;
@@ -67,24 +84,7 @@ module uart_receiver(
         endcase
         total_data_size = data_size + parity_en_i + stop_bit_size;
     end
-	// sync tx with rx
-	wire tx_sync;
-	synchronizer sync(
-		.clk(clk),
-		.reset_n(reset_n),
-		.async(tx_i),
-		.sync(tx_sync)
-		);
 
-	// detect start bit
-	logic d1;
-	always_ff @(posedge clk or negedge reset_n) begin 
-		if(~reset_n) begin
-			d1 <= 0;
-		end else begin
-			d1 <= tx_sync;
-		end
-	end
 	// counter
 
 
