@@ -8,6 +8,7 @@ module uart_transmitter(
     input [7:0] data_i,
     input tick_i,
     input stop_bit_num_i,
+    input cts_ni,
     input [1:0] data_bit_num_i,
     output logic tx_o,
     output logic trans_fi_o
@@ -93,6 +94,7 @@ module uart_transmitter(
             .trans_data_fi_i (trans_data_fi),
             .trans_stop_fi_i (trans_stop_fi),
             .tick_d_i        (tick_d),
+            .cts_ni         (cts_ni),
             .parity_en_i     (parity_en_i),
             .trans_en_o      (trans_en),
             .tx_finish_o     (trans_fi_o)

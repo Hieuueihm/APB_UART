@@ -9,6 +9,7 @@ module uart_receiver(
    		input stop_bit_num_i,
     	input [1:0] data_bit_num_i,
     	output [7:0] data_o,
+    	input rts_ni,
     	output logic data_o_valid,
     	output logic parity_err_o,
     	output logic stop_bit_err_o
@@ -41,7 +42,7 @@ module uart_receiver(
                 data = data_receive;
             end
         endcase
-        total_data_size = data_size + parity_en_i + stop_bit_size + 1;
+        total_data_size = data_size + parity_en_i + stop_bit_size;
     end
 	// sync tx with rx
 	wire tx_sync;
@@ -77,7 +78,7 @@ module uart_receiver(
 			end
 	end
 
-	assign receive_total_fi_i = count_data == total_data_size -1;
+	assign receive_total_fi_i = count_data == total_data_size - 1;
 	assign start_bit_detected = (d1 & ~tx_sync);
 	// assign test =~(((^data) ^ parity_bit)^parity_type_i);
 	assign parity_check = count_data == data_size & data_receive_en;
@@ -128,6 +129,7 @@ module uart_receiver(
 			.clk                  (clk),
 			.reset_n              (reset_n),
 			.rx_en_i              (rx_en_i),
+			.rts_ni              (rts_ni),
 			.start_bit_detected_i (start_bit_detected),
 			.clk_1x_i             (clk_1x),
 			.clk_2x_i             (clk_2x),

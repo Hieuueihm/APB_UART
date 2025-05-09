@@ -86,9 +86,11 @@ module apb_uart_tb;
 
     // Set LCR[1:0] = 2'b11 (8-bit data length)
     // 101000011
-    apb_write(ADDR_LCR, 32'h00000173, 4'h3);  // LCR = 0x03
+    apb_write(ADDR_LCR, 32'h00000173, 4'h3);  // LCR = 0x03 // 11
     apb_write(ADDR_FCR, 32'h00000001, 4'h1);  // FCR = 0x01 // enable fifo
-    apb_write(ADDR_IER, 32'h00000001, 4'h1);  // FCR = 0x01 // enable fifo
+    apb_write(ADDR_HCR, 32'h00000001, 4'h1);  // FCR = 0x01 // enable fifo
+
+    // apb_write(ADDR_IER, 32'h00000001, 4'h1);  // FCR = 0x01 // enable fifo
 
     // Set OCR[2] = 1 (rx_en), OCR[0] = 1 (tx_en)
     apb_write(ADDR_OCR, 32'h00000005, 4'h1);  // OCR = 0b000...0101 (rx_en + tx_en)
@@ -96,7 +98,7 @@ module apb_uart_tb;
     $display("Writing to TDR...");
     // apb_write(ADDR_TDR, 32'h000000A5, 4'h1);  // Write data to TDR // 00000005
 
-    for (int i = 1; i <= 17; i++) begin
+    for (int i = 1; i <= 2; i++) begin
         apb_write(ADDR_TDR, i, 4'h1);  
         #10; 
     end
@@ -104,11 +106,15 @@ module apb_uart_tb;
  
 
     #20000000;
-     for (int i = 1; i <= 17; i++) begin
-        apb_write(ADDR_TDR, i, 4'h1);  
-        #10; 
-    end
-        apb_write(ADDR_OCR, 32'h00000007, 4'h1);  // OCR = 0b000...0111 (rx_en + start_tx + tx_en)
+    apb_read(ADDR_RDR, read_data);
+    
+    apb_write(ADDR_OCR, 32'h00000007, 4'h1);  // OCR = 0b000...0111 (rx_en + start_tx + tx_en)
+
+    //  for (int i = 1; i <= 17; i++) begin
+    //     apb_write(ADDR_TDR, i, 4'h1);  
+    //     #10; 
+    // end
+        // apb_write(ADDR_OCR, 32'h00000007, 4'h1);  // OCR = 0b000...0111 (rx_en + start_tx + tx_en)
 
 
 

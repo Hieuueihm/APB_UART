@@ -9,20 +9,26 @@ module uart_rx_top (
     input fifo_rx_reset_i,
     input        stop_bit_num_i,
     input [1:0]  data_bit_num_i,
-    input        fifo_en_i,                    
+    input        fifo_en_i,    
+    input logic force_rts_i,                
     input        fifo_rx_pop_i,
+    input [1:0]  fifo_rx_trig_level_i,
+    input        hf_en_i,
     output logic [7:0]  data_o,
     output logic        data_o_valid,
     output logic        parity_err_o,
     output logic        stop_bit_err_o,
     output logic        fifo_rx_empty_o,
-    output fifo_rx_overrun
+    output fifo_rx_overrun,
+    output logic rts_no
 );
 
     // UART Receiver 
     logic [7:0] receiver_data;
     logic       receiver_data_valid;
     wire fifo_rx_full_o;
+    wire trigger_fifo_lt_14;
+    assign trigger_fifo_lt_14 = ~(fifo_rx_trig_level_i[0] & fifo_rx_trig_level_i[1]);
     uart_receiver uart_rx_inst (
         .clk(clk),
         .reset_n(reset_n),
@@ -31,6 +37,7 @@ module uart_rx_top (
         .parity_type_i(parity_type_i),
         .parity_en_i(parity_en_i),
         .tx_i(tx_i),
+        .rts_ni        (rts_no),
         .stop_bit_num_i(stop_bit_num_i),
         .data_bit_num_i(data_bit_num_i),
         .data_o(receiver_data),
@@ -38,12 +45,26 @@ module uart_rx_top (
         .parity_err_o(parity_err_o),
         .stop_bit_err_o(stop_bit_err_o)
     );
-
-    //  FIFO 
+    wire fifo_rx_triggered;
     logic [7:0] fifo_out;
     logic       fifo_push;
+    always_ff @(posedge clk or negedge reset_n) begin
+        if(~reset_n) begin
+            rts_no <= 0;
+        end else if(hf_en_i) begin
+           if(force_rts_i) begin
+            rts_no <= 0;
+        end else if((trigger_fifo_lt_14 & fifo_rx_triggered) | (~trigger_fifo_lt_14 & fifo_rx_triggered)) begin 
+            rts_no <= 1;
+        end else if((trigger_fifo_lt_14 & rts_no & fifo_rx_empty_o) | (~trigger_fifo_lt_14 & ~fifo_rx_triggered)) begin
+            rts_no <= 0;
+        end
+         end
+        
+    end
 
     assign fifo_push = fifo_en_i && receiver_data_valid;
+    //  FIFO 
 
     receiver_fifo fifo_inst (
         .clk(clk),
@@ -54,7 +75,10 @@ module uart_rx_top (
         .fifo_rx_reset_i(fifo_rx_reset_i),  
         .fifo_rx_o(fifo_out),
         .fifo_rx_empty_o(fifo_rx_empty_o),
-        .fifo_rx_full_o(fifo_rx_full_o)    );
+        .fifo_rx_trig_level_i(fifo_rx_trig_level_i),
+        .fifo_rx_full_o(fifo_rx_full_o),
+    .fifo_rx_triggered_o (fifo_rx_triggered)
+           );
     logic fifo_rx_pop_d;
     always_ff @(posedge clk or negedge reset_n) begin 
         if(~reset_n) begin

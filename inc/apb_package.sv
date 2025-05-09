@@ -6,10 +6,9 @@ package apb_package;
     ADDR_OCR = 12'h00C,
     ADDR_LSR = 12'h010,
     ADDR_FCR = 12'h014,
-    ADDR_MSR = 12'h018,
-    ADDR_MCR = 12'h01C,
-    ADDR_IER = 12'h020,
-    ADDR_IIR = 12'h024
+    ADDR_IER = 12'h018,
+    ADDR_IIR = 12'h01C,
+    ADDR_HCR = 12'h020
   } apb_addr_e;
     `define SET_BIT_REGISTER(register ,cond, bit_set) if (cond) register <= bit_set;
     `define SET 1

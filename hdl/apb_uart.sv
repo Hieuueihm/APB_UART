@@ -19,9 +19,10 @@ module apb_uart #(
     output[31:0] prdata,
     // irq
     output irq
-    // uart inf
+    // flow control
+    // input cts_n,
+    // output rts_n
     
-    // modem inf
     
 
 );
@@ -31,10 +32,9 @@ module apb_uart #(
     logic [31:0] ocr;
     logic [31:0] lsr;
     logic [31:0] fcr;
-    logic [31:0] msr;
-    logic [31:0] mcr;
     logic [31:0] ier;
     logic [31:0] iir;
+    logic [31:0] hcr;
 
     apb_slave inst_apb_slave
         (
@@ -55,10 +55,9 @@ module apb_uart #(
             .ocr      (ocr),
             .lsr      (lsr),
             .fcr      (fcr),
-            .msr      (msr),
-            .mcr      (mcr),
             .ier      (ier),
-            .iir      (iir)
+            .iir      (iir),
+            .hcr     (hcr)
         );
     assign cpu_read_rdr = pready & !pwrite & paddr == ADDR_RDR;
     assign cpu_write_tdr = pready & pwrite & paddr == ADDR_TDR;
@@ -85,7 +84,8 @@ module apb_uart #(
     end
     logic tx;
     logic tick_tx;
-    logic tick_rx; 
+    logic tick_rx;
+    logic rts_n; 
 
     // Baud generator instance
     baud_generator #(
@@ -115,6 +115,8 @@ module apb_uart #(
             .parity_en_i     (lcr[4]),
             .tick_i          (tick_tx),
             .stop_bit_num_i  (lcr[2]),
+            .cts_ni           (rts_n),
+            .hf_en_i         (hcr[0]),
             .data_bit_num_i  (lcr[1:0]),
             .fifo_tx_reset_i(fcr[2]),
             .data_i          (tdr[7:0]),
@@ -143,13 +145,17 @@ module apb_uart #(
             .data_bit_num_i       (lcr[1:0]),
             .fifo_en_i              (fcr[0]),
             .fifo_rx_reset_i     (fcr[1]),
+            .fifo_rx_trig_level_i(fcr[4:3]),
+            .hf_en_i             (hcr[0]),
+            .force_rts_i          (hcr[1]),
             .fifo_rx_pop_i        (fifo_rx_pop),
             .data_o               (data_received),
             .data_o_valid         (data_o_valid),
             .parity_err_o         (parity_err),
             .stop_bit_err_o       (stop_bit_err),
             .fifo_rx_empty_o      (fifo_rx_empty),
-            .fifo_rx_overrun     (fifo_rx_overrun)
+            .fifo_rx_overrun     (fifo_rx_overrun),
+            .rts_no              (rts_n)
         );
     wire lsr0_set;
     assign lsr1_set = (~fcr[0] & ~rdr_empty) | (fcr[0] & ~fifo_rx_empty);
@@ -232,11 +238,11 @@ module apb_uart #(
                 iir[2:0] <=  3'b001; 
             end else begin
                 if(ier[2] & lsr_stt) begin
-                    iir[2:0] <=  3'b011; 
+                    iir[2:0] <=  3'b110; 
                 end else if(ier[0] & ~rdr_empty) begin
-                    iir[2:0] <=  3'b010; 
-                end else if(ier[1] & tdr_empty & ocr[1]) begin
                     iir[2:0] <=  3'b100; 
+                end else if(ier[1] & tdr_empty & ocr[1]) begin
+                    iir[2:0] <=  3'b010; 
                 end 
             end
         end
