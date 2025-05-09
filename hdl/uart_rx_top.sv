@@ -66,7 +66,7 @@ module uart_rx_top (
     assign fifo_push = fifo_en_i && receiver_data_valid;
     //  FIFO 
 
-    receiver_fifo fifo_inst (
+    receiver_fifo fifo_rx_inst (
         .clk(clk),
         .reset_n(reset_n),
         .fifo_rx_i(receiver_data),

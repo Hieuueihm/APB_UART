@@ -36,7 +36,7 @@ module apb_uart #(
     logic [31:0] iir;
     logic [31:0] hcr;
 
-    apb_slave inst_apb_slave
+    apb_slave apb_slave_inst
         (
             .clk      (clk),
             .preset_n (preset_n),
@@ -105,7 +105,7 @@ module apb_uart #(
     wire [7:0] data_received;
     wire fifo_tx_empty;
     wire fifo_tx_full;
-    uart_tx_top inst_uart_tx_top
+    uart_tx_top uart_tx_top_inst
         (
             .clk             (clk),
             .reset_n         (preset_n),
@@ -132,7 +132,7 @@ module apb_uart #(
     wire fifo_rx_overrun;
     wire parity_err;
     wire stop_bit_err;
-    uart_rx_top inst_uart_rx_top
+    uart_rx_top uart_rx_top_inst
         (
             .clk                  (clk),
             .reset_n              (preset_n),

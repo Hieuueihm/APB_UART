@@ -41,7 +41,7 @@ module uart_tx_top (
     assign fifo_push = fifo_en_i & negedge_write_data_en;
     assign cts_n = hf_en_i ? cts_sync : 1;
     // FIFO instance
-    transmitter_fifo tx_fifo (
+    transmitter_fifo fifo_tx_inst (
         .clk(clk),
         .reset_n(reset_n),
         .fifo_tx_i(data_i),
@@ -96,7 +96,7 @@ module uart_tx_top (
     end
 
     // UART transmitter instance
-    uart_transmitter uart_tx (
+    uart_transmitter uart_tx_inst (
         .clk(clk),
         .reset_n(reset_n),
         .cts_ni(cts_n),
