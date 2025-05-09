@@ -22,7 +22,29 @@ module uart_receiver(
     assign data_o = data;
     wire [7:0] data_receive;
     wire receive_en;
+    		wire receive_data_en;
+
       assign stop_bit_size = (stop_bit_num_i) ? 2: 1;
+      	assign receive_total_fi_i = count_data == total_data_size - 1;
+	assign start_bit_detected = (d1 & ~tx_sync);
+	// assign test =~(((^data) ^ parity_bit)^parity_type_i);
+	assign parity_check = count_data == data_size & data_receive_en;
+	assign parity_bit = (parity_check) ? tx_sync : 0; 
+
+	assign parity_err_o = (~parity_en_i) ? 0 : 
+                      (parity_check? ~(((^data) ^ parity_bit)^parity_type_i) : 0);
+  	
+  	assign stop_bit_1_check = (count_data == data_size + parity_en_i + 1) && data_receive_en; 
+  	assign stop_bit_2_check = (count_data == data_size + parity_en_i + 2) && data_receive_en;
+  	assign stop_bit_err_o = (stop_bit_1_check & (tx_sync != 1'b1)) |
+                      ((stop_bit_size == 2) & stop_bit_2_check & (tx_sync != 1'b1));
+
+	assign clk_1x = clk_div == 4'b1111 & tick_i;
+	assign clk_2x = clk_div == 4'b0111 & tick_i;
+
+	assign data_receive_en = clk_1x  & receive_en;
+	assign shift_receive_en = clk_1x & receive_data_en;
+
       always_comb begin
         case (data_bit_num_i)
             2'b00: begin
@@ -63,7 +85,6 @@ module uart_receiver(
 		end
 	end
 	// counter
-		wire receive_data_en;
 
 	logic [3:0] count_data;
 		assign receive_data_fi = count_data == data_size;
@@ -78,20 +99,6 @@ module uart_receiver(
 			end
 	end
 
-	assign receive_total_fi_i = count_data == total_data_size - 1;
-	assign start_bit_detected = (d1 & ~tx_sync);
-	// assign test =~(((^data) ^ parity_bit)^parity_type_i);
-	assign parity_check = count_data == data_size & data_receive_en;
-	assign parity_bit = (parity_check) ? tx_sync : 0; 
-
-	assign parity_err_o = (~parity_en_i) ? 0 : 
-                      (parity_check? ~(((^data) ^ parity_bit)^parity_type_i) : 0);
-  	
-  	assign stop_bit_1_check = (count_data == data_size + parity_en_i + 1) && data_receive_en; 
-  	assign stop_bit_2_check = (count_data == data_size + parity_en_i + 2) && data_receive_en;
-  	assign stop_bit_err_o = (stop_bit_1_check & (tx_sync != 1'b1)) |
-                      ((stop_bit_size == 2) & stop_bit_2_check & (tx_sync != 1'b1));
-
 
 	logic [3:0] clk_div;
 	always_ff @(posedge clk or negedge reset_n) begin 
@@ -101,11 +108,6 @@ module uart_receiver(
 			clk_div <= clk_div + 1;
 		end
 	end
-	assign clk_1x = clk_div == 4'b1111 & tick_i;
-	assign clk_2x = clk_div == 4'b0111 & tick_i;
-
-	assign data_receive_en = clk_1x  & receive_en;
-	assign shift_receive_en = clk_1x & receive_data_en;
 
 
 
