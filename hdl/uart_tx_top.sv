@@ -36,6 +36,7 @@ module uart_tx_top (
     end
     synchronizer inst_synchronizer (.clk(clk), .reset_n(reset_n), .async(cts_ni), .sync(cts_sync));
 
+    logic tx_busy_pulse;
 
     assign negedge_write_data_en = ~write_data_i & write_data_d;
     assign fifo_push = fifo_en_i & negedge_write_data_en;
@@ -75,7 +76,6 @@ module uart_tx_top (
         end
     end
     assign negedge_tx_busy = ~tx_busy & tx_busy_d;
-    logic tx_busy_pulse;
         always_ff @(posedge clk or negedge reset_n) begin 
         if(~reset_n) begin
             tx_busy_pulse <= 0;
