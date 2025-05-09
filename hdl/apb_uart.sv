@@ -69,6 +69,10 @@ module apb_uart #(
     wire fifo_rx_overrun;
     wire parity_err;
     wire stop_bit_err;
+        logic rdr_empty;
+    wire [7:0] data_received;
+    wire fifo_tx_empty;
+    wire fifo_tx_full;
     wire lsr0_set;
     assign lsr1_set = (~fcr[0] & ~rdr_empty) | (fcr[0] & ~fifo_rx_empty);
     assign lsr2_set = parity_err;
@@ -124,9 +128,7 @@ module apb_uart #(
     // UART transmitter instance
     // wire tx;
     // wire trans_fi_o;
-    wire [7:0] data_received;
-    wire fifo_tx_empty;
-    wire fifo_tx_full;
+
     uart_tx_top uart_tx_top_inst
         (
             .clk             (clk),
@@ -209,7 +211,6 @@ module apb_uart #(
 
         end
     end
-    logic rdr_empty;
 
     // rdr set
     always_ff @(posedge clk or negedge preset_n) begin 
@@ -229,7 +230,6 @@ module apb_uart #(
     wire data_rdy_intr = ier[0];
     wire tdr_empty_intr = ier[1];
     wire received_lsr_intr = ier[2];
-    wire modem_stt_intr = ier[3];
     wire lsr_stt = (lsr[2] | lsr[3] | lsr[4] | lsr[5] | lsr[6]);
     // iir write
        always_ff @(posedge clk or negedge preset_n) begin 
