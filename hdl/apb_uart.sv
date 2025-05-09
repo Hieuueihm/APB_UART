@@ -64,6 +64,28 @@ module apb_uart #(
     assign cpu_read_lsr = pready & !pwrite & paddr == ADDR_LSR;
     assign cpu_read_iir = pready & !pwrite & paddr == ADDR_IIR;
     logic tdr_empty;
+        wire data_o_valid;
+    wire fifo_rx_empty;
+    wire fifo_rx_overrun;
+    wire parity_err;
+    wire stop_bit_err;
+    wire lsr0_set;
+    assign lsr1_set = (~fcr[0] & ~rdr_empty) | (fcr[0] & ~fifo_rx_empty);
+    assign lsr2_set = parity_err;
+    assign lsr3_set = stop_bit_err;
+    assign lsr4_set = (~fcr[0] & tdr_empty) | (fcr[0] & fifo_tx_empty);
+    assign lsr5_set = (fcr[0] & parity_err & stop_bit_err);
+    assign lsr6_set = (~fcr[0] & ~rdr_empty & data_o_valid) | fifo_rx_overrun;
+
+
+    assign lsr0_reset = cpu_read_lsr;
+    assign lsr1_reset = (~fcr[0] & rdr_empty) | (fcr[0] & fifo_rx_empty);
+    assign lsr2_reset = cpu_read_lsr;
+    assign lsr3_reset = cpu_read_lsr;
+    assign lsr4_reset = (~fcr[0] & ~tdr_empty) | (fcr[0] & ~fifo_tx_empty);
+    assign lsr5_reset = cpu_read_lsr;
+    assign lsr6_reset = cpu_read_lsr;
+
     always_ff @(posedge clk or negedge preset_n) begin 
         if(~preset_n) begin
              tdr_empty<= 1;
@@ -127,11 +149,7 @@ module apb_uart #(
             .fifo_tx_full_o  (fifo_tx_full),
             .trans_fi_o       (lsr0_set)
         );
-    wire data_o_valid;
-    wire fifo_rx_empty;
-    wire fifo_rx_overrun;
-    wire parity_err;
-    wire stop_bit_err;
+
     uart_rx_top uart_rx_top_inst
         (
             .clk                  (clk),
@@ -157,22 +175,6 @@ module apb_uart #(
             .fifo_rx_overrun     (fifo_rx_overrun),
             .rts_no              (rts_n)
         );
-    wire lsr0_set;
-    assign lsr1_set = (~fcr[0] & ~rdr_empty) | (fcr[0] & ~fifo_rx_empty);
-    assign lsr2_set = parity_err;
-    assign lsr3_set = stop_bit_err;
-    assign lsr4_set = (~fcr[0] & tdr_empty) | (fcr[0] & fifo_tx_empty);
-    assign lsr5_set = (fcr[0] & parity_err & stop_bit_err);
-    assign lsr6_set = (~fcr[0] & ~rdr_empty & data_o_valid) | fifo_rx_overrun;
-
-
-    assign lsr0_reset = cpu_read_lsr;
-    assign lsr1_reset = (~fcr[0] & rdr_empty) | (fcr[0] & fifo_rx_empty);
-    assign lsr2_reset = cpu_read_lsr;
-    assign lsr3_reset = cpu_read_lsr;
-    assign lsr4_reset = (~fcr[0] & ~tdr_empty) | (fcr[0] & ~fifo_tx_empty);
-    assign lsr5_reset = cpu_read_lsr;
-    assign lsr6_reset = cpu_read_lsr;
 
 
 
