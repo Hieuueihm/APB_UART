@@ -18,6 +18,7 @@ module uart_transmitter(
     logic [1:0] stop_bit_size;
     logic [3:0] total_data;
     logic [7:0] data;
+    wire trans_en;
     wire shift_en; 
     assign shift_en = trans_en ? tick_i : 1'b0;
     assign stop_bit_size = (stop_bit_num_i) ? 2: 1;
@@ -51,7 +52,6 @@ module uart_transmitter(
             tick_d <= tick_i;
         end
     end
-    wire trans_en;
 
     always_ff @(posedge clk or negedge reset_n) begin 
             if(~reset_n) begin

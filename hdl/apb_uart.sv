@@ -69,7 +69,7 @@ module apb_uart #(
              tdr_empty<= 1;
         end else if(cpu_write_tdr) begin
              tdr_empty <= 0;
-        end else if((~fifo_en_i &~tdr_empty & ocr[1] ) | (fifo_en_i & ocr[1] & fifo_tx_empty)) begin
+        end else if((~fcr[0] &~tdr_empty & ocr[1] ) | (fcr[0] & ocr[1] & fifo_tx_empty)) begin
             tdr_empty <= 1;
         end
     end
