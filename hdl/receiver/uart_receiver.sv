@@ -111,7 +111,7 @@ module uart_receiver(
 
 
 	// hold data
-		shift_register inst_shift_register
+		shift_register shift_register_inst
 		(
 			.clk        (clk),
 			.reset_n    (reset_n),
@@ -124,7 +124,7 @@ module uart_receiver(
 
 	// hold stop bit
 
-	receiver_controller inst_receiver_controller
+	receiver_controller receiver_controller_inst
 		(
 			.clk                  (clk),
 			.reset_n              (reset_n),
