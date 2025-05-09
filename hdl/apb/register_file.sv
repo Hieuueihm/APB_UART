@@ -34,7 +34,7 @@ module register_file (
       ocr_o       <= 32'b0;
       fcr_o       <= 32'b0;
       ier_o       <= 32'b0;
-      hcr_o <= 32'b0;
+      hcr_o <=    32'b0;
       prdata_o    <= 32'b0;
       addr_err_o  <= 1'b0;
     end else begin
@@ -89,7 +89,6 @@ module register_file (
       if (byte_strobe_i[2]) hcr_o[23:16]  <= pwdata_i[23:16];
       if (byte_strobe_i[3]) hcr_o[31:24]  <= pwdata_i[31:24];
     end
-
     default: addr_err_o <= 1'b1;
 
   endcase
