@@ -18,7 +18,8 @@ module uart_transmitter(
     logic [1:0] stop_bit_size;
     logic [3:0] total_data;
     logic [7:0] data;
-
+    wire shift_en; 
+    assign shift_en = trans_en ? tick_i : 1'b0;
     assign stop_bit_size = (stop_bit_num_i) ? 2: 1;
       always_comb begin
         
@@ -78,8 +79,7 @@ module uart_transmitter(
 
     wire load_d0;
     assign load_d0 = (~|cnt_data_trans) | (parity_en_i & ~parity_bit_o & trans_data_fi);
-    wire shift_en; 
-    assign shift_en = trans_en ? tick_i : 1'b0;
+
 
     wire load_en;
     assign load_en = cnt_data_trans == 1;
