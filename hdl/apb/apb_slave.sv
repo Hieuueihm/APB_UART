@@ -17,10 +17,9 @@ module apb_slave (
 	output logic [31:0] ocr,
 	input [31:0] lsr,
 	output logic [31:0] fcr,
-	output logic [31:0] msr,
-	output logic [31:0] mcr,
 	output logic [31:0] ier,
-	input [31:0] iir
+	input [31:0] iir,
+	output logic [31:0] hcr
 );
 
 	logic addr_err;
@@ -53,10 +52,9 @@ module apb_slave (
 			.ocr_o         (ocr),
 			.lsr_i         (lsr),
 			.fcr_o         (fcr),
-			.msr_o         (msr),
-			.mcr_o         (mcr),
 			.ier_o         (ier),
 			.iir_i         (iir),
+	.hcr_o        (hcr),
 			.addr_err_o    (addr_err)
 		);
 

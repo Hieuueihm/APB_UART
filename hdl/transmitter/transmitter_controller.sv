@@ -9,6 +9,7 @@ module transmitter_controller (
 	input trans_stop_fi_i,
 	input tick_d_i,
 	input parity_en_i,
+	input cts_ni,
 	output logic trans_en_o,
 	output logic tx_finish_o
 	
@@ -16,6 +17,7 @@ module transmitter_controller (
 	
 	typedef enum logic [2:0] {
         IDLE,
+        CTS,
         WAIT,
         TRANS_START,
         TRANS_DATA,
@@ -42,16 +44,27 @@ module transmitter_controller (
 		end
 	end
 	assign negedge_start = start_tx_d & ~start_tx_i; 
+	logic start_en_d, start_en_d1;
+	always_ff @(posedge clk or negedge reset_n) begin : proc_
+		if(~reset_n) begin
+			start_en_d <= 0;
+			start_en_d1 <= 0;
+		end else begin
+			start_en_d <= negedge_start;
+			start_en_d1 <= start_en_d;
+		end
+	end
 	// next state logic
 	always_comb begin
 		case (current_state)
-			IDLE:  next_state = (tx_en_i) ? WAIT: IDLE;
-			WAIT: next_state = (~tx_en_i)? IDLE : (negedge_start) ? TRANS_START : WAIT;
+			IDLE:  next_state = (tx_en_i) ? CTS: IDLE;
+			CTS: next_state = (~cts_ni) ? WAIT : (~tx_en_i) ? IDLE: CTS;
+			WAIT: next_state = (~tx_en_i)? IDLE : (start_en_d1) ? TRANS_START : WAIT;
 			TRANS_START: next_state =  (tick_d_i) ? TRANS_DATA: TRANS_START;
 			TRANS_DATA: next_state = (trans_data_fi_i & parity_en_i) ? TRANS_PARITY : (trans_data_fi_i & ~parity_en_i) ? TRANS_STOP : TRANS_DATA;
 			TRANS_PARITY: next_state = (tick_d_i) ? TRANS_STOP : TRANS_PARITY;
 			TRANS_STOP: next_state = (trans_stop_fi_i) ? FINISH : TRANS_STOP;
-			FINISH:	next_state = (tx_en_i) ? WAIT: IDLE;
+			FINISH:	next_state = IDLE;
 			default: next_state = IDLE; 
 		endcase
 		

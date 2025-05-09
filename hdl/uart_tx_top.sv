@@ -9,7 +9,9 @@ module uart_tx_top (
     input fifo_tx_reset_i,
     input        stop_bit_num_i,
     input [1:0]  data_bit_num_i,
-    input [7:0]  data_i,                
+    input [7:0]  data_i,  
+    input hf_en_i,
+    input cts_ni,              
     input        write_data_i,  
     input start_tx_i,        
 
@@ -32,9 +34,12 @@ module uart_tx_top (
             write_data_d <= write_data_i;
         end
     end
+    synchronizer inst_synchronizer (.clk(clk), .reset_n(reset_n), .async(cts_ni), .sync(cts_sync));
+
+
     assign negedge_write_data_en = ~write_data_i & write_data_d;
     assign fifo_push = fifo_en_i & negedge_write_data_en;
-
+    assign cts_n = hf_en_i ? cts_sync : 1;
     // FIFO instance
     transmitter_fifo tx_fifo (
         .clk(clk),
@@ -94,6 +99,7 @@ module uart_tx_top (
     uart_transmitter uart_tx (
         .clk(clk),
         .reset_n(reset_n),
+        .cts_ni(cts_n),
         .start_tx_i(start_tx),
         .tx_en_i(tx_en_i),
         .parity_type_i(parity_type_i),

@@ -15,10 +15,9 @@ module register_file (
 	output logic [31:0] ocr_o,
 	input [31:0] lsr_i,
 	output logic [31:0] fcr_o,
-	output logic [31:0] msr_o,
-	output logic [31:0] mcr_o,
 	output logic [31:0] ier_o,
 	input [31:0] iir_i,
+  output logic [31:0] hcr_o,
 	output logic        addr_err_o
 );
 
@@ -34,9 +33,8 @@ module register_file (
       lcr_o       <= 32'b0;
       ocr_o       <= 32'b0;
       fcr_o       <= 32'b0;
-      msr_o       <= 32'b0;
-      mcr_o       <= 32'b0;
       ier_o       <= 32'b0;
+      hcr_o <= 32'b0;
       prdata_o    <= 32'b0;
       addr_err_o  <= 1'b0;
     end else begin
@@ -77,25 +75,19 @@ module register_file (
       if (byte_strobe_i[3]) fcr_o[31:24]  <= pwdata_i[31:24];
     end
 
-    ADDR_MSR: begin
-      if (byte_strobe_i[0]) msr_o[7:0]    <= pwdata_i[7:0];
-      if (byte_strobe_i[1]) msr_o[15:8]   <= pwdata_i[15:8];
-      if (byte_strobe_i[2]) msr_o[23:16]  <= pwdata_i[23:16];
-      if (byte_strobe_i[3]) msr_o[31:24]  <= pwdata_i[31:24];
-    end
-
-    ADDR_MCR: begin
-      if (byte_strobe_i[0]) mcr_o[7:0]    <= pwdata_i[7:0];
-      if (byte_strobe_i[1]) mcr_o[15:8]   <= pwdata_i[15:8];
-      if (byte_strobe_i[2]) mcr_o[23:16]  <= pwdata_i[23:16];
-      if (byte_strobe_i[3]) mcr_o[31:24]  <= pwdata_i[31:24];
-    end
 
     ADDR_IER: begin
       if (byte_strobe_i[0]) ier_o[7:0]    <= pwdata_i[7:0];
       if (byte_strobe_i[1]) ier_o[15:8]   <= pwdata_i[15:8];
       if (byte_strobe_i[2]) ier_o[23:16]  <= pwdata_i[23:16];
       if (byte_strobe_i[3]) ier_o[31:24]  <= pwdata_i[31:24];
+    end
+
+    ADDR_HCR: begin
+      if (byte_strobe_i[0]) hcr_o[7:0]    <= pwdata_i[7:0];
+      if (byte_strobe_i[1]) hcr_o[15:8]   <= pwdata_i[15:8];
+      if (byte_strobe_i[2]) hcr_o[23:16]  <= pwdata_i[23:16];
+      if (byte_strobe_i[3]) hcr_o[31:24]  <= pwdata_i[31:24];
     end
 
     default: addr_err_o <= 1'b1;
@@ -109,10 +101,9 @@ end else if (en_i & !wr_rd_i) begin  // Read
           ADDR_OCR: prdata_o <= ocr_o;
           ADDR_LSR: prdata_o <= lsr_i;
           ADDR_FCR: prdata_o <= fcr_o;
-          ADDR_MSR: prdata_o <= msr_o;
-          ADDR_MCR: prdata_o <= mcr_o;
           ADDR_IER: prdata_o <= ier_o;
           ADDR_IIR: prdata_o <= iir_i;
+          ADDR_HCR: prdata_o <= hcr_o;
           default: begin
             prdata_o   <= 32'b0;
             addr_err_o <= 1'b1;
