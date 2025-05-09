@@ -15,6 +15,8 @@ module uart_receiver(
     	output logic stop_bit_err_o
     	);
 	// sync tx with rx
+		logic [3:0] clk_div;
+
 	wire tx_sync;
 	synchronizer sync(
 		.clk(clk),
@@ -39,7 +41,10 @@ module uart_receiver(
     assign data_o = data;
     wire [7:0] data_receive;
     wire receive_en;
-    		wire receive_data_en;
+    	wire receive_data_en;
+
+	assign data_receive_en = clk_1x  & receive_en;
+	assign shift_receive_en = clk_1x & receive_data_en;
 	logic [3:0] count_data;
 		assign receive_data_fi = count_data == data_size;
       assign stop_bit_size = (stop_bit_num_i) ? 2: 1;
@@ -60,8 +65,6 @@ module uart_receiver(
 	assign clk_1x = clk_div == 4'b1111 & tick_i;
 	assign clk_2x = clk_div == 4'b0111 & tick_i;
 
-	assign data_receive_en = clk_1x  & receive_en;
-	assign shift_receive_en = clk_1x & receive_data_en;
 
       always_comb begin
         case (data_bit_num_i)
@@ -100,7 +103,6 @@ module uart_receiver(
 	end
 
 
-	logic [3:0] clk_div;
 	always_ff @(posedge clk or negedge reset_n) begin 
 		if(~reset_n) begin
 			clk_div <= 0;
