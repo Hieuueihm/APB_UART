@@ -23,7 +23,8 @@ module uart_receiver(
     wire [7:0] data_receive;
     wire receive_en;
     		wire receive_data_en;
-
+	logic [3:0] count_data;
+		assign receive_data_fi = count_data == data_size;
       assign stop_bit_size = (stop_bit_num_i) ? 2: 1;
       	assign receive_total_fi_i = count_data == total_data_size - 1;
 	assign start_bit_detected = (d1 & ~tx_sync);
@@ -86,8 +87,7 @@ module uart_receiver(
 	end
 	// counter
 
-	logic [3:0] count_data;
-		assign receive_data_fi = count_data == data_size;
+
 
 	always_ff @(posedge clk or negedge reset_n) begin
 		if(~reset_n) begin
