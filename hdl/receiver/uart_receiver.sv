@@ -42,7 +42,8 @@ module uart_receiver(
     wire [7:0] data_receive;
     wire receive_en;
     	wire receive_data_en;
-
+	assign clk_1x = clk_div == 4'b1111 & tick_i;
+	assign clk_2x = clk_div == 4'b0111 & tick_i;
 	assign data_receive_en = clk_1x  & receive_en;
 	assign shift_receive_en = clk_1x & receive_data_en;
 	logic [3:0] count_data;
@@ -62,8 +63,7 @@ module uart_receiver(
   	assign stop_bit_err_o = (stop_bit_1_check & (tx_sync != 1'b1)) |
                       ((stop_bit_size == 2) & stop_bit_2_check & (tx_sync != 1'b1));
 
-	assign clk_1x = clk_div == 4'b1111 & tick_i;
-	assign clk_2x = clk_div == 4'b0111 & tick_i;
+
 
 
       always_comb begin
