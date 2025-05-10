@@ -102,8 +102,8 @@ module uart_rx_top (
     always_ff @(posedge clk or posedge reset_n) begin : proc_
         if(~reset_n) begin
             data_o_valid <= 0;
-        end else begin
-             data_o_valid <= data_valid ;
+        end else  begin
+             data_o_valid <= data_valid;
         end
     end
 

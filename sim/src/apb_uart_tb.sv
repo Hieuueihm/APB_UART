@@ -1,18 +1,8 @@
 `timescale 1ns / 1ps
+import common_def::*;
 
 module apb_uart_tb;
- typedef enum logic [11:0] {
-    ADDR_TDR = 12'h000,
-    ADDR_RDR = 12'h004,
-    ADDR_LCR = 12'h008,
-    ADDR_OCR = 12'h00C,
-    ADDR_LSR = 12'h010,
-    ADDR_FCR = 12'h014,
-    ADDR_MSR = 12'h018,
-    ADDR_MCR = 12'h01C,
-    ADDR_IER = 12'h020,
-    ADDR_IIR = 12'h024
-  } apb_addr_e;
+
   logic clk;
   logic preset_n;
   logic psel;
