@@ -47,9 +47,9 @@ module uart_receiver(
 	assign data_receive_en = clk_1x  & receive_en;
 	assign shift_receive_en = clk_1x & receive_data_en;
 	logic [3:0] count_data;
-		assign receive_data_fi = count_data == data_size;
-      assign stop_bit_size = (stop_bit_num_i) ? 2: 1;
-      	assign receive_total_fi_i = count_data == total_data_size - 1;
+	assign receive_data_fi = count_data == data_size;
+    assign stop_bit_size = (stop_bit_num_i) ? 2: 1;
+    assign receive_total_fi_i = count_data == total_data_size - 1;
 	assign start_bit_detected = (d1 & ~tx_sync);
 	// assign test =~(((^data) ^ parity_bit)^parity_type_i);
 	assign parity_check = count_data == data_size & data_receive_en;
