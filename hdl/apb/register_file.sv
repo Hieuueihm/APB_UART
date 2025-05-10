@@ -1,4 +1,4 @@
-import apb_package::*;
+import common_def::*;
 
 module register_file (
 	input        clk,           // Clock
