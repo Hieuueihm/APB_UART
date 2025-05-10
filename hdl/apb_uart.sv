@@ -1,5 +1,5 @@
 // test module -> main
-import apb_package::*;
+import common_def::*;
 
 module apb_uart #(
     parameter SYSTEM_FREQUENCY = 100000000,
