@@ -1,14 +1,14 @@
 -timescale 1ns/1ps
 
-../../inc/*.sv
+../../inc/ápb.sv
 
 ../../hdl/apb/*.sv
 ../../hdl/fifo/*.sv
 ../../hdl/receiver/*.sv
 ../../hdl/transmitter/*.sv
-../../hdl/*.sv
+../../hdl/.sv
 
 
 
-../src/*.sv
+../src/apb_uart_tb.sv
 +access+rwc
