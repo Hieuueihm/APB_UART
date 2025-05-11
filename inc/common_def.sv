@@ -10,8 +10,8 @@ package common_def;
     ADDR_IIR = 12'h01C,
     ADDR_HCR = 12'h020
   } apb_addr_e;
-    `define SET_BIT_REGISTER(register ,cond, bit_set) if (cond) register <= bit_set;
-    `define SET 1
-    `define RST 0
+
+
+    typedef enum {ZERO, SHORT, MEDIUM, LARGE, MAX} delay_e;
   
 endpackage

@@ -1,0 +1,16 @@
+$date
+	Sun May 11 17:18:03 2025
+$end
+$version
+	QuestaSim Version 2021.2_1
+$end
+$timescale
+	1ps
+$end
+
+$scope module baud_generator_tb $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+$end

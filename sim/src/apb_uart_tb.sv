@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
-import common_def::*;
-
+  import common_def::*;
+`include "apb_assertion.sv"
 module apb_uart_tb;
 
   logic clk;
@@ -31,33 +31,62 @@ module apb_uart_tb;
       .irq             (irq)
          );
 
+  apb_assertion assert_apb_inst(.clk    (clk),
+      .preset_n            (preset_n),
+      .psel                (psel),
+      .penable             (penable),
+      .pwrite              (pwrite),
+      .paddr               (paddr),
+      .pstrb               (pstrb),
+      .pwdata              (pwdata),
+      .pready              (pready),
+      .pslverr             (pslverr),
+      .prdata              (prdata)
+      );
+
   task apb_write(input logic [11:0] addr, input logic [31:0] data, input [3:0] strb);
-    paddr   = addr;
-    pwrite  = 1'b1;
-    pwdata  = data;
-    penable = 1'b0;
-    psel            = 1'b1;
-    pstrb   = strb;
-    #10;
-    penable = 1'b1;
-    @(negedge pready);
-    psel     = 1'b0;
-    penable = 1'b0;
+    begin
+      pwrite  = 1'b1;
+      paddr   = addr;
+      pwdata  = data;
+      pstrb   = strb;
+      @(posedge clk);
+      psel    = 1'b1;
+      penable = 1'b0;
+
+      @(posedge clk);
+      penable = 1'b1;
+
+      wait (pready == 1'b1);
+
+      @(posedge clk);
+      psel    = 1'b0;
+      penable = 1'b0;
+    end
   endtask
 
+
   task apb_read(input logic [11:0] addr, output logic [31:0] data);
-    paddr   = addr;
-    pwrite  = 1'b0;
-    penable = 1'b0;
-    psel    = 1'b1;
-    pstrb   = 4'd1;
-    #10;
-    penable = 1'b1;
-    @(negedge pready);
-    data     = prdata;
-    psel     = 1'b0;
-    penable = 1'b0;
+    begin
+      paddr   = addr;
+      pstrb   = 4'hF;
+      pwrite  = 1'b0;
+      @(posedge clk);
+      psel    = 1'b1;
+      penable = 1'b0;
+
+      @(posedge clk);
+      penable = 1'b1;
+
+      wait (pready == 1'b1);
+
+      @(posedge clk);
+      data    = prdata;
+      psel    = 1'b0;
+      penable = 1'b0;
+    end
   endtask
+
 
   always #5 clk = ~clk;
 
@@ -65,8 +94,12 @@ module apb_uart_tb;
     clk     = 0;
     preset_n = 0;
     psel     = 0;
-    #20;
+    pwdata = 0;
+    paddr = 0;
+    penable = 0;
+    repeat(3) @(posedge clk);
     preset_n = 1;
+     @(posedge clk);
   end
 
   initial begin
@@ -118,6 +151,15 @@ module apb_uart_tb;
 
     #200;
 
-    $stop;
+
+
+    $finish;
+  end
+
+  initial begin
+    $display("Dumping to VCD...");
+    $dumpfile("dump.vcd");      
+    $dumpvars(0);    
+
   end
 endmodule

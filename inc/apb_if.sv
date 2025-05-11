@@ -12,13 +12,4 @@ interface apb_if(input clk,
   logic[31:0] pwdata;
 
 
-  property psel_valid;
-    @(posedge clk)
-    !$isunknown(psel);
-  endproperty: psel_valid
-
-  CHK_PSEL: assert property(psel_valid);
-
-  COVER_PSEL: cover property(psel_valid);
-
 endinterface: apb_if

@@ -1,6 +1,5 @@
 // test module -> main
 import common_def::*;
-
 module apb_uart #(
     parameter SYSTEM_FREQUENCY = 100000000,
     parameter SAMPLING_RATE = 16
@@ -185,28 +184,55 @@ module apb_uart #(
         if(~preset_n) begin
             lsr <= 0;
         end else begin
-            `SET_BIT_REGISTER(lsr[0], lsr0_set, `SET);
-            `SET_BIT_REGISTER(lsr[0], lsr0_reset, `RST);
+            if(lsr0_set) begin
+                lsr[0] <= 1;
+            end 
+            if(lsr0_reset) begin
+                lsr[0] <= 0;
+            end
 
+            if(lsr1_set) begin
+                lsr[1] <= 1;
+            end 
+            if(lsr1_reset) begin
+                lsr[1] <= 0;
+            end
 
-            `SET_BIT_REGISTER(lsr[1], lsr1_set, `SET);
-            `SET_BIT_REGISTER(lsr[1], lsr1_reset, `RST);
+            if(lsr2_set) begin
+                lsr[2] <= 1;
+            end 
+            if(lsr2_reset) begin
+                lsr[2] <= 0;
+            end
 
+            if(lsr3_set) begin
+                lsr[3] <= 1;
+            end 
+            if(lsr3_reset) begin
+                lsr[3] <= 0;
+            end
 
-            `SET_BIT_REGISTER(lsr[2], lsr2_set, `SET);
-            `SET_BIT_REGISTER(lsr[2], lsr2_reset, `RST);
+            if(lsr4_set) begin
+                lsr[4] <= 1;
+            end 
+            if(lsr4_reset) begin
+                lsr[4] <= 0;
+            end
 
-            `SET_BIT_REGISTER(lsr[3], lsr3_set, `SET);
-            `SET_BIT_REGISTER(lsr[3], lsr3_reset, `RST);
+            if(lsr5_set) begin
+                lsr[5] <= 1;
+            end 
+            if(lsr5_reset) begin
+                lsr[5] <= 0;
+            end
 
-            `SET_BIT_REGISTER(lsr[4], lsr4_set, `SET);
-            `SET_BIT_REGISTER(lsr[4], lsr4_reset, `RST);
-
-            `SET_BIT_REGISTER(lsr[5], lsr5_set, `SET);
-            `SET_BIT_REGISTER(lsr[5], lsr5_reset, `RST);
-
-            `SET_BIT_REGISTER(lsr[6], lsr6_set, `SET);
-            `SET_BIT_REGISTER(lsr[6], lsr6_reset, `RST);
+            if(lsr6_set) begin
+                lsr[6] <= 1;
+            end 
+            if(lsr6_reset) begin
+                lsr[6] <= 0;
+            end
+   
 
 
         end

@@ -33,6 +33,9 @@ module baud_generator_tb;
   // Test sequence
   initial begin
     $display("Starting testbench...");
+    $display("Dumping to VCD...");
+    $dumpfile("dump_baud.vcd");      
+    $dumpvars(0, baud_generator_tb);   
     reset_n = 0;
     baud_sl_i = 3'b001;
     #100;
