@@ -108,8 +108,8 @@ module apb_uart_tb;
     $display("Configuring UART...");
 
     // Set LCR[1:0] = 2'b11 (8-bit data length)
-    // 101000011
-    apb_write(ADDR_LCR, 32'h00000173, 4'h3);  // LCR = 0x03 // 11
+    // 00100011
+    apb_write(ADDR_LCR, 32'h0000023, 4'h3);  // LCR = 0x03 // 11
     apb_write(ADDR_FCR, 32'h00000001, 4'h1);  // FCR = 0x01 // enable fifo
     apb_write(ADDR_HCR, 32'h00000001, 4'h1);  // FCR = 0x01 // enable fifo
 

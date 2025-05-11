@@ -51,12 +51,12 @@ interface apb_assertion(
 
 	property PENABLE_DEASSERTED;
 	  @(posedge clk)
-	  $rose(penable && pready) |-> !penable;
+	  $rose(penable && pready) |=> !penable;
 	endproperty
 
 	property PSEL_TO_PENABLE_ACTIVE;
 	  @(posedge clk)
-	  ($rose(psel)) |-> penable;
+	  ($rose(psel)) |=> penable;
 	endproperty
 
 	property PSEL_ASSERT_SIGNAL_STABLE(signal);

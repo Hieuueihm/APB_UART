@@ -1,6 +1,12 @@
 # vsim -voptargs="+acc" -c -do "run -all; quit" apb_uart_tb 
-# Start time: 17:35:31 on May 11,2025
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Start time: 22:46:25 on May 11,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: ../src/apb_uart_tb.sv(19): (vopt-2685) [TFMPC] - Too few port connections for 'inst_uart_apb_test'.  Expected 13, found 12.
+# ** Warning: ../src/apb_uart_tb.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'tick_rx'.
+# ** Note: (vopt-143) Recognized 1 FSM in module "transmitter_controller(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "receiver_controller(fast)".
+# ** Note: (vopt-143) Recognized 1 FSM in module "apb_controller(fast)".
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
 # //  Questa Sim-64
 # //  Version 2021.2_1 linux_x86_64 May 15 2021
 # //
@@ -40,11 +46,7 @@
 # Loading work.receiver_controller(fast)
 # Loading work.receiver_fifo(fast)
 # Loading work.apb_assertion(fast__1)
-# run -all
-# Dumping to VCD...
-# Configuring UART...
-# Writing to TDR...
-# ** Note: $finish    : /home/hieu/workspace/APB_UART/sim/src/apb_uart_tb.sv(156)
-#    Time: 70000685 ns  Iteration: 0  Instance: /apb_uart_tb
-# End time: 17:35:43 on May 11,2025, Elapsed time: 0:00:12
-# Errors: 0, Warnings: 0
+# Break key hit
+# Error loading design
+# End time: 22:46:27 on May 11,2025, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 2

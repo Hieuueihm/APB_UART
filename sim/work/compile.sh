@@ -1,6 +1,6 @@
-RTL_DIR="$HOME/workspace/APB_UART/hdl"
+RTL_DIR="../../hdl"
 
-INC_DIR="$HOME/workspace/APB_UART/inc"
+INC_DIR="../../inc"
 
 vlib work
 sverilog_files=$(find "$RTL_DIR" -type f -name "*.sv")
@@ -14,7 +14,7 @@ vlog $inc_sverilog_files
 vlog $sverilog_files
 
 
-TB_DIR="$HOME/workspace/APB_UART/sim/src"
+TB_DIR="../src"
 sv_files=$(find "$TB_DIR" -type f -name "*.sv")
 echo "Compiling testbench files:"
 echo "$sv_files"
