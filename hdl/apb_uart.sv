@@ -18,7 +18,7 @@ module apb_uart #(
     output[31:0] prdata,
     // irq
     output irq,
-
+    output logic baud_o,
     output logic tick_rx // need for checking
     // flow control
     // input cts_n,
@@ -110,7 +110,7 @@ module apb_uart #(
         end
     end
     logic tx;
-    logic tick_tx;
+    assign tick_tx = baud_o;
     logic rts_n; 
 
     // Baud generator instance
@@ -121,7 +121,7 @@ module apb_uart #(
         .clk(clk),
         .reset_n(preset_n),
         .baud_sl_i(lcr[7:5]),
-        .tick_tx(tick_tx),
+        .tick_tx(baud_o),
         .tick_rx(tick_rx)
     );
 

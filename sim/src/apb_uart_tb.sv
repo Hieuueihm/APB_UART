@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
+`include "apb_assertion.sv";
+
   import common_def::*;
-`include "apb_assertion.sv"
 module apb_uart_tb;
 
   logic clk;

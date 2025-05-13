@@ -1,8 +1,8 @@
 package uart_reg_pkg;
 
-import uvm_pkg::*;
-`include "uvm_macros.svh"
-import common_def::*;
+  import uvm_pkg::*;
+  `include "uvm_macros.svh"
+  import common_def::*;
 
   // data.configure(
   // this,      // Parent register (this object)
@@ -15,100 +15,100 @@ import common_def::*;
   // 1,         // Is it accessible? (1 = yes)
   // 0          // Is it individually resettable? (rarely used)
   // ) ;
-class tdr_reg extends uvm_reg;
-  `uvm_object_utils(tdr_reg)
+  class tdr_reg extends uvm_reg;
+    `uvm_object_utils(tdr_reg)
 
-  rand uvm_reg_field data;
-  rand uvm_reg_field rfu;
+    rand uvm_reg_field data;
+    rand uvm_reg_field rfu;
 
-  function new(string name = "tdr_reg");
-    super.new(name, 32, UVM_NO_COVERAGE);
-  endfunction
+    function new(string name = "tdr_reg");
+      super.new(name, 32, UVM_NO_COVERAGE);
+    endfunction
 
-  function void build();
-    data = uvm_reg_field::type_id::create("data");
-    data.configure(this, 8, 0, "RW", 0, 8'h0, 0, 1, 0);
-    rfu = uvm_reg_field::type_id::create("rfu");
-    rfu.configure(this, 24, 8, "WO", 0, 0, 1, 0, 0);
+    function void build();
+      data = uvm_reg_field::type_id::create("data");
+      data.configure(this, 8, 0, "RW", 0, 8'h0, 0, 1, 0);
+      rfu = uvm_reg_field::type_id::create("rfu");
+      rfu.configure(this, 24, 8, "WO", 0, 0, 1, 0, 0);
 
-  endfunction
-endclass
+    endfunction
+  endclass
 
-class rdr_reg extends uvm_reg;
-  `uvm_object_utils(rdr_reg)
+  class rdr_reg extends uvm_reg;
+    `uvm_object_utils(rdr_reg)
 
-  uvm_reg_field data;
-  uvm_reg_field rfu;
+    uvm_reg_field data;
+    uvm_reg_field rfu;
 
-  function new(string name = "rdr_reg");
-    super.new(name, 32, UVM_NO_COVERAGE);
-  endfunction
+    function new(string name = "rdr_reg");
+      super.new(name, 32, UVM_NO_COVERAGE);
+    endfunction
 
-  function void build();
-    data = uvm_reg_field::type_id::create("data");
-    data.configure(this, 8, 0, "RO", 1, 8'h0, 0, 0, 0);
-    rfu = uvm_reg_field::type_id::create("rfu");
-    rfu.configure(this, 24, 8, "RO", 0, 0, 1, 0, 0);
-  endfunction
-endclass
+    function void build();
+      data = uvm_reg_field::type_id::create("data");
+      data.configure(this, 8, 0, "RO", 1, 8'h0, 0, 0, 0);
+      rfu = uvm_reg_field::type_id::create("rfu");
+      rfu.configure(this, 24, 8, "RO", 0, 0, 1, 0, 0);
+    endfunction
+  endclass
 
-class lcr_reg extends uvm_reg;
-  `uvm_object_utils(lcr_reg)
+  class lcr_reg extends uvm_reg;
+    `uvm_object_utils(lcr_reg)
 
-  rand uvm_reg_field DBN;
-  rand uvm_reg_field SBN;
-  rand uvm_reg_field PE;
-  rand uvm_reg_field PT;
-  rand uvm_reg_field BDR;
-  rand uvm_reg_field rfu;
+    rand uvm_reg_field DBN;
+    rand uvm_reg_field SBN;
+    rand uvm_reg_field PE;
+    rand uvm_reg_field PT;
+    rand uvm_reg_field BDR;
+    rand uvm_reg_field rfu;
 
-  function new(string name = "lcr_reg");
-    super.new(name, 32, UVM_NO_COVERAGE);
-  endfunction
+    function new(string name = "lcr_reg");
+      super.new(name, 32, UVM_NO_COVERAGE);
+    endfunction
 
-  function void build();
-    DBN = uvm_reg_field::type_id::create("DBN");
-    DBN.configure(this, 2, 0, "RW", 0, 2'b00, 1, 1, 0);
-    SBN = uvm_reg_field::type_id::create("SBN");
-    SBN.configure(this, 1, 2, "RW", 0, 1'b0, 1, 1, 0);
-    PE = uvm_reg_field::type_id::create("PE");
-    PE.configure(this, 1, 3, "RW", 0, 1'b0, 1, 1, 0);
-    PT = uvm_reg_field::type_id::create("PT");
-    PT.configure(this, 1, 4, "RW", 0, 1'b0, 1, 1, 0);
-    BDR = uvm_reg_field::type_id::create("BDR");
-    BDR.configure(this,3, 5, "RW", 0, 3'b000, 1, 1, 0);
-    rfu = uvm_reg_field::type_id::create("rfu");
-    rfu.configure(this, 24, 8, "WO", 0, 0, 1, 0, 0);
-  endfunction
+    function void build();
+      DBN = uvm_reg_field::type_id::create("DBN");
+      DBN.configure(this, 2, 0, "RW", 0, 2'b00, 1, 1, 0);
+      SBN = uvm_reg_field::type_id::create("SBN");
+      SBN.configure(this, 1, 2, "RW", 0, 1'b0, 1, 1, 0);
+      PE = uvm_reg_field::type_id::create("PE");
+      PE.configure(this, 1, 3, "RW", 0, 1'b0, 1, 1, 0);
+      PT = uvm_reg_field::type_id::create("PT");
+      PT.configure(this, 1, 4, "RW", 0, 1'b0, 1, 1, 0);
+      BDR = uvm_reg_field::type_id::create("BDR");
+      BDR.configure(this,3, 5, "RW", 0, 3'b000, 1, 1, 0);
+      rfu = uvm_reg_field::type_id::create("rfu");
+      rfu.configure(this, 24, 8, "WO", 0, 0, 1, 0, 0);
+    endfunction
 
-endclass
-
-
-class ocr_reg extends uvm_reg;
-  `uvm_object_utils(ocr_reg)
-
-  rand uvm_reg_field RE;
-  rand uvm_reg_field ST;
-  rand uvm_reg_field TE;
-  rand uvm_reg_field rfu;
+  endclass
 
 
-  function new(string name = "ocr_reg");
-    super.new(name, 32, UVM_NO_COVERAGE);
-  endfunction
+  class ocr_reg extends uvm_reg;
+    `uvm_object_utils(ocr_reg)
 
-  function void build();
-    RE = uvm_reg_field::type_id::create("DBN");
-    RE.configure(this, 1, 0, "RW", 0, 1'b0, 1, 1, 0);
-    ST = uvm_reg_field::type_id::create("ST");
-    ST.configure(this, 1, 1, "RW", 0, 1'b0, 1, 1, 0);
-    TE = uvm_reg_field::type_id::create("TE");
-    TE.configure(this, 1, 2, "RW", 0, 1'b0, 1, 1, 0);
-    rfu = uvm_reg_field::type_id::create("rfu");
-    rfu.configure(this, 29, 3, "WO", 0, 0, 1, 0, 0);
-  endfunction
+    rand uvm_reg_field RE;
+    rand uvm_reg_field ST;
+    rand uvm_reg_field TE;
+    rand uvm_reg_field rfu;
 
-endclass
+
+    function new(string name = "ocr_reg");
+      super.new(name, 32, UVM_NO_COVERAGE);
+    endfunction
+
+    function void build();
+      RE = uvm_reg_field::type_id::create("DBN");
+      RE.configure(this, 1, 0, "RW", 0, 1'b0, 1, 1, 0);
+      ST = uvm_reg_field::type_id::create("ST");
+      ST.configure(this, 1, 1, "RW", 0, 1'b0, 1, 1, 0);
+      TE = uvm_reg_field::type_id::create("TE");
+      TE.configure(this, 1, 2, "RW", 0, 1'b0, 1, 1, 0);
+      rfu = uvm_reg_field::type_id::create("rfu");
+      rfu.configure(this, 29, 3, "WO", 0, 0, 1, 0, 0);
+    endfunction
+
+  endclass
 
 class lsr_reg extends uvm_reg;
   `uvm_object_utils(lsr_reg)
@@ -154,6 +154,8 @@ class lsr_reg extends uvm_reg;
   endfunction
 
 endclass
+
+
 class fcr_reg extends uvm_reg;
   `uvm_object_utils(fcr_reg)
 
@@ -341,5 +343,5 @@ class uart_reg_block extends uvm_reg_block;
   endfunction
 
 endclass
-
-endpackage
+  
+endpackage : uart_reg_pkg

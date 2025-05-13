@@ -1,12 +1,13 @@
 # vsim -voptargs="+acc" -c -do "run -all; quit" apb_uart_tb 
-# Start time: 22:46:25 on May 11,2025
-# ** Note: (vsim-3812) Design is being optimized...
-# ** Warning: ../src/apb_uart_tb.sv(19): (vopt-2685) [TFMPC] - Too few port connections for 'inst_uart_apb_test'.  Expected 13, found 12.
-# ** Warning: ../src/apb_uart_tb.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'tick_rx'.
+# Start time: 10:33:30 on May 13,2025
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# ** Warning: ../src/apb_uart_tb.sv(20): (vopt-2685) [TFMPC] - Too few port connections for 'inst_uart_apb_test'.  Expected 14, found 12.
+# ** Warning: ../src/apb_uart_tb.sv(20): (vopt-2718) [TFMPC] - Missing connection for port 'tick_rx'.
+# ** Warning: ../src/apb_uart_tb.sv(20): (vopt-2718) [TFMPC] - Missing connection for port 'baud_o'.
 # ** Note: (vopt-143) Recognized 1 FSM in module "transmitter_controller(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "receiver_controller(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "apb_controller(fast)".
-# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=3.
 # //  Questa Sim-64
 # //  Version 2021.2_1 linux_x86_64 May 15 2021
 # //
@@ -21,32 +22,3 @@
 # //  is prohibited from disclosure under the Trade Secrets Act,
 # //  18 U.S.C. Section 1905.
 # //
-# Loading sv_std.std
-# Loading work.common_def(fast)
-# Loading work.apb_uart_tb_sv_unit(fast)
-# Loading work.apb_uart_tb(fast)
-# Loading work.apb_uart_sv_unit(fast)
-# Loading work.apb_uart(fast)
-# Loading work.apb_slave(fast)
-# Loading work.apb_controller(fast)
-# Loading work.register_file_sv_unit(fast)
-# Loading work.register_file(fast)
-# Loading work.baud_generator(fast)
-# Loading work.uart_tx_top(fast)
-# Loading work.synchronizer(fast)
-# Loading work.transmitter_fifo(fast)
-# Loading work.uart_transmitter(fast)
-# Loading work.parity(fast)
-# Loading work.transmitter_controller(fast)
-# Loading work.piso(fast)
-# Loading work.ff(fast)
-# Loading work.uart_rx_top(fast)
-# Loading work.uart_receiver(fast)
-# Loading work.shift_register(fast)
-# Loading work.receiver_controller(fast)
-# Loading work.receiver_fifo(fast)
-# Loading work.apb_assertion(fast__1)
-# Break key hit
-# Error loading design
-# End time: 22:46:27 on May 11,2025, Elapsed time: 0:00:02
-# Errors: 0, Warnings: 2

@@ -12,7 +12,7 @@ module apb_slave (
 	output pslverr,
 	output[31:0] prdata,
 	output [31:0] tdr,
-	input logic [31:0] rdr,
+	input  [31:0] rdr,
 	output logic [31:0] lcr,
 	output logic [31:0] ocr,
 	input [31:0] lsr,

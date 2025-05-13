@@ -13,5 +13,22 @@ package common_def;
 
 
     typedef enum {ZERO, SHORT, MEDIUM, LARGE, MAX} delay_e;
+
+
+  function int get_baud_rate(bit [2:0] sel);
+    case (sel)
+      3'b000: return 4800;
+      3'b001: return 9600;
+      3'b010: return 14400;
+      3'b011: return 19200;
+      3'b100: return 38400;
+      3'b101: return 57600;
+      3'b110: return 115200;
+      3'b111: return 230400;
+      default: return 0;
+    endcase
+endfunction
+
+    
   
 endpackage
