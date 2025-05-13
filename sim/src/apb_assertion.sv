@@ -1,3 +1,4 @@
+import common_def::*;
 interface apb_assertion(
 	input clk,    
 	input preset_n,  
@@ -11,6 +12,22 @@ interface apb_assertion(
 	output pready,
 	output pslverr
 	);
+
+	function bit is_valid_apb_addr(logic [11:0] addr);
+  		case (addr)
+    		ADDR_TDR,
+    		ADDR_RDR,
+    		ADDR_LCR,
+    		ADDR_OCR,
+    		ADDR_LSR,
+    		ADDR_FCR,
+    		ADDR_IER,
+    		ADDR_IIR,
+    		ADDR_HCR: return 1;
+    		default : return 0;
+  		endcase
+	endfunction
+
 	property SIGNAL_VALID(signal);
 		@(posedge clk) !$isunknown(signal);
 	endproperty;
@@ -28,6 +45,18 @@ interface apb_assertion(
 	PADDR_VALID: assert property(CONTROL_SIGNAL_VALID(paddr));
 	PWRITE_VALID: assert property(CONTROL_SIGNAL_VALID(pwrite));
 	PENABLE_VALID: assert property(CONTROL_SIGNAL_VALID(penable));
+
+	// address match with list register
+	property PSLVERR_FOR_INVALID_ADDR;
+  		@(posedge clk) (psel && penable && !pwrite && !is_valid_apb_addr(paddr)) |-> pslverr;
+	endproperty
+	PSLVERR_ON_INVALID_ADDRESS_ASSERT: assert property(PSLVERR_FOR_INVALID_ADDR);
+
+	//Pstrb must valid
+	property PSTRB_VALID;
+  		@(posedge clk) (psel && pwrite) |-> !$isunknown(pstrb);
+	endproperty
+	PSTRB_VALID_ASSERT: assert property(PSTRB_VALID);
 
 	// write data valid
 	property PWDATA_SIGNAL_VALID;
