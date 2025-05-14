@@ -31,6 +31,12 @@ class uart_env_cfg extends uvm_object;
       @(posedge IRQ.irq);
   endtask
 
+ 
+
+  task wait_for_clock(int n = 1);
+    repeat(n)
+      @(posedge IRQ.clk);
+  endtask
 
   task wait_for_baud_rate();
     @(posedge IRQ.baud_out);
@@ -40,17 +46,17 @@ endclass
 
 
 
-class lcr_item extends uvm_object;
+  class lcr_item extends uvm_object;
 
-`uvm_object_utils(lcr_item)
-  
-  bit[7:0] lcr;
+  `uvm_object_utils(lcr_item)
+    
+    bit[7:0] lcr;
 
-function new(string name = "lcr_item");
-  super.new(name);
-endfunction
+  function new(string name = "lcr_item");
+    super.new(name);
+  endfunction
 
-endclass
+  endclass
 
   class uart_tx_scoreboard extends uvm_component;
 
@@ -675,14 +681,14 @@ class baud_rate_checker extends uvm_component;
 
   int clk_count;
 
-  bit[2:0] baud_rate;
+  bit[7:0] lcr;
   bit baud_errors;
   bit new_value_written;
 
 
-covergroup baud_rate_cg() with function sample(bit[2:0] baud_rate);
+covergroup baud_rate_cg() with function sample(bit[7:5] lcr);
 
-  coverpoint baud_rate {
+  coverpoint lcr[7:5] {
     bins baud_opts[] = {3'b000, 3'b001, 3'b010, 3'b001, 3'b100, 3'b101, 3'b110, 3'b111};
   }
 endgroup
@@ -716,13 +722,13 @@ endgroup
   endtask
 
 
-function void check_count(bit[2:0] baud_rate, int clk_count);
-  if(clk_count != (IRQ.SYSTEM_FREQUENCY / get_baud_rate(baud_rate))) begin
-    `uvm_error("check_count", $sformatf("Baudrate divisor error - Divisor:%0d Clock interval:%0d", get_baud_rate(baud_rate), clk_count))
+function void check_count(bit[7:5] lcr, int clk_count);
+  if(clk_count != (IRQ.SYSTEM_FREQUENCY / get_baud_rate(lcr[7:5]))) begin
+    `uvm_error("check_count", $sformatf("Baudrate divisor error - Divisor:%0d Clock interval:%0d", get_baud_rate(lcr[7:5]), clk_count))
     baud_errors++;
   end
   else begin
-    baud_rate_cg.sample(baud_rate);
+    baud_rate_cg.sample(lcr[7:5]);
   end
 endfunction
 
@@ -732,7 +738,7 @@ endfunction
     forever begin
       @(posedge IRQ.baud_out);
       if((new_value_written == 0)) begin
-         check_count(baud_rate, clk_count);
+         check_count(lcr[7:5], clk_count);
       end
       new_value_written = 0;
       clk_count = 0;
@@ -908,11 +914,11 @@ class uart_env extends uvm_component;
       `uvm_error("build_phase", "Unable to get uart_env_cfg from uvm_config_db")
     end
     m_apb_agent = apb_agent::type_id::create("m_apb_agent", this);
-    uvm_config_db #(apb_agent_cfg)::set(this, "m_apb_agent*", "apb_agent_cfg", m_cfg.m_apb_agent_cfg);
+    uvm_config_db #(apb_agent_cfg)::set(this, "m_apb_agent", "apb_agent_cfg", m_cfg.m_apb_agent_cfg);
     m_tx_uart_agent = uart_agent::type_id::create("m_tx_uart_agent", this);
-    uvm_config_db #(uart_agent_cfg)::set(this, "m_tx_uart_agent*", "uart_agent_cfg", m_cfg.m_tx_uart_agent_cfg);
+    uvm_config_db #(uart_agent_cfg)::set(this, "m_tx_uart_agent", "uart_agent_cfg", m_cfg.m_tx_uart_agent_cfg);
     m_rx_uart_agent = uart_agent::type_id::create("m_rx_uart_agent", this);
-    uvm_config_db #(uart_agent_cfg)::set(this, "m_rx_uart_agent*", "uart_agent_cfg", m_cfg.m_rx_uart_agent_cfg);
+    uvm_config_db #(uart_agent_cfg)::set(this, "m_rx_uart_agent", "uart_agent_cfg", m_cfg.m_rx_uart_agent_cfg);
 
     reg_predictor = uvm_reg_predictor #(apb_sequence_item)::type_id::create("reg_predictor", this);
     reg_adapter = reg2apb_adapter::type_id::create("reg_adapter");
@@ -931,19 +937,19 @@ class uart_env extends uvm_component;
 
     reg_predictor.map = m_cfg.rm.map;
     reg_predictor.adapter = reg_adapter;
-    m_apb_agent.apb_analysis.connect(reg_predictor.bus_in);
+    m_apb_agent.ap.connect(reg_predictor.bus_in);
 
-    m_apb_agent.apb_analysis.connect(tx_sb.apb_fifo.analysis_export);
-    m_tx_uart_agent.uart_analysis.connect(tx_sb.uart_fifo.analysis_export);
+    m_apb_agent.ap.connect(tx_sb.apb_fifo.analysis_export);
+    m_tx_uart_agent.ap.connect(tx_sb.uart_fifo.analysis_export);
     tx_sb.rm = m_cfg.rm;
 
-    m_apb_agent.apb_analysis.connect(rx_sb.apb_fifo.analysis_export);
+    m_apb_agent.ap.connect(rx_sb.apb_fifo.analysis_export);
 
-    m_rx_uart_agent.uart_analysis.connect(rx_sb.uart_fifo.analysis_export);
+    m_rx_uart_agent.ap.connect(rx_sb.uart_fifo.analysis_export);
     rx_sb.rm = m_cfg.rm;
 
     tx_sb.ap.connect(tx_cov.analysis_export);
-    m_apb_agent.apb_analysis.connect(int_cov.apb_fifo.analysis_export);
+    m_apb_agent.ap.connect(int_cov.apb_fifo.analysis_export);
 
     int_cov.cfg = m_cfg;
     int_cov.rm = m_cfg.rm;
@@ -951,8 +957,8 @@ class uart_env extends uvm_component;
     br_sb.rm = m_cfg.rm;
     br_sb.IRQ = m_cfg.IRQ;
 
-    m_apb_agent.apb_analysis.connect(br_sb.apb_fifo.analysis_export);
-    m_apb_agent.apb_analysis.connect(reg_cov.analysis_export);
+    m_apb_agent.ap.connect(br_sb.apb_fifo.analysis_export);
+    m_apb_agent.ap.connect(reg_cov.analysis_export);
   endfunction
 
 endclass

@@ -1,4 +1,4 @@
-import common_def::*;
+import common_pkg::*;
 
 module register_file (
 	input        clk,           // Clock

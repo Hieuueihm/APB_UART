@@ -1,7 +1,7 @@
 package apb_agent_pkg;
 	import uvm_pkg::*;
 	`include "uvm_macros.svh"
-	import common_def::*;
+	import common_pkg::*;
 	// config class
 	class apb_agent_cfg extends uvm_object;
 		// factory registration
@@ -42,16 +42,17 @@ package apb_agent_pkg;
 		function new(string name = "apb_sequence_item");
 			super.new(name);
 		endfunction
-		virtual function void do_copy(uvm_object rhs);
-	    apb_sequence_item _pkt;
-	    $cast(_pkt, rhs);
-	    super.do_copy(rhs);
-	    paddr  = _pkt.paddr;
-	    pdata  = _pkt.pdata;
-	    pwrite = _pkt.pwrite;
-	    delay  = _pkt.delay;
-	    `uvm_info(get_name(), "In apb_sequence_item::do_copy()", UVM_LOW)
-	endfunction
+
+		function void do_copy(uvm_object rhs);
+		    apb_sequence_item _pkt;
+		    $cast(_pkt, rhs);
+		    super.do_copy(rhs);
+		    paddr  = _pkt.paddr;
+		    pdata  = _pkt.pdata;
+		    pwrite = _pkt.pwrite;
+		    delay  = _pkt.delay;
+		    `uvm_info(get_name(), "In apb_sequence_item::do_copy()", UVM_LOW)
+		endfunction
 
 
 		function bit do_compare(uvm_object rhs, uvm_comparer comparer);
@@ -94,7 +95,7 @@ package apb_agent_pkg;
 	endclass
 
 
-	// sequencer receive apb_sequence
+	// sequencer receives apb_sequence
 	typedef uvm_sequencer #(apb_sequence_item) apb_sequencer;
 
 	// driver -> convert transaction-level stimulus into pin-level stimulus
@@ -113,7 +114,6 @@ package apb_agent_pkg;
 		task run_phase(uvm_phase phase);
 		  apb_sequence_item req;
 		  apb_sequence_item rsp;
-		  int psel_index;
 
 		  //reset task
 		  APB.psel <= 0;
@@ -138,13 +138,13 @@ package apb_agent_pkg;
 		     APB.penale <= 1;
 		     while (!APB.pready)
 		      @(posedge APB.clk);
+		     APB.penale <= 0;
+		     APB.psel <= 1'b0;
 		     if(APB.write == 0)
 		        begin
 		        	req.pdata = APB.prdata;
 		        end
-		    
-		
-		     seq_item_port.item_done();
+		    seq_item_port.item_done();
 		   end
 
 		endtask
@@ -180,7 +180,7 @@ package apb_agent_pkg;
 		function void write(T t);
 			  item = t;
 			  apb_cov.sample();
-		endfunction:write
+		endfunction
 
 
 	endclass
@@ -192,7 +192,7 @@ package apb_agent_pkg;
 
 		virtual apb_if APB;
 
-		uvm_analysis_port #(apb_sequence_item) apb_analysis;
+		uvm_analysis_port #(apb_sequence_item) ap; // producer 
 
 
 		function new(string name = "apb_monitor", uvm_component parent = null);
@@ -200,7 +200,7 @@ package apb_agent_pkg;
 		endfunction
 
 		function void build_phase(uvm_phase phase);
-		  apb_analysis = new("apb_analysis", this);
+		  ap = new("ap", this);
 		endfunction
 
 		task run_phase(uvm_phase phase);
@@ -225,7 +225,7 @@ package apb_agent_pkg;
 		          end
 		        // Clone and publish the cloned item to the subscribers
 		        $cast(cloned_item, item.clone());
-		        apb_analysis.write(cloned_item);
+		        ap.write(cloned_item);
 		      end
 		  end
 		endtask
@@ -242,7 +242,8 @@ package apb_agent_pkg;
 
 		apb_agent_cfg m_cfg;
 
-		uvm_analysis_port #(apb_sequence_item) apb_analysis;
+		uvm_analysis_port #(apb_sequence_item) ap;
+
 		apb_monitor   m_monitor;
 		apb_sequencer m_sequencer;
 		apb_driver    m_driver;
@@ -265,22 +266,22 @@ package apb_agent_pkg;
 		  if(m_cfg.has_functional_coverage) begin
 		    m_fcov_monitor = apb_coverage_monitor::type_id::create("m_fcov_monitor", this);
 		  end
-		  apb_analysis = new("apb_analysis", this);
-		endfunction: build_phase
+		  ap = new("ap", this);
+		endfunction
 
 		function void connect_phase(uvm_phase phase);
 		  m_monitor.APB = m_cfg.APB;
-		  m_monitor.apb_analysis.connect(apb_analysis);
+		  m_monitor.ap.connect(ap);
 		  // Only connect the driver and the sequencer if active
 		  if(m_cfg.active == UVM_ACTIVE) begin
 		    m_driver.seq_item_port.connect(m_sequencer.seq_item_export);
 		    m_driver.APB = m_cfg.APB;
 		  end
 		  if(m_cfg.has_functional_coverage) begin
-		    m_monitor.apb_analysis.connect(m_fcov_monitor.analysis_export);
+		    m_monitor.ap.connect(m_fcov_monitor.analysis_export);
 		  end
 
-		endfunction: connect_phase
+		endfunction
 
 
 
@@ -319,9 +320,6 @@ package apb_agent_pkg;
 
 		rand logic [11:0] paddr;
 		logic [31:0] pdata;
-
-		
-
 
 
 		function new(string name = "apb_read_seq");
@@ -380,15 +378,15 @@ package apb_agent_pkg;
 	      super.new(name);
 	   endfunction
 
-		 	function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
+		function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
 		    apb_sequence_item apb = apb_sequence_item::type_id::create("apb");
 		    apb.pwrite = (rw.kind == UVM_READ) ? 0 : 1;
 		    apb.paddr = rw.addr;
 		    apb.pdata = rw.data;
 		    return apb;
-		  endfunction
+		 endfunction
 
-	  	function void bus2reg(uvm_sequence_item bus_item,
+	  function void bus2reg(uvm_sequence_item bus_item,
 	                                ref uvm_reg_bus_op rw);
 	    apb_sequence_item apb;
 	    if (!$cast(apb, bus_item)) begin
@@ -402,8 +400,6 @@ package apb_agent_pkg;
 	  endfunction
 
 	endclass
-
-
 
 
 

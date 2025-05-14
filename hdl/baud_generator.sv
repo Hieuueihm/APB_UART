@@ -1,4 +1,4 @@
-import common_def::*;
+import common_pkg::*;
 
 module baud_generator #(
     parameter SYSTEM_FREQUENCY = 100000000, 

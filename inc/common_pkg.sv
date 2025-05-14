@@ -1,4 +1,4 @@
-package common_def;
+package common_pkg;
   typedef enum logic [11:0] {
     ADDR_TDR = 12'h000,
     ADDR_RDR = 12'h004,

@@ -6,6 +6,21 @@ import uvm_pkg::*;
 `include "uvm_macros.svh"
 import common_def::*;
 
+class uart_agent_cfg extends uvm_object;
+
+	`uvm_object_utils(uart_agent_cfg)
+
+	bit ACTIVE = 1;
+	logic[7:0] lcr = 8'h23;
+
+	virtual serial_if sline;
+
+	function new(string name = "uart_agent_cfg");
+	  super.new(name);
+	endfunction
+
+	endclass
+
 
 class uart_sequence_item extends uvm_sequence_item;
 
@@ -16,11 +31,9 @@ rand bit[7:0] data;
 rand bit fe;
 rand bit[7:0] lcr;
 rand bit pe;
-rand bit[2:0] baud_rate;
 rand delay_e delay_kind;
 
 
-constraint BAUDRATE_C {baud_rate == 3'b110;}
 
 constraint error_dists {fe dist {1:= 1, 0:=99};
                         pe dist {1:= 1, 0:=99};
@@ -52,7 +65,6 @@ constraint error_dists {fe dist {1:= 1, 0:=99};
 		  fe = rhs_.fe;
 		  lcr = rhs_.lcr;
 		  pe = rhs_.pe;
-		  baud_rate = rhs_.baud_rate;
 
 	endfunction
 
@@ -65,9 +77,7 @@ constraint error_dists {fe dist {1:= 1, 0:=99};
 	         data == rhs_.data &&
 	         fe == rhs_.fe &&
 	         lcr == rhs_.lcr &&
-	         pe == rhs_.pe &&
-	         baud_rate == rhs_.baud_rate;
-
+	         pe == rhs_.pe;
 	endfunction
 
 	function string convert2string();
@@ -76,7 +86,7 @@ constraint error_dists {fe dist {1:= 1, 0:=99};
 	  $sformat(s, "%s\n", super.convert2string());
 	  // Convert to string function reusing s:
 	  $sformat(s, "%s\n delay\t%0d\n  data\t%0h\n", s, delay, data);
-	  $sformat(s, "%s\n fe\t%0b\n lcr\t%0h\n pe\t%0b\n baud_rate\t%0h\n", s, fe, lcr, pe, baud_rate);
+	  $sformat(s, "%s\n fe\t%0b\n lcr\t%0h\n pe\t%0b\n", s, fe, lcr, pe);
 	  return s;
 
 	endfunction
@@ -100,7 +110,6 @@ constraint error_dists {fe dist {1:= 1, 0:=99};
 	  `uvm_record_field("fe", fe)
 	  `uvm_record_field("lcr", lcr)
 	  `uvm_record_field("pe", pe)
-	  `uvm_record_field("baud_rate", baud_rate)
 
 	endfunction
 
@@ -108,21 +117,7 @@ endclass
 
 
 
-	class uart_agent_cfg extends uvm_object;
-
-	`uvm_object_utils(uart_agent_cfg)
-
-	bit ACTIVE = 1;
-	logic[7:0] lcr = 8'h23;
-	logic[2:0] baud_divisor = 3'b110;
-
-	virtual serial_if sline;
-
-	function new(string name = "uart_agent_cfg");
-	  super.new(name);
-	endfunction
-
-	endclass
+	
 function bit calParity (input logic [7:0] lcr, input logic[7:0] data);
   bit retParity;
     case (lcr[1:0])
@@ -141,13 +136,12 @@ class uart_monitor extends uvm_component;
 
 	`uvm_component_utils(uart_monitor)
 
-	uvm_analysis_port #(uart_sequence_item) uart_analysis;
+	uvm_analysis_port #(uart_sequence_item) ap;
 
 	virtual serial_if sline;
 
 	uart_agent_cfg cfg;
 
-	logic[2:0] baud_rate;
 
 	uart_sequence_item s_char;
 
@@ -164,10 +158,9 @@ class uart_monitor extends uvm_component;
 	endfunction
 
 	function void build_phase(uvm_phase phase);
-	  uart_analysis = new("uart_analysis", this);
+	  ap = new("ap", this);
 	  if (!uvm_config_db #(uart_agent_cfg)::get(this, "", "uart_agent_cfg", cfg) )
 	     `uvm_fatal("CONFIG_LOAD", "Cannot get() configuration uart_agent_config from uvm_config_db. Have you set() it?")
-	  baud_rate = s_char.baud_rate;
 	  s_char = new("Serial_character");
 	endfunction
 
@@ -185,12 +178,12 @@ class uart_monitor extends uvm_component;
 	            s_char.data = rxData;
 	            s_char.pe = pe;
 	            s_char.fe = fe;
-	            uart_analysis.write(s_char);
+	            ap.write(s_char);
 	            rxData = 0;
 	          end
 	       end
 	  end
-	endtask : run_phase
+	endtask 
 
 
 
@@ -304,7 +297,6 @@ virtual serial_if sline;
 uart_sequence_item pkt;
 
 bit tick_rx;
-logic[2:0] baud_rate;
 
 task send_pkts;
 // Receives a character according to the appropriate word format
@@ -314,7 +306,6 @@ task send_pkts;
     forever
       begin
         seq_item_port.get_next_item(pkt);
-        baud_rate = pkt.baud_rate;
         // Variable delay
         repeat(pkt.delay)
           @(posedge sline.tick_rx);
@@ -374,7 +365,7 @@ endtask
 
 task run_phase(uvm_phase phase);
     send_pkts;
-endtask: run_phase
+endtask
 
 
 endclass
@@ -386,7 +377,7 @@ class uart_agent extends uvm_agent;
 
 `uvm_component_utils(uart_agent)
 
-uvm_analysis_port #(uart_sequence_item) uart_analysis;
+uvm_analysis_port #(uart_sequence_item) ap;
 
 uart_driver m_uart_driver;
 uart_sequencer m_uart_sequencer;
@@ -400,7 +391,7 @@ function new(string name = "uart_agent", uvm_component parent = null);
 endfunction
 
 function void build_phase(uvm_phase phase);
-  uart_analysis = new("APB Monitor", this);
+  ap = new("ap", this);
   m_uart_monitor = uart_monitor::type_id::create("m_uart_monitor", this);
   if (!uvm_config_db #(uart_agent_cfg)::get(this, "", "uart_agent_cfg", cfg) )
      `uvm_fatal("CONFIG_LOAD", "Cannot get() configuration uart_agent_cfg from uvm_config_db. Have you set() it?")
@@ -418,7 +409,7 @@ function void connect_phase(uvm_phase phase);
       m_uart_driver.seq_item_port.connect(m_uart_sequencer.seq_item_export);
       m_uart_driver.sline = cfg.sline;
     end
-  m_uart_monitor.uart_analysis.connect(uart_analysis);
+  m_uart_monitor.ap.connect(ap);
 endfunction
 
 endclass
