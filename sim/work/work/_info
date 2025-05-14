@@ -27,6 +27,8 @@ R0
 R0
 R0
 R0
+R0
+R0
 !s11f vlog 2021.2_1 2021.05, May 15 2021
 13
 !s112 1.1
@@ -69,16 +71,15 @@ n@_opt2
 R6
 R1
 T_opt3
-!s110 1747107186
-V6@BZ:PDaiE?Gj:O15NghY1
+Z7 !s110 1747216294
+VE]?]=hha<EXU@c13G`UGe3
 R2
-=1-000ae431a4f1-6822bd72-5a108-51d1
+=1-000ae431a4f1-682467a5-b67e0-2472
 R3
 R4
 R5
 n@_opt3
 R6
-R1
 T_opt4
 !s110 1747107210
 V`;nKB6;DdIkgNEzGzYKL;2
@@ -136,10 +137,10 @@ R6
 R1
 Xapb_agent_pkg
 !s115 apb_if
-Z7 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
-Z8 DXx6 mtiUvm 7 uvm_pkg 0 22 8V[`8]Q0W57le7Z>zYaAj1
-Z9 DXx4 work 10 common_pkg 0 22 >B@00m3FRY^9;S]CDc_`>0
-Z10 !s110 1747214833
+Z8 DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+Z9 DXx6 mtiUvm 7 uvm_pkg 0 22 8V[`8]Q0W57le7Z>zYaAj1
+Z10 DXx4 work 10 common_pkg 0 22 >B@00m3FRY^9;S]CDc_`>0
+R7
 !i10b 1
 !s100 3zN5o@B9IedR6OSLT7U252
 Ibi0V0IMT=bPVOIVKiYnWl0
@@ -160,14 +161,14 @@ Z19 F/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/
 Z20 F/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh
 Z21 F/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh
 Z22 F/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh
-!i122 331
+!i122 351
 Z23 L0 1 0
 Vbi0V0IMT=bPVOIVKiYnWl0
 Z24 OL;L;2021.2_1;73
 r1
 !s85 0
 31
-Z25 !s108 1747214832.000000
+Z25 !s108 1747216293.000000
 Z26 !s107 /home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh|../src/uart_env_pkg.sv|../src/uart_agent_pkg.sv|../src/apb_assertion.sv|../src/apb_agent_pkg.sv|../src/uart_reg_pkg.sv|
 Z27 !s90 -sv|+incdir+../src|../src/uart_reg_pkg.sv|../src/apb_agent_pkg.sv|../src/apb_assertion.sv|../src/uart_agent_pkg.sv|../src/uart_env_pkg.sv|
 !i113 0
@@ -176,9 +177,9 @@ Z29 !s92 -sv +incdir+../src -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L
 R5
 Yapb_assertion
 Z30 !s105 apb_uart_tb_sv_unit
-Z31 DXx4 work 19 apb_uart_tb_sv_unit 0 22 T_:MRfV@3?VbY?b2K]4z90
+Z31 DXx4 work 19 apb_uart_tb_sv_unit 0 22 @66PUPkPh7C?H0W]D4Z3V0
+R8
 R7
-R10
 !i10b 1
 !s100 7_W4YZ2mQd]1^OTBC4mEk0
 IUd4A1URJfQE?4ObZZ::;01
@@ -187,31 +188,31 @@ R1
 w1747044306
 8../src/apb_assertion.sv
 Z32 F../src/apb_assertion.sv
-!i122 332
+!i122 352
 R23
 Z33 VDg1SIo80bB@j0V0VzS_@n1
 R24
 r1
 !s85 0
 31
-Z34 !s108 1747214833.000000
-!s107 ../src/apb_assertion.sv|../src/apb_uart_tb.sv|
-Z35 !s90 -sv|+acc|+vpi|-timescale=1ns/1ps|../src/apb_uart_tb.sv|
+Z34 !s108 1747216294.000000
+Z35 !s107 ../src/apb_assertion.sv|../src/apb_uart_tb.sv|
+Z36 !s90 -sv|+acc|+vpi|-timescale=1ns/1ps|../src/apb_uart_tb.sv|
 !i113 0
-Z36 o-sv +acc +vpi -timescale=1ns/1ps -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+Z37 o-sv +acc +vpi -timescale=1ns/1ps -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
 R5
 vapb_controller
-R7
-Z37 !s110 1747214832
+R8
+Z38 !s110 1747216293
 !i10b 1
 !s100 gcVP@ITL9A^WmL:cE`G1d0
 I858>M1RO1o2hcjPH]FAVZ3
 S1
 R1
-Z38 w1746889353
+Z39 w1746889353
 8../../hdl/apb/apb_controller.sv
 F../../hdl/apb/apb_controller.sv
-!i122 330
+!i122 350
 L0 1 88
 R33
 R24
@@ -219,14 +220,14 @@ r1
 !s85 0
 31
 R25
-Z39 !s107 ../../hdl/apb_uart.sv|../../hdl/uart_tx_top.sv|../../hdl/synchronizer.sv|../../hdl/apb/register_file.sv|../../hdl/apb/apb_slave.sv|../../hdl/apb/apb_controller.sv|../../hdl/fifo/transmitter_fifo.sv|../../hdl/fifo/receiver_fifo.sv|../../hdl/receiver/receiver_controller.sv|../../hdl/receiver/uart_receiver.sv|../../hdl/receiver/shift_register.sv|../../hdl/baud_generator.sv|../../hdl/uart_rx_top.sv|../../hdl/transmitter/parity.sv|../../hdl/transmitter/uart_transmitter.sv|../../hdl/transmitter/transmitter_controller.sv|../../hdl/transmitter/ff.sv|../../hdl/transmitter/piso.sv|
-Z40 !s90 -sv|../../hdl/transmitter/piso.sv|../../hdl/transmitter/ff.sv|../../hdl/transmitter/transmitter_controller.sv|../../hdl/transmitter/uart_transmitter.sv|../../hdl/transmitter/parity.sv|../../hdl/uart_rx_top.sv|../../hdl/baud_generator.sv|../../hdl/receiver/shift_register.sv|../../hdl/receiver/uart_receiver.sv|../../hdl/receiver/receiver_controller.sv|../../hdl/fifo/receiver_fifo.sv|../../hdl/fifo/transmitter_fifo.sv|../../hdl/apb/apb_controller.sv|../../hdl/apb/apb_slave.sv|../../hdl/apb/register_file.sv|../../hdl/synchronizer.sv|../../hdl/uart_tx_top.sv|../../hdl/apb_uart.sv|
+Z40 !s107 ../../hdl/apb_uart.sv|../../hdl/uart_tx_top.sv|../../hdl/synchronizer.sv|../../hdl/apb/register_file.sv|../../hdl/apb/apb_slave.sv|../../hdl/apb/apb_controller.sv|../../hdl/fifo/transmitter_fifo.sv|../../hdl/fifo/receiver_fifo.sv|../../hdl/receiver/receiver_controller.sv|../../hdl/receiver/uart_receiver.sv|../../hdl/receiver/shift_register.sv|../../hdl/baud_generator.sv|../../hdl/uart_rx_top.sv|../../hdl/transmitter/parity.sv|../../hdl/transmitter/uart_transmitter.sv|../../hdl/transmitter/transmitter_controller.sv|../../hdl/transmitter/ff.sv|../../hdl/transmitter/piso.sv|
+Z41 !s90 -sv|../../hdl/transmitter/piso.sv|../../hdl/transmitter/ff.sv|../../hdl/transmitter/transmitter_controller.sv|../../hdl/transmitter/uart_transmitter.sv|../../hdl/transmitter/parity.sv|../../hdl/uart_rx_top.sv|../../hdl/baud_generator.sv|../../hdl/receiver/shift_register.sv|../../hdl/receiver/uart_receiver.sv|../../hdl/receiver/receiver_controller.sv|../../hdl/fifo/receiver_fifo.sv|../../hdl/fifo/transmitter_fifo.sv|../../hdl/apb/apb_controller.sv|../../hdl/apb/apb_slave.sv|../../hdl/apb/register_file.sv|../../hdl/synchronizer.sv|../../hdl/uart_tx_top.sv|../../hdl/apb_uart.sv|
 !i113 0
 R28
 R5
 Yapb_if
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 QP3K7YQh4`hBjEQ96_6Xe2
 I4FkIiiE^fVoPDZ87374dY2
@@ -235,22 +236,22 @@ R1
 w1746951199
 8../../inc/apb_if.sv
 F../../inc/apb_if.sv
-!i122 329
-Z41 L0 2 0
+!i122 349
+Z42 L0 2 0
 R33
 R24
 r1
 !s85 0
 31
 R25
-Z42 !s107 ../../inc/interrupt_if.sv|../../inc/apb_if.sv|../../inc/common_pkg.sv|../../inc/serial_if.sv|
-Z43 !s90 -sv|../../inc/serial_if.sv|../../inc/common_pkg.sv|../../inc/apb_if.sv|../../inc/interrupt_if.sv|
+Z43 !s107 ../../inc/interrupt_if.sv|../../inc/apb_if.sv|../../inc/common_pkg.sv|../../inc/serial_if.sv|
+Z44 !s90 -sv|../../inc/serial_if.sv|../../inc/common_pkg.sv|../../inc/apb_if.sv|../../inc/interrupt_if.sv|
 !i113 0
 R28
 R5
 vapb_slave
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 KS1hGhFg>CF7z569Om@EZ2
 IKfRQ0kacmFXdDzcco@ajg2
@@ -259,7 +260,7 @@ R1
 w1747106170
 8../../hdl/apb/apb_slave.sv
 F../../hdl/apb/apb_slave.sv
-!i122 330
+!i122 350
 L0 1 62
 R33
 R24
@@ -267,123 +268,123 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 vapb_uart
-R7
-Z44 DXx4 work 10 common_def 0 22 I7]eGT=K_B>?DS<ciTO2Q2
-DXx4 work 16 apb_uart_sv_unit 0 22 CFl6H?M>i=VgD7HPnZ>^`3
-R37
+R8
+Z45 DXx4 work 10 common_def 0 22 I7]eGT=K_B>?DS<ciTO2Q2
+DXx4 work 16 apb_uart_sv_unit 0 22 o5Kf@e>78<m;W8[nckH]K3
+R38
 R33
 r1
 !s85 0
 !i10b 1
-!s100 Z4>Skj6FXM?VnAI6@4Bzl1
-I;`oVklN@ki9=1LLGG8Fz73
+!s100 9EFBR5N`GA48?<Q381:j`3
+IQZF6g<GXV`[09HiKo9Cj>0
 !s105 apb_uart_sv_unit
 S1
 R1
-Z45 w1747100250
-Z46 8../../hdl/apb_uart.sv
-Z47 F../../hdl/apb_uart.sv
-!i122 330
-L0 3 282
+Z46 w1747215749
+Z47 8../../hdl/apb_uart.sv
+Z48 F../../hdl/apb_uart.sv
+!i122 350
+L0 3 284
 R24
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 Xapb_uart_sv_unit
-R7
-R44
-R37
-VCFl6H?M>i=VgD7HPnZ>^`3
+R8
+R45
+R38
+Vo5Kf@e>78<m;W8[nckH]K3
 r1
 !s85 0
 !i10b 1
-!s100 bVl5ONPj<:6G1Um=^KE311
-ICFl6H?M>i=VgD7HPnZ>^`3
+!s100 0ce51CgSeELRSF9SXD>o60
+Io5Kf@e>78<m;W8[nckH]K3
 !i103 1
 S1
 R1
-R45
 R46
 R47
-!i122 330
-R41
+R48
+!i122 350
+R42
 R24
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 vapb_uart_tb
-R7
-R44
+R8
+R45
 R31
-R10
+R7
 R33
 r1
 !s85 0
 !i10b 1
-!s100 XZ0L`?Cg^i9T[mi_OKRJB3
-I8=Pzg1dd[BAC_kG?HNSBc0
+!s100 _ooNe;[9X>kgCn9TD`:V61
+I<ZVg7_?h9cgLMkhQ1j0zZ3
 R30
 S1
 R1
-Z48 w1747044376
-Z49 8../src/apb_uart_tb.sv
-Z50 F../src/apb_uart_tb.sv
-!i122 332
-L0 5 162
+Z49 w1747216285
+Z50 8../src/apb_uart_tb.sv
+Z51 F../src/apb_uart_tb.sv
+!i122 352
+L0 7 160
 R24
 31
 R34
-Z51 !s107 ../src/apb_assertion.sv|../src/apb_uart_tb.sv|
 R35
-!i113 0
 R36
+!i113 0
+R37
 R5
 Xapb_uart_tb_sv_unit
+R8
+R45
 R7
-R44
-R10
-VT_:MRfV@3?VbY?b2K]4z90
+V@66PUPkPh7C?H0W]D4Z3V0
 r1
 !s85 0
 !i10b 1
-!s100 P1cbckGTV8B1kINJeAV`D1
-IT_:MRfV@3?VbY?b2K]4z90
+!s100 c0J8W<4Xho_^^aPGD:HSm2
+I@66PUPkPh7C?H0W]D4Z3V0
 !i103 1
 S1
 R1
-R48
 R49
 R50
+R51
 R32
-!i122 332
-R41
+!i122 352
+L0 5 0
 R24
 31
 R34
-R51
 R35
-!i113 0
 R36
+!i113 0
+R37
 R5
 vbaud_generator
-R7
-R9
+R8
+R10
 DXx4 work 22 baud_generator_sv_unit 0 22 OG=LT5PUh;`@Q0_M1CXZl0
-R37
+R38
 R33
 r1
 !s85 0
@@ -396,20 +397,20 @@ R1
 Z52 w1747148268
 Z53 8../../hdl/baud_generator.sv
 Z54 F../../hdl/baud_generator.sv
-!i122 330
+!i122 350
 L0 3 54
 R24
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 Xbaud_generator_sv_unit
-R7
-R9
-R37
+R8
+R10
+R38
 VOG=LT5PUh;`@Q0_M1CXZl0
 r1
 !s85 0
@@ -422,18 +423,18 @@ R1
 R52
 R53
 R54
-!i122 330
+!i122 350
 R23
 R24
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 vbaud_generator_tb
-R7
+R8
 Z55 !s110 1746978384
 !i10b 1
 !s100 RA@_RX5G1RzUZgI_TYLoV2
@@ -454,10 +455,10 @@ Z56 !s108 1746978383.000000
 Z57 !s107 /home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_deprecated_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_reg_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_callback_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_sequence_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/tlm1/uvm_tlm_imps.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_tlm_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_printer_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_object_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_phase_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_message_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/macros/uvm_version_defines.svh|/home/hieu/questasim/questasim/uvm-1.1d/../verilog_src/uvm-1.1d/src/uvm_macros.svh|../src/apb_agent_pkg.sv|../src/apb_assertion.sv|../src/uart_reg_pkg.sv|../src/apb_uart_tb.sv|../src/receiver_fifo_tb.sv|../src/baud_generator_tb.sv|../src/uart_agent_pkg.sv|
 Z58 !s90 -sv|+acc|+vpi|-timescale=1ns/1ps|../src/uart_agent_pkg.sv|../src/baud_generator_tb.sv|../src/receiver_fifo_tb.sv|../src/apb_uart_tb.sv|../src/uart_reg_pkg.sv|../src/apb_assertion.sv|../src/apb_agent_pkg.sv|
 !i113 0
-R36
+R37
 R5
 Xcommon_def
-R7
+R8
 !s110 1747147801
 !i10b 1
 !s100 ^m4m__RAU7zTAIn>[GM3j2
@@ -481,8 +482,8 @@ r1
 R28
 R5
 Xcommon_pkg
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 `lD3ZDBk8V00cl:3c7KRa2
 I>B@00m3FRY^9;S]CDc_`>0
@@ -491,7 +492,7 @@ R1
 w1747148253
 8../../inc/common_pkg.sv
 F../../inc/common_pkg.sv
-!i122 329
+!i122 349
 R23
 V>B@00m3FRY^9;S]CDc_`>0
 R24
@@ -499,23 +500,23 @@ r1
 !s85 0
 31
 R25
-R42
 R43
+R44
 !i113 0
 R28
 R5
 vff
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 U94e4QR=ZQNna?h90bBfF1
 IH92`7;6QX0<@<<L;U4cbI3
 S1
 R1
-R38
+R39
 8../../hdl/transmitter/ff.sv
 F../../hdl/transmitter/ff.sv
-!i122 330
+!i122 350
 L0 1 16
 R33
 R24
@@ -523,14 +524,14 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 Yinterrupt_if
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 kA@Gij`8;gYQ^g3h6RhSl0
 IbU]CAM4;o^B1<:db>aGh90
@@ -539,7 +540,7 @@ R1
 w1747100441
 8../../inc/interrupt_if.sv
 F../../inc/interrupt_if.sv
-!i122 329
+!i122 349
 R23
 R33
 R24
@@ -547,23 +548,23 @@ r1
 !s85 0
 31
 R25
-R42
 R43
+R44
 !i113 0
 R28
 R5
 vparity
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 AmChO0;[7BjDRECX[K4G`2
 I>5DnOhAUKdGY<H]ko517L1
 S1
 R1
-R38
+R39
 8../../hdl/transmitter/parity.sv
 F../../hdl/transmitter/parity.sv
-!i122 330
+!i122 350
 L0 1 15
 R33
 R24
@@ -571,23 +572,23 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 vpiso
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 LiRN`E^2IlJFRE_^;9NXd2
 Ig;aGiMoL;_LB@P5kaHnnQ1
 S1
 R1
-R38
+R39
 8../../hdl/transmitter/piso.sv
 F../../hdl/transmitter/piso.sv
-!i122 330
+!i122 350
 L0 1 35
 R33
 R24
@@ -595,23 +596,23 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 vreceiver_controller
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 dXd^O8GNlMcm228_[Xl1:0
 IFnckJiQ40ElGk2fJzkNT[3
 S1
 R1
-R38
+R39
 8../../hdl/receiver/receiver_controller.sv
 F../../hdl/receiver/receiver_controller.sv
-!i122 330
+!i122 350
 L0 1 71
 R33
 R24
@@ -619,23 +620,23 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 vreceiver_fifo
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 0jl2n_CYMJ_KnF5A=ofH90
 IhTIg@`0^F4RX??0OTQDm51
 S1
 R1
-R38
+R39
 8../../hdl/fifo/receiver_fifo.sv
 F../../hdl/fifo/receiver_fifo.sv
-!i122 330
+!i122 350
 L0 1 49
 R33
 R24
@@ -643,20 +644,20 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 vreceiver_fifo_tb
-R7
+R8
 R55
 !i10b 1
 !s100 QiaZlKGYjmjeTB_3agh[H3
 IzkdA4^Q<FGH1g`6ajP>[L0
 S1
 R1
-R38
+R39
 8../src/receiver_fifo_tb.sv
 F../src/receiver_fifo_tb.sv
 !i122 94
@@ -670,14 +671,14 @@ R56
 R57
 R58
 !i113 0
-R36
+R37
 R5
 vregister_file
-R7
-R7
-R9
+R8
+R8
+R10
 DXx4 work 21 register_file_sv_unit 0 22 o;iPkUKibmZmcF1]^HE7d1
-R37
+R38
 R33
 r1
 !s85 0
@@ -690,21 +691,21 @@ R1
 Z59 w1747148261
 Z60 8../../hdl/apb/register_file.sv
 Z61 F../../hdl/apb/register_file.sv
-!i122 330
+!i122 350
 L0 3 113
 R24
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 Xregister_file_sv_unit
-R7
-R7
-R9
-R37
+R8
+R8
+R10
+R38
 Vo;iPkUKibmZmcF1]^HE7d1
 r1
 !s85 0
@@ -717,19 +718,19 @@ R1
 R59
 R60
 R61
-!i122 330
+!i122 350
 R23
 R24
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 Yserial_if
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 Lil0?kW6[JT@0R4o^fdDa1
 IkcFBF=i:<T=]dEc4LGFzW1
@@ -738,31 +739,31 @@ R1
 w1747100183
 8../../inc/serial_if.sv
 F../../inc/serial_if.sv
-!i122 329
-R41
+!i122 349
+R42
 R33
 R24
 r1
 !s85 0
 31
 R25
-R42
 R43
+R44
 !i113 0
 R28
 R5
 vshift_register
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 z<a^X0>Ic1ba@ffa1To180
 I?PfEHcN<hz2M<o4nZK57C3
 S1
 R1
-R38
+R39
 8../../hdl/receiver/shift_register.sv
 F../../hdl/receiver/shift_register.sv
-!i122 330
+!i122 350
 L0 1 20
 R33
 R24
@@ -770,23 +771,23 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 vsynchronizer
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 f]:MX<ziN>;zU0L>2mBUL2
 I2YdLe>K0SfWiDG6ljXoSR3
 S1
 R1
-R38
+R39
 8../../hdl/synchronizer.sv
 F../../hdl/synchronizer.sv
-!i122 330
+!i122 350
 L0 1 21
 R33
 R24
@@ -794,23 +795,23 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 vtransmitter_controller
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 Hf<UGPDIgb<_Cc;I;?fa^3
 IzQd^GGG[nmkALfnoczHLM0
 S1
 R1
-R38
+R39
 8../../hdl/transmitter/transmitter_controller.sv
 F../../hdl/transmitter/transmitter_controller.sv
-!i122 330
+!i122 350
 L0 3 91
 R33
 R24
@@ -818,23 +819,23 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 vtransmitter_fifo
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 il2c6K:UJ@IG2lLRbj=U02
 I0fISK8da]Zm>:[;JZbI^j0
 S1
 R1
-R38
+R39
 8../../hdl/fifo/transmitter_fifo.sv
 F../../hdl/fifo/transmitter_fifo.sv
-!i122 330
+!i122 350
 L0 1 41
 R33
 R24
@@ -842,17 +843,17 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 Xuart_agent_pkg
 !s115 serial_if
-R7
 R8
-R44
-R10
+R9
+R45
+R7
 !i10b 1
 !s100 TC`Joi84>=VS;Plm1YjX@1
 IboalYhEBRU4AE5DNFa_>62
@@ -873,7 +874,7 @@ R19
 R20
 R21
 R22
-!i122 331
+!i122 351
 L0 3 0
 VboalYhEBRU4AE5DNFa_>62
 R24
@@ -889,20 +890,20 @@ R29
 R5
 Xuart_env_pkg
 !s115 interrupt_if
-R7
 R8
-R44
 R9
+R45
+R10
 DXx4 work 13 apb_agent_pkg 0 22 bi0V0IMT=bPVOIVKiYnWl0
 DXx4 work 14 uart_agent_pkg 0 22 boalYhEBRU4AE5DNFa_>62
 DXx4 work 12 uart_reg_pkg 0 22 R^9@E3hQbb@ef;H2MGWzY0
-R10
+R7
 !i10b 1
 !s100 S;]gJ1]QU^`]Z`NJBKAG93
 I5aH3Ql2c[zS`@X1T:eJ2i3
 S1
 R1
-w1747214830
+w1747215504
 8../src/uart_env_pkg.sv
 F../src/uart_env_pkg.sv
 R11
@@ -917,8 +918,8 @@ R19
 R20
 R21
 R22
-!i122 331
-R41
+!i122 351
+R42
 V5aH3Ql2c[zS`@X1T:eJ2i3
 R24
 r1
@@ -932,8 +933,8 @@ R28
 R29
 R5
 vuart_receiver
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 [kK=cTfD8lJU36;5II=o@3
 IdDzCoLCG`SMcGcQOKnm8P1
@@ -942,7 +943,7 @@ R1
 w1746894128
 8../../hdl/receiver/uart_receiver.sv
 F../../hdl/receiver/uart_receiver.sv
-!i122 330
+!i122 350
 L0 1 150
 R33
 R24
@@ -950,16 +951,16 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 Xuart_reg_pkg
-R7
 R8
-R44
-R10
+R9
+R45
+R7
 !i10b 1
 !s100 0]EP26SdiJf7]aZgU1=:_2
 IR^9@E3hQbb@ef;H2MGWzY0
@@ -980,7 +981,7 @@ R19
 R20
 R21
 R22
-!i122 331
+!i122 351
 R23
 VR^9@E3hQbb@ef;H2MGWzY0
 R24
@@ -995,8 +996,8 @@ R28
 R29
 R5
 vuart_rx_top
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 1Z?=Al?`<zIaRHNB=g3gV3
 I6MeQ6AA<N?6J=L7;^C54z2
@@ -1005,7 +1006,7 @@ R1
 w1746955752
 8../../hdl/uart_rx_top.sv
 F../../hdl/uart_rx_top.sv
-!i122 330
+!i122 350
 L0 1 110
 R33
 R24
@@ -1013,23 +1014,23 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 vuart_transmitter
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 zgTJBhaV9^R6zoBCD1Ch22
 I[KXKIEOO2eoC3O2XZo3`;3
 S1
 R1
-R38
+R39
 8../../hdl/transmitter/uart_transmitter.sv
 F../../hdl/transmitter/uart_transmitter.sv
-!i122 330
+!i122 350
 L0 1 119
 R33
 R24
@@ -1037,23 +1038,23 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5
 vuart_tx_top
-R7
-R37
+R8
+R38
 !i10b 1
 !s100 5z4b<^WM:>3UW0U`3XfS]2
 Im:[_AL_>j?7GT>h;NVJaj2
 S1
 R1
-R38
+R39
 8../../hdl/uart_tx_top.sv
 F../../hdl/uart_tx_top.sv
-!i122 330
+!i122 350
 L0 1 115
 R33
 R24
@@ -1061,8 +1062,8 @@ r1
 !s85 0
 31
 R25
-R39
 R40
+R41
 !i113 0
 R28
 R5

@@ -1,10 +1,11 @@
 # vsim -voptargs="+acc" -c -do "run -all; quit" apb_uart_tb 
-# Start time: 16:27:02 on May 14,2025
+# Start time: 16:51:33 on May 14,2025
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Warning: ../src/apb_uart_tb.sv(20): (vopt-2685) [TFMPC] - Too few port connections for 'inst_uart_apb_test'.  Expected 14, found 12.
-# ** Warning: ../src/apb_uart_tb.sv(20): (vopt-2718) [TFMPC] - Missing connection for port 'tick_rx'.
-# ** Warning: ../src/apb_uart_tb.sv(20): (vopt-2718) [TFMPC] - Missing connection for port 'baud_o'.
-# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=3.
+# ** Warning: ../src/apb_uart_tb.sv(41): (vopt-2685) [TFMPC] - Too few port connections for 'dut_tx'.  Expected 18, found 17.
+# ** Warning: ../src/apb_uart_tb.sv(41): (vopt-2718) [TFMPC] - Missing connection for port 'tick_rx'.
+# ** Warning: ../src/apb_uart_tb.sv(62): (vopt-2685) [TFMPC] - Too few port connections for 'dut_rx'.  Expected 18, found 17.
+# ** Warning: ../src/apb_uart_tb.sv(62): (vopt-2718) [TFMPC] - Missing connection for port 'tick_rx'.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=4.
 # //  Questa Sim-64
 # //  Version 2021.2_1 linux_x86_64 May 15 2021
 # //
@@ -45,5 +46,15 @@
 # Loading work.shift_register(fast)
 # Loading work.receiver_controller(fast)
 # Loading work.receiver_fifo(fast)
-# Loading work.apb_assertion(fast__1)
 # run -all
+# Cấu hình UART...
+# Gửi dữ liệu qua UART...
+# Đã nhận tại RX: 1
+# Đã nhận tại RX: 2
+# Đã nhận tại RX: 3
+# Đã nhận tại RX: 4
+# Đã nhận tại RX: 5
+# ** Note: $finish    : ../src/apb_uart_tb.sv(157)
+#    Time: 50001345 ns  Iteration: 0  Instance: /apb_uart_tb
+# End time: 16:51:47 on May 14,2025, Elapsed time: 0:00:14
+# Errors: 0, Warnings: 4

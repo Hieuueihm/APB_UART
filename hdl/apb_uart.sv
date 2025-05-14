@@ -19,10 +19,12 @@ module apb_uart #(
     // irq
     output irq,
     output logic baud_o,
-    output logic tick_rx // need for checking
+    output logic tick_rx, // need for checking
     // flow control
-    // input cts_n,
-    // output rts_n
+    input cts_n,
+    input rx,
+    output tx,
+    output rts_n
     
     
 
@@ -109,9 +111,9 @@ module apb_uart #(
             fifo_rx_pop <= fifo_rx_pop_ready;
         end
     end
-    logic tx;
+    // logic tx;
     assign tick_tx = baud_o;
-    logic rts_n; 
+    // logic rts_n; 
 
     // Baud generator instance
     baud_generator #(
@@ -139,7 +141,7 @@ module apb_uart #(
             .parity_en_i     (lcr[3]),
             .tick_i          (tick_tx),
             .stop_bit_num_i  (lcr[2]),
-            .cts_ni           (rts_n),
+            .cts_ni           (cts_n),
             .hf_en_i         (hcr[0]),
             .data_bit_num_i  (lcr[1:0]),
             .fifo_tx_reset_i(fcr[2]),
@@ -160,7 +162,7 @@ module apb_uart #(
             .tick_i               (tick_rx),
             .parity_type_i        (lcr[4]),
             .parity_en_i          (lcr[3]),
-            .tx_i                 (tx),
+            .tx_i                 (rx),
             .stop_bit_num_i       (lcr[2]),
             .data_bit_num_i       (lcr[1:0]),
             .fifo_en_i              (fcr[0]),
