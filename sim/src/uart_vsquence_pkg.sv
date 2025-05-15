@@ -2,16 +2,15 @@ package uart_vsequence_pkg;
 
 import uvm_pkg::*;
 `include "uvm_macros.svh"
-import common_def::*;
+import common_pkg::*;
 
 import apb_agent_pkg::*;
 import uart_agent_pkg::*;
-import modem_agent_pkg::*;
 import uart_reg_pkg::*;
 import uart_env_pkg::*;
 
-import host_if_seq_pkg::*;
-import uart_seq_pkg::*;
+import apb_sequence_pkg::*;
+import uart_sequence_pkg::*;
 
 
 class uart_vseq_base extends uvm_sequence #(uart_sequence_item);
@@ -67,7 +66,6 @@ task body;
   bit[4:0] fcr;
 
   lcr = 0;
-  baud_rate = 1;
 
   host_rx.no_rx_chars = 2;
   host_tx.no_tx_chars = 2;
@@ -76,8 +74,8 @@ task body;
   rx_serial.no_errors = 1;
 
   repeat(64) begin
-    assert(setup.randomize() with {setup.lcr == lcr;
-                                   setup.fcr == fcr;});
+    assert(setup.randomize() with {setup.LCR == lcr;
+                                   setup.FCR == fcr;});
     setup.start(apb);
     rx_serial.lcr = lcr;
     rx_uart_config.lcr = lcr;
@@ -117,7 +115,6 @@ task body;
   bit[4:0] fcr;
 
   lcr = 0;
-  divisor = 2;
 
   rx_serial.no_rx_chars = 2;
   rx_serial.no_errors = 1;

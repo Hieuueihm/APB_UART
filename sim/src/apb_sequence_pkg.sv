@@ -1,7 +1,7 @@
 package apb_sequence_pkg;
 	import uvm_pkg::*;
 `include "uvm_macros.svh"
-	import common_def::*;
+	import common_pkg::*;
 
 import apb_agent_pkg::*;
 import uart_reg_pkg::*;
@@ -9,7 +9,7 @@ import uart_env_pkg::*;
 
 
 	class common_sequence extends uvm_sequence #(apb_sequence_item);
-		`uvm_object_utils(apb_sequence);
+		`uvm_object_utils(common_sequence);
 		uart_env_cfg cfg;
 		uart_reg_block rm;
 
@@ -17,7 +17,7 @@ import uart_env_pkg::*;
 		uvm_status_e status;
 		rand uvm_reg_data_t data;
 
-	function new(string name = "apb_sequence");
+	function new(string name = "common_sequence");
 	  super.new(name);
 	endfunction
 
@@ -239,7 +239,7 @@ import uart_env_pkg::*;
 
 	endclass
 
-	class uart_wait_empty_seq extends host_if_base_seq;
+	class uart_wait_empty_seq extends common_sequence;
 
 		`uvm_object_utils(uart_wait_empty_seq)
 

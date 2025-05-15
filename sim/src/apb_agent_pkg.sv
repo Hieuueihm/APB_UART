@@ -117,7 +117,7 @@ package apb_agent_pkg;
 
 		  //reset task
 		  APB.psel <= 0;
-		  APB.penale <= 0;
+		  APB.penable <= 0;
 		  APB.paddr <= 0;
 		  // Wait for reset to clear
 		  @(negedge APB.preset_n);
@@ -125,7 +125,7 @@ package apb_agent_pkg;
 		  forever
 		   begin
 		    APB.psel <= 0;
-		    APB.penale <= 0;
+		    APB.penable <= 0;
 		    APB.paddr <= 0;
 		    seq_item_port.get_next_item(req);
 		    repeat(req.delay)
@@ -135,12 +135,12 @@ package apb_agent_pkg;
 		     APB.pwdata <= req.pdata;
 		     APB.pwrite <= req.pwrite;
 		     @(posedge APB.clk);
-		     APB.penale <= 1;
+		     APB.penable <= 1;
 		     while (!APB.pready)
 		      @(posedge APB.clk);
-		     APB.penale <= 0;
+		     APB.penable <= 0;
 		     APB.psel <= 1'b0;
-		     if(APB.write == 0)
+		     if(APB.pwrite == 0)
 		        begin
 		        	req.pdata = APB.prdata;
 		        end

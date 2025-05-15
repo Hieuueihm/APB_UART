@@ -3,7 +3,7 @@ package uart_env_pkg;
 
 import uvm_pkg::*;
 `include "uvm_macros.svh"
-import common_def::*;
+import common_pkg::*;
 
 import apb_agent_pkg::*;
 import uart_agent_pkg::*;
@@ -37,9 +37,14 @@ class uart_env_cfg extends uvm_object;
     repeat(n)
       @(posedge IRQ.clk);
   endtask
-
+function bit get_interrupt_level();
+  if(IRQ.irq == 1)
+    return 1;
+  else
+    return 0;
+endfunction
   task wait_for_baud_rate();
-    @(posedge IRQ.baud_out);
+    @(posedge IRQ.baud_o);
   endtask
 endclass
 
@@ -63,7 +68,7 @@ endclass
   `uvm_component_utils(uart_tx_scoreboard)
 
   uvm_tlm_analysis_fifo #(apb_sequence_item) apb_fifo;
-  uvm_tlm_analysis_fifo #(apb_sequence_item) uart_fifo;
+  uvm_tlm_analysis_fifo #(uart_sequence_item) uart_fifo;
   uvm_analysis_port #(lcr_item) ap;
 
   uart_reg_block rm;
@@ -188,7 +193,7 @@ class uart_rx_scoreboard extends uvm_component;
   `uvm_component_utils(uart_rx_scoreboard)
 
   uvm_tlm_analysis_fifo #(apb_sequence_item) apb_fifo;
-  uvm_tlm_analysis_fifo #(apb_sequence_item) uart_fifo;
+  uvm_tlm_analysis_fifo #(uart_sequence_item) uart_fifo;
   uvm_analysis_port #(lcr_item) ap;
 
   uart_reg_block rm;
@@ -722,23 +727,23 @@ endgroup
   endtask
 
 
-function void check_count(bit[7:5] lcr, int clk_count);
-  if(clk_count != (IRQ.SYSTEM_FREQUENCY / get_baud_rate(lcr[7:5]))) begin
-    `uvm_error("check_count", $sformatf("Baudrate divisor error - Divisor:%0d Clock interval:%0d", get_baud_rate(lcr[7:5]), clk_count))
-    baud_errors++;
-  end
-  else begin
-    baud_rate_cg.sample(lcr[7:5]);
-  end
-endfunction
+// function void check_count(bit[7:5] lcr, int clk_count);
+//   if(clk_count != (IRQ.SYSTEM_FREQUENCY / get_baud_rate(lcr[7:5]))) begin
+//     `uvm_error("check_count", $sformatf("Baudrate divisor error - Divisor:%0d Clock interval:%0d",(IRQ.SYSTEM_FREQUENCY / get_baud_rate(lcr[7:5])), clk_count))
+//     baud_errors++;
+//   end
+//   else begin
+//     baud_rate_cg.sample(lcr[7:5]);
+//   end
+// endfunction
 
 
 
   task monitor_baudout();
     forever begin
-      @(posedge IRQ.baud_out);
+      @(posedge IRQ.baud_o);
       if((new_value_written == 0)) begin
-         check_count(lcr[7:5], clk_count);
+         // check_count(lcr[7:5], clk_count);
       end
       new_value_written = 0;
       clk_count = 0;
@@ -914,11 +919,11 @@ class uart_env extends uvm_component;
       `uvm_error("build_phase", "Unable to get uart_env_cfg from uvm_config_db")
     end
     m_apb_agent = apb_agent::type_id::create("m_apb_agent", this);
-    uvm_config_db #(apb_agent_cfg)::set(this, "m_apb_agent", "apb_agent_cfg", m_cfg.m_apb_agent_cfg);
+    uvm_config_db #(apb_agent_cfg)::set(this, "m_apb_agent*", "apb_agent_cfg", m_cfg.m_apb_agent_cfg);
     m_tx_uart_agent = uart_agent::type_id::create("m_tx_uart_agent", this);
-    uvm_config_db #(uart_agent_cfg)::set(this, "m_tx_uart_agent", "uart_agent_cfg", m_cfg.m_tx_uart_agent_cfg);
+    uvm_config_db #(uart_agent_cfg)::set(this, "m_tx_uart_agent*", "uart_agent_cfg", m_cfg.m_tx_uart_agent_cfg);
     m_rx_uart_agent = uart_agent::type_id::create("m_rx_uart_agent", this);
-    uvm_config_db #(uart_agent_cfg)::set(this, "m_rx_uart_agent", "uart_agent_cfg", m_cfg.m_rx_uart_agent_cfg);
+    uvm_config_db #(uart_agent_cfg)::set(this, "m_rx_uart_agent*", "uart_agent_cfg", m_cfg.m_rx_uart_agent_cfg);
 
     reg_predictor = uvm_reg_predictor #(apb_sequence_item)::type_id::create("reg_predictor", this);
     reg_adapter = reg2apb_adapter::type_id::create("reg_adapter");

@@ -4,7 +4,7 @@ package uart_sequence_pkg;
 
 import uvm_pkg::*;
 `include "uvm_macros.svh"
-import common_def::*;
+import common_pkg::*;
 
 import uart_agent_pkg::*;
 
@@ -22,7 +22,7 @@ import uart_agent_pkg::*;
   endfunction
 
   task body;
-    uart_sequence_item rx_char = uart_seq_item::type_id::create("rx_char");
+    uart_sequence_item rx_char = uart_sequence_item::type_id::create("rx_char");
 
     repeat(no_rx_chars) begin
       start_item(rx_char);

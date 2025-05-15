@@ -1,3 +1,4 @@
+`timescale 1ns/1ps
 interface apb_assertion(
 	input clk,    
 	input preset_n,  

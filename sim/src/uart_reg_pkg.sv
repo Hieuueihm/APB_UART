@@ -2,7 +2,7 @@ package uart_reg_pkg;
 
   import uvm_pkg::*;
   `include "uvm_macros.svh"
-  import common_def::*;
+  import common_pkg::*;
 
   // data.configure(
   // this,      // Parent register (this object)

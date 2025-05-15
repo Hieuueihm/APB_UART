@@ -4,7 +4,7 @@ package uart_agent_pkg;
 
 import uvm_pkg::*;
 `include "uvm_macros.svh"
-import common_def::*;
+import common_pkg::*;
 
 class uart_agent_cfg extends uvm_object;
 

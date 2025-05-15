@@ -30,14 +30,15 @@ vlog -sv +incdir+"$TB_DIR" \
   "$TB_DIR/apb_agent_pkg.sv" \
   "$TB_DIR/apb_assertion.sv" \
   "$TB_DIR/uart_agent_pkg.sv" \
-  "$TB_DIR/uart_env_pkg.sv"
+  "$TB_DIR/uart_env_pkg.sv" \
+  "$TB_DIR/apb_sequence_pkg.sv" \
+  "$TB_DIR/uart_sequence_pkg.sv" \
+  "$TB_DIR/uart_vsquence_pkg.sv" \
+  "$TB_DIR/uart_test_pkg.sv" \
+  "$TB_DIR/apb_uart_uvm_tb.sv"
 
 
-echo
-echo "Compiling apb_uart_tb.sv:"
-echo "$apb_uart_tb_file"
-vlog -sv +acc +vpi -timescale=1ns/1ps "$apb_uart_tb_file"
 
 echo
 echo "Running simulation:"
-vsim -voptargs=+acc -c -do "run -all; quit" apb_uart_tb
+vsim -voptargs=+acc -c -do "run -all; quit" work.apb_uart_uvm_tb
