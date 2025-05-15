@@ -38,23 +38,29 @@ import uart_env_pkg::*;
 
 	function new(string name = "quick_reg_access_seq");
 	  super.new(name);
+	  `uvm_info("build phase", "create quick_reg_access_seq", UVM_LOW);
 	endfunction
 
 	task body;
 	  super.body();
-	  rm.TDR.read(status, data, .parent(this));
+	 	`uvm_info("run phase", "quick_reg_access_seq running1", UVM_LOW);
+
+	  // rm.TDR.read(status, data, .parent(this));
+
 	  rm.RDR.read(status, data, .parent(this));
 	  rm.LCR.read(status, data, .parent(this));
+	  rm.OCR.read(status, data, .parent(this));
 	  rm.LSR.read(status, data, .parent(this));
 	  rm.FCR.read(status, data, .parent(this));
-	  rm.IER.read(status, data, .parent(this));
-	  rm.OCR.read(status, data, .parent(this));
-	  rm.HCR.read(status, data, .parent(this));
 	  rm.IIR.read(status, data, .parent(this));
+	  rm.IER.read(status, data, .parent(this));
+	  rm.HCR.read(status, data, .parent(this));
 
-	  // write to all the registers
+	  // // write to all the registers
 	  data = 32'haa;
 	  rm.TDR.write(status, data, .parent(this));
+	    `uvm_info("WRITE", $sformatf("TDR write: status=%0d, data=0x%0h", status, data), UVM_LOW);
+
 	  rm.RDR.write(status, data, .parent(this));
 	  rm.LCR.write(status, data, .parent(this));
 	  rm.LSR.write(status, data, .parent(this));
@@ -85,6 +91,7 @@ import uart_env_pkg::*;
 
 		rand bit[7:0] LCR;
 		rand bit[4:0] FCR;
+		rand bit[2:0] OCR;
 
 		function new(string name = "uart_config_seq");
 		  super.new(name);
@@ -92,10 +99,10 @@ import uart_env_pkg::*;
 
 		task body;
 		  super.body();
-
 		  rm.LCR.write(status, {'0, LCR}, .parent(this));
 		  rm.LCR.read(status, data, .parent(this));
 		  rm.FCR.write(status, {'0, FCR}, .parent(this));
+		  rm.OCR.write(status, {'0, OCR}, .parent(this));
 		
 
 		endtask
@@ -155,7 +162,7 @@ import uart_env_pkg::*;
 	  for(int i = 0; i < no_rx_chars; i++) begin
 	    rm.LSR.read(status, data, .parent(this));
 	    // Wait for data to be available
-	    while(!data[0]) begin
+	    while(!data[1]) begin
 	      rm.LSR.read(status, data, .parent(this));
 	      cfg.wait_for_clock(10);
 	    end

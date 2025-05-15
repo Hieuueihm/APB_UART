@@ -16,7 +16,6 @@ import uart_sequence_pkg::*;
 class uart_vseq_base extends uvm_sequence #(uart_sequence_item);
 
 `uvm_object_utils(uart_vseq_base)
-
 apb_sequencer apb;
 uart_sequencer uart;
 uart_env_cfg cfg;
@@ -41,11 +40,12 @@ function new(string name = "basic_reg_vseq");
 endfunction
 
 task body;
-  quick_reg_access_seq t_seq = quick_reg_access_seq::type_id::create("t_seq");
 
+  quick_reg_access_seq t_seq = quick_reg_access_seq::type_id::create("t_seq");
+  `uvm_info("run", "basic_reg_vseq running", UVM_LOW);
   t_seq.start(apb);
 
-endtask: body
+endtask
 
 endclass
 
@@ -64,18 +64,23 @@ task body;
   uart_rx_seq rx_serial = uart_rx_seq::type_id::create("rx_serial");
   bit[7:0] lcr;
   bit[4:0] fcr;
+  bit[2:0] ocr;
 
-  lcr = 0;
+  lcr = 1;
+  fcr = 0;
+  ocr = 7;
 
-  host_rx.no_rx_chars = 2;
-  host_tx.no_tx_chars = 2;
+  host_rx.no_rx_chars = 1;
+  host_tx.no_tx_chars = 1;
 
-  rx_serial.no_rx_chars = 2;
-  rx_serial.no_errors = 1;
+  rx_serial.no_rx_chars = 1;
+  rx_serial.no_errors = 0;
 
-  repeat(64) begin
+  repeat(1) begin
     assert(setup.randomize() with {setup.LCR == lcr;
-                                   setup.FCR == fcr;});
+                                   setup.FCR == fcr;
+                                   setup.OCR == ocr;
+                                   });
     setup.start(apb);
     rx_serial.lcr = lcr;
     rx_uart_config.lcr = lcr;

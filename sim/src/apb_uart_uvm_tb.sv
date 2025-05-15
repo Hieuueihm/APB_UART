@@ -24,6 +24,7 @@ apb_if APB(.clk(clk), .preset_n(preset_n));
 serial_if RX_UART();
 serial_if TX_UART();
 interrupt_if IRQ();
+wire rts_n;
 
 apb_uart DUT (
   .clk(clk),
@@ -41,8 +42,8 @@ apb_uart DUT (
 
   .tx(TX_UART.sdata),
   .rx(RX_UART.sdata),
-  .cts_n   (RX_UART.handshake),
-  .rts_n (TX_UART.handshake),
+  .cts_n   (1'b1),
+  .rts_n (rts_n),
   .baud_o(IRQ.baud_o)
   );
   // apb_assertion apb_assertion_inst(

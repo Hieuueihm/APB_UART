@@ -35,7 +35,8 @@ vlog -sv +incdir+"$TB_DIR" \
   "$TB_DIR/uart_sequence_pkg.sv" \
   "$TB_DIR/uart_vsquence_pkg.sv" \
   "$TB_DIR/uart_test_pkg.sv" \
-  "$TB_DIR/apb_uart_uvm_tb.sv"
+  "$TB_DIR/apb_uart_uvm_tb.sv" \
+  "$TB_DIR/apb_uart_tb.sv"
 
 
 

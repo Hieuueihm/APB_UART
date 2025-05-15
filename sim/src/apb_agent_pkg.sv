@@ -14,6 +14,8 @@ package apb_agent_pkg;
 
 		 function new(string name =  "apb_agent_cfg");
 		 	super.new(name);
+		 	`uvm_info("new", "apb_agent_cfg new", UVM_LOW);
+
 		 endfunction
 
 	endclass 
@@ -51,7 +53,7 @@ package apb_agent_pkg;
 		    pdata  = _pkt.pdata;
 		    pwrite = _pkt.pwrite;
 		    delay  = _pkt.delay;
-		    `uvm_info(get_name(), "In apb_sequence_item::do_copy()", UVM_LOW)
+		    // `uvm_info(get_name(), "In apb_sequence_item::do_copy()", UVM_LOW)
 		endfunction
 
 
@@ -90,7 +92,9 @@ package apb_agent_pkg;
 		  `uvm_record_field("pdata", pdata)
 		  `uvm_record_field("pwrite", pwrite)
 		  `uvm_record_field("delay", delay);
-		endfunction:do_record
+		  // `uvm_info("do_record", "do_record new", UVM_LOW);
+
+		endfunction
 
 	endclass
 
@@ -107,20 +111,25 @@ package apb_agent_pkg;
 
 		function new(string name = "apb_driver", uvm_component parent = null);
 		  super.new(name, parent);
+		  `uvm_info("new", "apb_driver new", UVM_LOW);
+
 		endfunction
 
 
 
 		task run_phase(uvm_phase phase);
+
 		  apb_sequence_item req;
 		  apb_sequence_item rsp;
+		  			// `uvm_info("run_phase", "apb_driver run phase", UVM_LOW);
+
 
 		  //reset task
 		  APB.psel <= 0;
 		  APB.penable <= 0;
 		  APB.paddr <= 0;
 		  // Wait for reset to clear
-		  @(negedge APB.preset_n);
+		  @(posedge APB.preset_n);
 
 		  forever
 		   begin
@@ -151,6 +160,8 @@ package apb_agent_pkg;
 
 
 		function void build_phase(uvm_phase phase);
+			`uvm_info("build_phase", "apb_driver build", UVM_LOW);
+
 		  if(!uvm_config_db #(apb_agent_cfg)::get(this, "", "apb_agent_cfg", m_cfg)) begin
 		    `uvm_error("build_phase", "Unable to get apb_agent_cfg")
 		  end
@@ -254,12 +265,15 @@ package apb_agent_pkg;
 		endfunction
 
 		function void build_phase(uvm_phase phase);
+		`uvm_info("build_phase", "apb_agent new", UVM_LOW);
+
 		  if(!uvm_config_db #(apb_agent_cfg)::get(this, "", "apb_agent_cfg", m_cfg)) begin
 		    `uvm_error("build_phase", "APB agent config not found")
 		  end
 		  // Monitor is always present
 		  m_monitor = apb_monitor::type_id::create("m_monitor", this);
 		  if(m_cfg.active == UVM_ACTIVE) begin
+		  	`uvm_info("build_phase", "UVM_ACTIVE SEQUNECER", UVM_LOW);
 		    m_driver = apb_driver::type_id::create("m_driver", this);
 		    m_sequencer = apb_sequencer::type_id::create("m_sequencer", this);
 		  end
@@ -270,6 +284,8 @@ package apb_agent_pkg;
 		endfunction
 
 		function void connect_phase(uvm_phase phase);
+					`uvm_info("connect_phase", "apb_agent connect_phase", UVM_LOW);
+
 		  m_monitor.APB = m_cfg.APB;
 		  m_monitor.ap.connect(ap);
 		  // Only connect the driver and the sequencer if active
@@ -380,15 +396,21 @@ package apb_agent_pkg;
 
 		function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
 		    apb_sequence_item apb = apb_sequence_item::type_id::create("apb");
+		    			// `uvm_info("FUNCTION", "REG2BUS", UVM_LOW);
+	       // `uvm_info("REG2BUS", $sformatf("Calling reg2bus: addr=0x%0h, kind=%s, data=0x%0h",
+	       //                         rw.addr, (rw.kind == UVM_READ ? "READ" : "WRITE"), rw.data), UVM_LOW)
 		    apb.pwrite = (rw.kind == UVM_READ) ? 0 : 1;
 		    apb.paddr = rw.addr;
 		    apb.pdata = rw.data;
+
 		    return apb;
 		 endfunction
 
 	  function void bus2reg(uvm_sequence_item bus_item,
 	                                ref uvm_reg_bus_op rw);
 	    apb_sequence_item apb;
+	    			// `uvm_info("FUNCTION", "bus2reg", UVM_LOW);
+
 	    if (!$cast(apb, bus_item)) begin
 	      `uvm_fatal("NOT_APB_TYPE","Provided bus_item is not of the correct type")
 	      return;
@@ -397,6 +419,9 @@ package apb_agent_pkg;
 	    rw.addr = apb.paddr;
 	    rw.data = apb.pdata;
 	    rw.status = UVM_IS_OK;
+	     `uvm_info("BUS2REG", $sformatf("Converted bus item: kind=%s, addr=0x%0h, data=0x%0h",
+              (rw.kind == UVM_WRITE) ? "WRITE" : "READ",
+              rw.addr, rw.data), UVM_LOW)
 	  endfunction
 
 	endclass

@@ -288,6 +288,8 @@ class uart_reg_block extends uvm_reg_block;
   endfunction
 
   function void build();
+    `uvm_info("build_phase", "UART register phase", UVM_LOW);
+
     TDR = tdr_reg::type_id::create("TDR");
     TDR.build();
     TDR.configure(this);
@@ -329,19 +331,19 @@ class uart_reg_block extends uvm_reg_block;
 
 
 
-    map.add_reg(TDR, 12'h000, "RW");
-    map.add_reg(RDR, 12'h004, "RO");
-    map.add_reg(LCR, 12'h008, "RW");
-    map.add_reg(OCR, 12'h00C, "RW"); 
-    map.add_reg(LSR, 12'h010, "RW"); 
-    map.add_reg(FCR, 12'h014, "RW"); 
-    map.add_reg(IER, 12'h018, "RW"); 
-    map.add_reg(IIR, 12'h01C, "RO"); 
-    map.add_reg(HCR, 12'h020, "RW"); 
+    map.add_reg(TDR, ADDR_TDR, "RW");
+    map.add_reg(RDR, ADDR_RDR, "RO");
+    map.add_reg(LCR, ADDR_LCR, "RW");
+    map.add_reg(OCR, ADDR_OCR, "RW"); 
+    map.add_reg(LSR, ADDR_LSR, "RW"); 
+    map.add_reg(FCR, ADDR_FCR, "RW"); 
+    map.add_reg(IER, ADDR_IER, "RW"); 
+    map.add_reg(IIR, ADDR_IIR, "RO"); 
+    map.add_reg(HCR, ADDR_HCR, "RW"); 
 
     lock_model();
   endfunction
 
 endclass
   
-endpackage : uart_reg_pkg
+endpackage 

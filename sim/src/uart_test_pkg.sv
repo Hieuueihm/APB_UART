@@ -31,6 +31,7 @@ apb_agent_cfg m_apb_cfg;
     super.new(name, parent);
   endfunction
   function void build_phase(uvm_phase phase);
+    `uvm_info("build phase", "uart_test_base build", UVM_LOW);
     m_env_cfg = uart_env_cfg::type_id::create("m_env_cfg");
 
     rm = uart_reg_block::type_id::create("rm");
@@ -61,6 +62,7 @@ apb_agent_cfg m_apb_cfg;
   endfunction
 
   function void init_vseq(uart_vseq_base vseq);
+    `uvm_info("init", "init_vseq", UVM_LOW);
     vseq.apb = m_env.m_apb_agent.m_sequencer;
     vseq.uart = m_env.m_rx_uart_agent.m_uart_sequencer;
     vseq.rm = rm;
@@ -81,12 +83,15 @@ class uart_test extends uart_test_base;
     super.new(name, parent);
   endfunction
   task run_phase(uvm_phase phase);
+
     basic_reg_vseq vseq = basic_reg_vseq::type_id::create("vseq");
+            `uvm_info("run_phase", "run_phase OF UART TEST", UVM_LOW);
 
     phase.raise_objection(this);
     init_vseq(vseq);
     vseq.start(null);
     phase.drop_objection(this);
+
   endtask
 
   function void report_phase(uvm_phase phase);
