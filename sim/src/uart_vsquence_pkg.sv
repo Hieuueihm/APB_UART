@@ -49,6 +49,7 @@ endtask
 
 endclass
 
+// test uart word format
 class word_format_poll_vseq extends uart_vseq_base;
 
 `uvm_object_utils(word_format_poll_vseq)
@@ -68,7 +69,7 @@ task body;
 
   lcr = 1;
   fcr = 0;
-  ocr = 7;
+  ocr = 5; /// 111 // tx_en and rx_en
 
   host_rx.no_rx_chars = 1;
   host_tx.no_tx_chars = 1;
@@ -85,6 +86,8 @@ task body;
     rx_serial.lcr = lcr;
     rx_uart_config.lcr = lcr;
     tx_uart_config.lcr = lcr;
+    host_tx.cfg = setup;
+
 
     fork
       host_rx.start(apb);

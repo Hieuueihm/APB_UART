@@ -23,9 +23,11 @@ import uart_agent_pkg::*;
 
   task body;
     uart_sequence_item rx_char = uart_sequence_item::type_id::create("rx_char");
+    `uvm_info("RUNNING SEQUENCE", "RX SEQUENCE RUN", UVM_MEDIUM);
 
     repeat(no_rx_chars) begin
       start_item(rx_char);
+      
       assert(rx_char.randomize());
       rx_char.lcr = lcr;
       if(no_errors) begin

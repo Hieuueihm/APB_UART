@@ -12,6 +12,7 @@ class uart_agent_cfg extends uvm_object;
 
 	bit ACTIVE = 1;
 	logic[7:0] lcr = 8'h23;
+	logic [2:0] ocr;
 
 	virtual serial_if sline;
 
@@ -29,6 +30,7 @@ class uart_sequence_item extends uvm_sequence_item;
 rand int delay;
 rand bit[7:0] data;
 rand bit fe;
+rand bit[2:0] ocr;
 rand bit[7:0] lcr;
 rand bit pe;
 rand delay_e delay_kind;
@@ -54,6 +56,7 @@ constraint error_dists {fe dist {1:= 1, 0:=99};
 
 	function new(string name = "uart_sequence_item");
 	  super.new(name);
+  `uvm_info("UART SEQ ITEM", "UART SEQ_ITEM INIT", UVM_LOW);
 	endfunction
 
 	function void do_copy(uvm_object rhs);
@@ -65,6 +68,7 @@ constraint error_dists {fe dist {1:= 1, 0:=99};
 		  fe = rhs_.fe;
 		  lcr = rhs_.lcr;
 		  pe = rhs_.pe;
+		  ocr = rhs_.ocr;
 
 	endfunction
 
@@ -77,7 +81,8 @@ constraint error_dists {fe dist {1:= 1, 0:=99};
 	         data == rhs_.data &&
 	         fe == rhs_.fe &&
 	         lcr == rhs_.lcr &&
-	         pe == rhs_.pe;
+	         pe == rhs_.pe &&
+	         ocr == rhs_.ocr;
 	endfunction
 
 	function string convert2string();
@@ -86,7 +91,7 @@ constraint error_dists {fe dist {1:= 1, 0:=99};
 	  $sformat(s, "%s\n", super.convert2string());
 	  // Convert to string function reusing s:
 	  $sformat(s, "%s\n delay\t%0d\n  data\t%0h\n", s, delay, data);
-	  $sformat(s, "%s\n fe\t%0b\n lcr\t%0h\n pe\t%0b\n", s, fe, lcr, pe);
+	  $sformat(s, "%s\n fe\t%0b\n lcr\t%0h\n pe\t%0b\n ocr\t%0b\n ", s, fe, lcr, pe, ocr);
 	  return s;
 
 	endfunction
@@ -110,6 +115,7 @@ constraint error_dists {fe dist {1:= 1, 0:=99};
 	  `uvm_record_field("fe", fe)
 	  `uvm_record_field("lcr", lcr)
 	  `uvm_record_field("pe", pe)
+	  `uvm_record_field("ocr", ocr)
 
 	endfunction
 
@@ -162,6 +168,7 @@ class uart_monitor extends uvm_component;
 	  if (!uvm_config_db #(uart_agent_cfg)::get(this, "", "uart_agent_cfg", cfg) )
 	     `uvm_fatal("CONFIG_LOAD", "Cannot get() configuration uart_agent_config from uvm_config_db. Have you set() it?")
 	  s_char = new("Serial_character");
+    `uvm_info("BUILD PHASE", "UART MONITOR", UVM_LOW);
 	endfunction
 
 
@@ -179,6 +186,7 @@ class uart_monitor extends uvm_component;
 	            s_char.pe = pe;
 	            s_char.fe = fe;
 	            ap.write(s_char);
+	            `uvm_info("UART MONITOR", "WRITE SCHAR", UVM_LOW);
 	            rxData = 0;
 	          end
 	       end
@@ -189,84 +197,83 @@ class uart_monitor extends uvm_component;
 
 	task rxChar;
 	  begin
-	    fe = 0;
-	    rxData = 0;
-	     while((sline.sdata == 1'b1) || (sline.sdata == 1'bx))
-	       @(posedge sline.tick_rx);
-	     begin : rxCharDetect
-	      repeat(23) // Sample on mid point of data field // 16 + 7 (16 of start_bit, 7 is middle of data)
-	        @(posedge sline.tick_rx);
-	      rxData[0] = sline.sdata;
-	      bitPeriod;
-	      rxData[1] = sline.sdata;
-	      bitPeriod;
-	      rxData[2] = sline.sdata;
-	      bitPeriod;
-	      rxData[3] = sline.sdata;
-	      bitPeriod;
-	      rxData[4] = sline.sdata;
-	      if(cfg.lcr[1:0] > 2'b00) begin
- 			begin
-	          bitPeriod;
-	          rxData[5] = sline.sdata;
-	        end
+		    fe = 0;
+		    rxData = 0;
+		     while((sline.sdata == 1'b1) || (sline.sdata == 1'bx))
+		       @(posedge sline.tick_rx);
+		     begin 
+		      repeat(23) // Sample on mid point of data field // 16 + 7 (16 of start_bit, 7 is middle of data)
+		        @(posedge sline.tick_rx);
+		      rxData[0] = sline.sdata;
+		      bitPeriod;
+		      rxData[1] = sline.sdata;
+		      bitPeriod;
+		      rxData[2] = sline.sdata;
+		      bitPeriod;
+		      rxData[3] = sline.sdata;
+		      bitPeriod;
+		      rxData[4] = sline.sdata;
+		      if(cfg.lcr[1:0] > 2'b00) begin
+	 				begin
+		          bitPeriod;
+		          rxData[5] = sline.sdata;
+		        end
 
-	      end else if(cfg.lcr[3]) begin
-	      	begin
-	          bitPeriod;
-	          parity = sline.sdata; 
-	        end
-	      end  
-	      if (cfg.lcr[1:0] > 2'b00)
-	        begin
-	          if (cfg.lcr[1:0] > 2'b01)
-	            begin
-	              bitPeriod;
-	              rxData[6] = sline.sdata;
-	            end
-	          else if (cfg.lcr[3])
-	            begin
-	              bitPeriod;
-	              parity = sline.sdata;
-	            end
-	        end
-	      if (cfg.lcr[1:0] > 2'b01)
-	        begin
-	          if (cfg.lcr[1:0] > 2'b10)
-	            begin
-	              bitPeriod;
-	              rxData[7] = sline.sdata;
-	            end
-	          else if (cfg.lcr[3])
-	            begin
-	              bitPeriod;
-	              parity = sline.sdata;
-	            end
-	        end
-	      if (cfg.lcr[3] && (cfg.lcr[1:0] > 2'b10) )
-	        begin
-	          bitPeriod;
-	          parity = sline.sdata;
-	        end
-	      if (cfg.lcr[3])
-	        begin
-	          pe = logic'(calParity (cfg.lcr, rxData));
-	          if (pe != parity)
-	            pe = 1;
-	          else
-	            pe = 0;
-	        end
-	       bitPeriod;
-	       stop_bit = sline.sdata;
-			if(stop_bit == 1'b0) fe =1;
+		      end else if(cfg.lcr[3]) begin
+		      	begin
+		          bitPeriod;
+		          parity = sline.sdata; 
+		        end
+		      end  
+		      if (cfg.lcr[1:0] > 2'b00)
+		        begin
+		          if (cfg.lcr[1:0] > 2'b01)
+		            begin
+		              bitPeriod;
+		              rxData[6] = sline.sdata;
+		            end
+		          else if (cfg.lcr[3])
+		            begin
+		              bitPeriod;
+		              parity = sline.sdata;
+		            end
+		        end
+		      if (cfg.lcr[1:0] > 2'b01)
+		        begin
+		          if (cfg.lcr[1:0] > 2'b10)
+		            begin
+		              bitPeriod;
+		              rxData[7] = sline.sdata;
+		            end
+		          else if (cfg.lcr[3])
+		            begin
+		              bitPeriod;
+		              parity = sline.sdata;
+		            end
+		        end
+		      if (cfg.lcr[3] && (cfg.lcr[1:0] > 2'b10) )
+		        begin
+		          bitPeriod;
+		          parity = sline.sdata;
+		        end
+		      if (cfg.lcr[3])
+		        begin
+		          pe = logic'(calParity (cfg.lcr, rxData));
+		          if (pe != parity)
+		            pe = 1;
+		          else
+		            pe = 0;
+		        end
+		       bitPeriod;
+		       stop_bit = sline.sdata;
+				if(stop_bit == 1'b0) fe =1;
 
-	       if(cfg.lcr[2]) begin
-	            bitPeriod;
-	            stop_bit = sline.sdata;
-	            if(stop_bit == 1'b0) fe =1;
+		       if(cfg.lcr[2]) begin
+		            bitPeriod;
+		            stop_bit = sline.sdata;
+		            if(stop_bit == 1'b0) fe =1;
 
-	       end
-	      
+		       end
 	    end 
 	  end
 	endtask
@@ -307,8 +314,10 @@ task send_pkts;
       begin
         seq_item_port.get_next_item(pkt);
         // Variable delay
-        repeat(pkt.delay)
+        `uvm_info("UART DRIVER", "SEND SCHAR", UVM_LOW);
+                  `uvm_info("UART DRIVER", $sformatf("%h",pkt.data), UVM_LOW);
           @(posedge sline.tick_rx);
+
         sline.sdata = 0;
         bitPtr = 0;
         bitPeriod;
@@ -347,10 +356,7 @@ task send_pkts;
         if(pkt.lcr[2]) begin
         	sline.sdata = 1;
         	bitPeriod;
-
-        end
-       
-     
+        end       
         seq_item_port.item_done();
       end
   end

@@ -116,6 +116,7 @@ import uart_env_pkg::*;
 		rand int no_tx_chars;
 
 		constraint char_limit_c { no_tx_chars inside {[1:20]};}
+		uart_config_seq cfg;
 
 		function new(string name = "uart_host_tx_seq");
 		  super.new(name);
@@ -133,6 +134,10 @@ import uart_env_pkg::*;
 		    end
 		    for(int j = 0; j < 16; j++) begin
 		      rm.TDR.write(status, $urandom(), .parent(this));
+			// `uvm_info("TEST", $sformatf("cfg.OCR[2] = %0b", cfg.OCR[2]), UVM_MEDIUM);
+			// `uvm_info("TEST", $sformatf("cfg.OCR = %03b", cfg.OCR), UVM_MEDIUM);
+
+		      rm.OCR.write(status, {29'b0, cfg.OCR[2], 1'b1, cfg.OCR[0]}, .parent(this));
 		      i++;
 		      if(i >= no_tx_chars) begin
 		        break;

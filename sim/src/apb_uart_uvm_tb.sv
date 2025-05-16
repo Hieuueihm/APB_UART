@@ -42,7 +42,7 @@ apb_uart DUT (
 
   .tx(TX_UART.sdata),
   .rx(RX_UART.sdata),
-  .cts_n   (1'b1),
+  .cts_n   (1'b0),
   .rts_n (rts_n),
   .baud_o(IRQ.baud_o)
   );

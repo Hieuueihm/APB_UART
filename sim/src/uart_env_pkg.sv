@@ -107,7 +107,9 @@ endclass
     apb_sequence_item host_req;
     forever begin
       apb_fifo.get(host_req);
-      if((host_req.paddr == 0) && (host_req.pwrite == 1)) begin
+      // `uvm_info("UART TX SCOREBOARD", "MONITOR APB", UVM_LOW);
+      if((host_req.paddr == ADDR_TDR) && (host_req.pwrite == 1)) begin
+        `uvm_info("UART TX SCOREBOARD", $sformatf("%h", host_req.pdata), UVM_LOW);
         data_q.push_back(host_req.pdata);
         no_chars_written++;
       end
@@ -121,6 +123,8 @@ task monitor_uart;
 
   forever begin
     uart_fifo.get(uart_item);
+    `uvm_info("UART TX SCOREBOARD", "MONITOR UART", UVM_LOW);
+
     no_chars_tx++;
     WL = rm.LCR.get();
     if(uart_item.pe || uart_item.fe) begin
@@ -130,6 +134,7 @@ task monitor_uart;
     if(data_q.size() > 0) begin
       data = data_q.pop_front();
     end
+    `uvm_info("UART ITEM", $sformatf("%h", uart_item.data), UVM_LOW);
     case(WL[1:0])
       2'b00: begin
                if(data[4:0] != uart_item.data[4:0]) begin
@@ -300,6 +305,9 @@ class uart_rx_scoreboard extends uvm_component;
 
       forever begin
         uart_fifo.get(uart_item);
+        `uvm_info("UART RX SCOREBOARD", "MONITOR UART", UVM_LOW);
+        `uvm_info("UART RX SCOREBOARD", $sformatf("%h", data), UVM_LOW);
+
         data_q.push_back({uart_item.pe, uart_item.fe, uart_item.data});
         no_chars_written++;
       end
@@ -938,32 +946,25 @@ class uart_env extends uvm_component;
   endfunction
 
   function void connect_phase(uvm_phase phase);
-    m_cfg.rm.map.set_sequencer(m_apb_agent.m_sequencer, reg_adapter);
-
-    reg_predictor.map = m_cfg.rm.map;
-    reg_predictor.adapter = reg_adapter;
-    m_apb_agent.ap.connect(reg_predictor.bus_in);
-
-    m_apb_agent.ap.connect(tx_sb.apb_fifo.analysis_export);
-    m_tx_uart_agent.ap.connect(tx_sb.uart_fifo.analysis_export);
-    tx_sb.rm = m_cfg.rm;
-
-    m_apb_agent.ap.connect(rx_sb.apb_fifo.analysis_export);
-
-    m_rx_uart_agent.ap.connect(rx_sb.uart_fifo.analysis_export);
-    rx_sb.rm = m_cfg.rm;
-
-    tx_sb.ap.connect(tx_cov.analysis_export);
-    m_apb_agent.ap.connect(int_cov.apb_fifo.analysis_export);
-
-    int_cov.cfg = m_cfg;
-    int_cov.rm = m_cfg.rm;
-    rx_sb.ap.connect(rx_cov.analysis_export);
-    br_sb.rm = m_cfg.rm;
-    br_sb.IRQ = m_cfg.IRQ;
-
-    m_apb_agent.ap.connect(br_sb.apb_fifo.analysis_export);
-    m_apb_agent.ap.connect(reg_cov.analysis_export);
+  m_cfg.rm.map.set_sequencer(m_apb_agent.m_sequencer, reg_adapter);
+  reg_predictor.map = m_cfg.rm.map;
+  reg_predictor.adapter = reg_adapter;
+  m_apb_agent.ap.connect(reg_predictor.bus_in);
+  m_apb_agent.ap.connect(tx_sb.apb_fifo.analysis_export);
+  m_tx_uart_agent.ap.connect(tx_sb.uart_fifo.analysis_export);
+  tx_sb.rm = m_cfg.rm;
+  m_apb_agent.ap.connect(rx_sb.apb_fifo.analysis_export);
+  m_rx_uart_agent.ap.connect(rx_sb.uart_fifo.analysis_export);
+  rx_sb.rm = m_cfg.rm;
+  tx_sb.ap.connect(tx_cov.analysis_export);
+  m_apb_agent.ap.connect(int_cov.apb_fifo.analysis_export);
+  int_cov.cfg = m_cfg;
+  int_cov.rm = m_cfg.rm;
+  rx_sb.ap.connect(rx_cov.analysis_export);
+  br_sb.rm = m_cfg.rm;
+  br_sb.IRQ = m_cfg.IRQ;
+  m_apb_agent.ap.connect(br_sb.apb_fifo.analysis_export);
+  m_apb_agent.ap.connect(reg_cov.analysis_export);
   endfunction
 
 endclass

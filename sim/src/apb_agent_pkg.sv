@@ -137,6 +137,8 @@ package apb_agent_pkg;
 		    APB.penable <= 0;
 		    APB.paddr <= 0;
 		    seq_item_port.get_next_item(req);
+		         // `uvm_info("APB_DRIVER", "GET NEEXT_ITEM", UVM_LOW);
+
 		    repeat(req.delay)
 		    @(posedge APB.clk);
 		     APB.psel <= 1'b1;
@@ -397,8 +399,10 @@ package apb_agent_pkg;
 		function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
 		    apb_sequence_item apb = apb_sequence_item::type_id::create("apb");
 		    			// `uvm_info("FUNCTION", "REG2BUS", UVM_LOW);
-	       // `uvm_info("REG2BUS", $sformatf("Calling reg2bus: addr=0x%0h, kind=%s, data=0x%0h",
-	       //                         rw.addr, (rw.kind == UVM_READ ? "READ" : "WRITE"), rw.data), UVM_LOW)
+		    // 		if(rw.addr == ADDR_OCR) begin
+			       // `uvm_info("REG2BUS", $sformatf("Calling reg2bus: addr=0x%0h, kind=%s, data=0x%0h",
+			       //                         rw.addr, (rw.kind == UVM_READ ? "READ" : "WRITE"), rw.data), UVM_LOW);
+			   // end
 		    apb.pwrite = (rw.kind == UVM_READ) ? 0 : 1;
 		    apb.paddr = rw.addr;
 		    apb.pdata = rw.data;
@@ -419,9 +423,9 @@ package apb_agent_pkg;
 	    rw.addr = apb.paddr;
 	    rw.data = apb.pdata;
 	    rw.status = UVM_IS_OK;
-	     `uvm_info("BUS2REG", $sformatf("Converted bus item: kind=%s, addr=0x%0h, data=0x%0h",
-              (rw.kind == UVM_WRITE) ? "WRITE" : "READ",
-              rw.addr, rw.data), UVM_LOW)
+	     // `uvm_info("BUS2REG", $sformatf("Converted bus item: kind=%s, addr=0x%0h, data=0x%0h",
+         //      (rw.kind == UVM_WRITE) ? "WRITE" : "READ",
+         //      rw.addr, rw.data), UVM_LOW)
 	  endfunction
 
 	endclass

@@ -40,7 +40,7 @@ module uart_tx_top (
 
     assign negedge_write_data_en = ~write_data_i & write_data_d;
     assign fifo_push = fifo_en_i & negedge_write_data_en;
-    assign cts_n = hf_en_i ? cts_sync : 1;
+    assign cts_n = hf_en_i ? cts_sync : 0;
     // FIFO instance
     transmitter_fifo fifo_tx_inst (
         .clk(clk),
