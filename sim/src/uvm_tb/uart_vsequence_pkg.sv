@@ -118,15 +118,15 @@ task body;
                                    });
     setup.start(apb);
     rx_serial.lcr = lcr;
-    rx_uart_config.lcr = lcr;
+    // rx_uart_config.lcr = lcr;
     tx_uart_config.lcr = lcr;
     host_tx.cfg = setup;
 
 
     fork
-      host_rx.start(apb);
+      // host_rx.start(apb);
       host_tx.start(apb);
-      rx_serial.start(uart);
+      // rx_serial.start(uart);
     join
     lcr++;
   end

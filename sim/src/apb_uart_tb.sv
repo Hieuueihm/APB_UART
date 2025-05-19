@@ -1,6 +1,5 @@
 // File: apb_uart_tb.sv
 `timescale 1ns / 1ps
-`include "apb_assertion.sv"
 
 import common_pkg::*; // Đảm bảo bạn đã định nghĩa các địa chỉ thanh ghi ở file này
 

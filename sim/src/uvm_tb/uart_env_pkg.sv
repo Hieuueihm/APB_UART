@@ -343,6 +343,8 @@ class uart_env extends uvm_component;
   reg2apb_adapter reg_adapter;
 
   uvm_reg_predictor #(apb_transaction) reg_predictor;
+  
+
 
   function new(string name = "UART_ENV", uvm_component parent = null);
     super.new(name, parent);

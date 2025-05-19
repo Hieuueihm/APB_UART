@@ -56,7 +56,7 @@ initial begin
   uvm_config_db #(virtual serial_if)::set(null, "uvm_test_top", "RX_UART", RX_UART);
   uvm_config_db #(virtual serial_if)::set(null, "uvm_test_top", "TX_UART", TX_UART);
   uvm_config_db #(virtual interrupt_if)::set(null, "uvm_test_top", "IRQ", IRQ);
-  run_test("uart_test");
+  run_test("word_format_poll_test");
 end
 
 

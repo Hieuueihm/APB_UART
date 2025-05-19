@@ -18,6 +18,7 @@ package apb_agent_pkg;
 
 
   class apb_transaction extends uvm_sequence_item;
+   `uvm_object_utils(apb_transaction)
 
     rand logic [11:0] paddr;
     rand logic [31:0] pdata;
@@ -26,13 +27,13 @@ package apb_agent_pkg;
 
     constraint pstrb_c { pstrb == 4'b0001; }
 
+ function new(string name = "apb_transaction");
+    super.new(name);
+  endfunction
 
-    `uvm_object_utils_begin(apb_transaction)
-      `uvm_field_int(pwrite, UVM_ALL_ON)
-      `uvm_field_int(pdata, UVM_ALL_ON)
-      `uvm_field_int(paddr, UVM_ALL_ON)
-      `uvm_field_int(pstrb, UVM_ALL_ON)
-    `uvm_object_utils_end
+
+
+
 
 
 
@@ -95,9 +96,11 @@ typedef uvm_sequencer #(apb_transaction) apb_sequencer;
       @(posedge APB.clk);
       APB.penable <= 1'b1;
       wait (APB.pready);
-      APB.psel <= 1'b1;
-      APB.penable <= 1'b1;
-
+      wait (!APB.pready);
+      if(APB.pwrite == 0)
+         begin
+           req.pdata = APB.prdata;
+         end
     endtask
     // run phase
 
@@ -113,9 +116,11 @@ typedef uvm_sequencer #(apb_transaction) apb_sequencer;
 
 
       forever begin
+        APB.psel <= 1'b0;
+        APB.penable <= 1'b0;
         seq_item_port.get_next_item(req);
         apb_transfer(req);
-        `LOG(`APB_DRIVER, "APB DRIVER finished driving")
+        // `LOG(`APB_DRIVER, "APB DRIVER finished driving")
         seq_item_port.item_done();
       end
 
@@ -129,6 +134,7 @@ typedef uvm_sequencer #(apb_transaction) apb_sequencer;
     `uvm_component_utils(apb_monitor)
     virtual apb_if APB;
     uvm_analysis_port #(apb_transaction) ap;
+
     function new(string name, uvm_component parent = null);
       super.new(name, parent);
     endfunction
@@ -143,30 +149,38 @@ typedef uvm_sequencer #(apb_transaction) apb_sequencer;
     // run phase
 
     task run_phase(uvm_phase phase);
-      apb_transaction item;
-      apb_transaction cloned_item;
-      item = apb_transaction::type_id::create("item");
+        bit sampled = 0;
+            apb_transaction item;
+            apb_transaction cloned_item;
+          item = apb_transaction::type_id::create("item");
 
       forever begin
-        wait (APB.psel && APB.penable);
-        ;
-        wait (APB.pready);
-            item.paddr = APB.paddr;
-		        item.pwrite = APB.pwrite;
-		        if(APB.pwrite)
-		          begin
-		            item.pdata = APB.pwdata;
-		          end
-		        else
-		          begin
-		            item.pdata = APB.prdata;
-		         end
-        wait (!APB.pready);
-        `LOG(`APB_MONITOR, "APB MONITOR captured")
-        $cast(cloned_item, item.clone());
-        ap.write(cloned_item);
-      end
 
+        @(posedge APB.clk);
+        if(APB.pready && APB.psel && !sampled)
+          begin
+
+            // `uvm_info("TESTTES", $sformatf("%d", APB.prdata[4]), UVM_LOW);
+            item.paddr = APB.paddr;
+            sampled = 1;
+
+            item.pwrite = APB.pwrite;
+            if(APB.pwrite)
+              begin
+                item.pdata = APB.pwdata;
+              end
+            else
+              begin
+                item.pdata = APB.prdata;
+              end
+              
+        $cast(cloned_item, item.clone());
+        //  if(cloned_item.paddr == ADDR_LSR) begin
+        //         	`uvm_info("TESTTES", $sformatf("%h",  cloned_item.pdata), UVM_LOW);
+        //         end
+        ap.write(cloned_item);
+       end else if(!APB.pready) sampled = 0;
+      end
 
     endtask
 
@@ -224,7 +238,7 @@ typedef uvm_sequencer #(apb_transaction) apb_sequencer;
 		function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
 		    apb_transaction apb = apb_transaction::type_id::create("apb");
 		    			// `uvm_info("FUNCTION", "REG2BUS", UVM_LOW);
-		    // 		if(rw.addr == ADDR_OCR) begin
+		    // 		if(rw.addr == ADDR_LSR) begin
 			  //      `uvm_info("REG2BUS", $sformatf("Calling reg2bus: addr=0x%0h, kind=%s, data=0x%0h",
 			  //                              rw.addr, (rw.kind == UVM_READ ? "READ" : "WRITE"), rw.data), UVM_LOW);
 			  //  end
@@ -244,13 +258,14 @@ typedef uvm_sequencer #(apb_transaction) apb_sequencer;
 	      `uvm_fatal("NOT_APB_TYPE","Provided bus_item is not of the correct type")
 	      return;
 	    end
+         
 	    rw.kind = apb.pwrite ? UVM_WRITE : UVM_READ;
 	    rw.addr = apb.paddr;
 	    rw.data = apb.pdata;
 	    rw.status = UVM_IS_OK;
-	    //  `uvm_info("BUS2REG", $sformatf("Converted bus item: kind=%s, addr=0x%0h, data=0x%0h",
-      //         (rw.kind == UVM_WRITE) ? "WRITE" : "READ",
-      //         rw.addr, rw.data), UVM_LOW)
+	  // `uvm_info("BUS2REG", $sformatf("Converted bus item: kind=%s, addr=0x%0h, data=0x%0h",
+    //           (rw.kind == UVM_WRITE) ? "WRITE" : "READ",
+    //           rw.addr, rw.data), UVM_LOW)
 	  endfunction
 
 	endclass

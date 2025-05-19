@@ -102,7 +102,7 @@ import uart_env_pkg::*;
 		task body;
 		  super.body();
 		  rm.LCR.write(status, {'0, LCR}, .parent(this));
-		  rm.LCR.read(status, data, .parent(this));
+		//   rm.LCR.read(status, data, .parent(this));
 		  rm.FCR.write(status, {'0, FCR}, .parent(this));
 		  rm.OCR.write(status, {'0, OCR}, .parent(this));
 		
@@ -126,15 +126,19 @@ import uart_env_pkg::*;
 
 		task body;
 		  int i;
-
+			bit[7:0] data;
 		  super.body();
 		  i = 0;
+		  `LOG("TEST", "RUN TEST")
 		  while(i < no_tx_chars) begin
 		    rm.LSR.read(status, data, .parent(this));
+
 		    while(!data[4]) begin
-		      rm.LSR.read(status, data, .parent(this));
-		    end
-		    for(int j = 0; j < 16; j++) begin
+	    		rm.LSR.read(status, data, .parent(this));
+					
+				end
+
+		    // for(int j = 0; j < 16; j++) begin
 		      rm.TDR.write(status, $urandom(), .parent(this));
 			// `uvm_info("TEST", $sformatf("cfg.OCR[2] = %0b", cfg.OCR[2]), UVM_MEDIUM);
 			// `uvm_info("TEST", $sformatf("cfg.OCR = %03b", cfg.OCR), UVM_MEDIUM);
@@ -144,8 +148,8 @@ import uart_env_pkg::*;
 		      if(i >= no_tx_chars) begin
 		        break;
 		      end
-		      j++;
-		    end
+		    //   j++;
+		    // end
 		  end
 	endtask
 

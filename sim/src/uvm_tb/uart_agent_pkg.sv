@@ -156,7 +156,7 @@ package uart_agent_pkg;
             end
 
             seq_item_port.item_done();
-            `LOG(`UART_DRIVER, "UART DRIVER finished driving")
+            // `LOG(`UART_DRIVER, "UART DRIVER finished driving")
         end
       end
     endtask
@@ -296,8 +296,9 @@ endclass
             s_char.data = data;
             s_char.fe = fe;
             s_char.pe = pe;
+                        `LOG(`UART_MONITOR, "UART MONITOR captured")
+
             ap.write(s_char);
-            `LOG(`UART_MONITOR, "UART MONITOR captured")
     
         end
 

@@ -185,7 +185,7 @@ module apb_uart #(
 
     always_ff @(posedge clk or negedge preset_n) begin 
         if(~preset_n) begin
-            lsr <= 0;
+            lsr[31:0] <= 0;
         end else begin
             if(lsr0_set) begin
                 lsr[0] <= 1;
