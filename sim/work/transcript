@@ -1,6 +1,6 @@
 # vsim -voptargs="+acc" -c -do "run -all; quit" work.testbench 
-# Start time: 23:56:36 on May 19,2025
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Start time: 00:04:43 on May 20,2025
+# ** Note: (vsim-8009) Loading existing optimized design _opt
 # //  Questa Sim-64
 # //  Version 2021.2_1 linux_x86_64 May 15 2021
 # //
@@ -359,5 +359,5 @@
 # [report_phase]     2
 # ** Note: $finish    : /home/hieu/questasim/questasim/linux_x86_64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
 #    Time: 26688405 ns  Iteration: 63  Instance: /testbench
-# End time: 23:56:59 on May 19,2025, Elapsed time: 0:00:23
+# End time: 00:05:06 on May 20,2025, Elapsed time: 0:00:23
 # Errors: 0, Warnings: 0

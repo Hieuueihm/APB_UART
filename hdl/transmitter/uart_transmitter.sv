@@ -100,6 +100,26 @@ module uart_transmitter(
     wire load_en;
     assign load_en = cnt_data_trans == 1;
 
+    logic load_d0_sampled;
+    logic load_en_sampled;
+    logic trans_data_fi_sampled;
+    logic trans_stop_fi_sampled;
+
+
+    always @(posedge clk or negedge reset_n) begin
+        if(~reset_n) begin
+            load_d0_sampled <= 0;
+            load_en_sampled <= 0;
+            trans_data_fi_sampled <= 0;
+            trans_stop_fi_sampled <= 0;
+        end else begin
+            load_d0_sampled <= load_d0;
+            load_en_sampled <= load_d1;
+            trans_data_fi_sampled <=  trans_data_fi;
+            trans_stop_fi_sampled <=  trans_stop_fi;
+        end
+    end
+
 
     transmitter_controller transmitter_controller_inst
         (
@@ -107,8 +127,8 @@ module uart_transmitter(
             .reset_n         (reset_n),
             .tx_en_i         (tx_en_i),
             .start_tx_i      (start_tx_i),
-            .trans_data_fi_i (trans_data_fi),
-            .trans_stop_fi_i (trans_stop_fi),
+            .trans_data_fi_i (trans_data_fi_sampled),
+            .trans_stop_fi_i (trans_stop_fi_sampled),
             .tick_d_i        (tick_d),
             .cts_ni         (cts_ni),
             .parity_en_i     (parity_en_i),
@@ -121,8 +141,8 @@ module uart_transmitter(
             .clk        (clk),
             .reset_n    (reset_n),
             .shift_en_i (shift_en),
-            .load_en_i  (load_en),
-            .load_d0_i (load_d0),
+            .load_en_i  (load_en_sampled),
+            .load_d0_i (load_d0_sampled),
             .data_i     (sampled_data),
             .tx_o       (tx_o)
         );
