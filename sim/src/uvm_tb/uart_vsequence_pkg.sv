@@ -23,6 +23,7 @@ uart_env_cfg cfg;
 
 uart_agent_cfg tx_uart_config;
 uart_agent_cfg rx_uart_config;
+uart_env m_env;
 
 uart_reg_block rm;
 
@@ -69,13 +70,15 @@ endclass
         `uvm_info("RUNNING SEQUENCE", "RX SEQUENCE RUN", UVM_MEDIUM);
 
         repeat(no_rx_chars) begin
-        start_item(rx_char);
-        
-        assert(rx_char.randomize());
-        if(no_errors) begin
-            rx_char.fe = 0;
-            rx_char.pe = 0;
-        end
+          start_item(rx_char);
+          
+         assert(rx_char.randomize() with {data[4:0] != 0;});
+          `LOG("TESTEST", $sformatf("%h", rx_char.data))
+          rx_char.lcr = lcr;
+          if(no_errors) begin
+              rx_char.fe = 0;
+              rx_char.pe = 0;
+          end
         finish_item(rx_char);
         end
 
@@ -83,52 +86,52 @@ endclass
 
 endclass
 
-// test uart word format
-class word_format_poll_vseq extends uart_vseq_base;
+class tx_polling_vseq extends uart_vseq_base;
 
-`uvm_object_utils(word_format_poll_vseq)
+`uvm_object_utils(tx_polling_vseq)
 
-function new(string name = "word_format_poll_vseq");
+function new(string name = "tx_polling_vseq");
   super.new(name);
 endfunction
 
 task body;
   uart_config_seq setup = uart_config_seq::type_id::create("setup");
-  uart_host_rx_seq host_rx = uart_host_rx_seq::type_id::create("host_rx");
   uart_host_tx_seq host_tx = uart_host_tx_seq::type_id::create("host_tx");
-  uart_rx_seq rx_serial = uart_rx_seq::type_id::create("rx_serial");
-  bit[7:0] lcr;
+  bit[4:0] lcr;
   bit[4:0] fcr;
   bit[2:0] ocr;
+  int tx_cnt_before;
 
-  lcr = 1;
+
+  tx_cnt_before = 0;
+
+  lcr = 0;
   fcr = 0;
-  ocr = 5; /// 111 // tx_en and rx_en
+  ocr = 5; 
 
-  host_rx.no_rx_chars = 1;
-  host_tx.no_tx_chars = 1;
-
-  rx_serial.no_rx_chars = 1;
-  rx_serial.no_errors = 0;
-
-  repeat(1) begin
-    assert(setup.randomize() with {setup.LCR == lcr;
-                                   setup.FCR == fcr;
-                                   setup.OCR == ocr;
-                                   });
-    setup.start(apb);
-    rx_serial.lcr = lcr;
-    // rx_uart_config.lcr = lcr;
-    tx_uart_config.lcr = lcr;
-    host_tx.cfg = setup;
+  host_tx.no_tx_chars =1;
 
 
-    fork
-      // host_rx.start(apb);
-      host_tx.start(apb);
-      // rx_serial.start(uart);
-    join
-    lcr++;
+  repeat(2) begin
+    repeat(32) begin
+      assert(setup.randomize() with {setup.LCR == lcr;
+                                    setup.FCR == fcr;
+                                    setup.OCR == ocr;
+                                    });
+      setup.start(apb);
+      tx_uart_config.lcr[4:0] = lcr;
+      host_tx.cfg = setup;
+
+
+      fork
+        host_tx.start(apb);
+        wait(m_env.tx_sb.no_chars_tx == tx_cnt_before + 1);
+      join
+      tx_cnt_before = m_env.tx_sb.no_chars_tx;
+
+      lcr++;
+    end
+  fcr++;
   end
 
 endtask

@@ -108,11 +108,17 @@ class uart_tx_scoreboard extends uvm_component;
     task monitor_apb();
         // check whether the tx transaction is triggered by the apb transaction
         apb_transaction host_req;
+             uvm_reg_data_t  lcr_reg;
+
         forever begin
             // 
             apb_fifo.get(host_req); 
             if((host_req.paddr == ADDR_TDR) & (host_req.pwrite == 1)) begin
-                `LOG(`UART_TX_SCOREBOARD,  $sformatf("SEND DATA %h", host_req.pdata))
+                lcr_reg = rm.LCR.get();
+
+                `LOG(`UART_TX_SCOREBOARD,  $sformatf("SENT DATA %h with LCR %h", host_req.pdata, lcr_reg[7:0]))
+
+
                 no_chars_written++;
                 data_q.push_back(host_req.pdata);
             end
@@ -125,13 +131,10 @@ class uart_tx_scoreboard extends uvm_component;
         bit [7:0] data;
         uvm_reg_data_t  lcr_reg;
         lcr_item report_item;
-
-
         forever begin
             uart_fifo.get(item);
             `LOG(`UART_TX_SCOREBOARD, $sformatf("UART TX SCOREBOARD received %h", item.data))
 
-            no_chars_tx++;
             lcr_reg = rm.LCR.get();
             if(item.pe || item.fe) begin
                 `uvm_error("monitor_uart", $sformatf("TX Data error detected: PE:%0b FE:%0b LCR:%0h", item.pe, item.fe, lcr_reg[7:0]))
@@ -170,7 +173,9 @@ class uart_tx_scoreboard extends uvm_component;
             report_item = lcr_item::type_id::create("lcr_item");
             report_item.lcr = lcr_reg[7:0];
             ap.write(report_item);
-            `LOG(`UART_TX_SCOREBOARD, $sformatf("UART TX SCOREBOARD report_item %h", report_item.lcr))
+            no_chars_tx++;
+
+            // `LOG(`UART_TX_SCOREBOARD, $sformatf("UART TX SCOREBOARD report_item %h", report_item.lcr))
         end
 
     endtask

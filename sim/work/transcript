@@ -1,9 +1,6 @@
 # vsim -voptargs="+acc" -c -do "run -all; quit" work.testbench 
-# Start time: 16:37:32 on May 19,2025
+# Start time: 23:56:36 on May 19,2025
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Warning: ../src/uvm_tb/testbench.sv(17): (vopt-2685) [TFMPC] - Too few port connections for 'DUT'.  Expected 18, found 17.
-# ** Warning: ../src/uvm_tb/testbench.sv(17): (vopt-2718) [TFMPC] - Missing connection for port 'tick_rx'.
-# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
 # //  Questa Sim-64
 # //  Version 2021.2_1 linux_x86_64 May 15 2021
 # //
@@ -81,53 +78,263 @@
 # 
 # UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
 # UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(278) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
-# UVM_INFO @ 0: reporter [RNTST] Running test word_format_poll_test...
+# UVM_INFO @ 0: reporter [RNTST] Running test tx_polling_test...
 # UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(36) @ 0: uvm_test_top [build phase] uart_test_base build
 # UVM_INFO ../src/uvm_tb/uart_reg_pkg.sv(304) @ 0: reporter [build_phase] UART register phase
 # UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(205) @ 0: uvm_test_top.m_env.m_apb_agent [APB_AGENT] APB AGENT BUILD PHASE
 # UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(64) @ 0: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER NEW
 # UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(70) @ 0: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER BUILD PHASE
 # UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(144) @ 0: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] UVM MONITOR BUILD PHASE
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(331) @ 0: uvm_test_top.m_env.m_rx_uart_agent [UART_AGENT] UART AGENT BUILD PHASE
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(338) @ 0: uvm_test_top.m_env.m_rx_uart_agent [IF_CHECK] serial_if interface connected successfully.
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(114) @ 0: uvm_test_top.m_env.m_rx_uart_agent.driver [UART_DRIVER] UART DRIVER BUILD PHASE
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(194) @ 0: uvm_test_top.m_env.m_rx_uart_agent.monitor [UART_MONITOR] UART MONITOR BUILD PHASE
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(331) @ 0: uvm_test_top.m_env.m_tx_uart_agent [UART_AGENT] UART AGENT BUILD PHASE
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(338) @ 0: uvm_test_top.m_env.m_tx_uart_agent [IF_CHECK] serial_if interface connected successfully.
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(114) @ 0: uvm_test_top.m_env.m_tx_uart_agent.driver [UART_DRIVER] UART DRIVER BUILD PHASE
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(194) @ 0: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] UART MONITOR BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(360) @ 0: uvm_test_top.m_env.m_rx_uart_agent [UART_AGENT] UART AGENT BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(367) @ 0: uvm_test_top.m_env.m_rx_uart_agent [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(112) @ 0: uvm_test_top.m_env.m_rx_uart_agent.driver [UART_DRIVER] UART DRIVER BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(199) @ 0: uvm_test_top.m_env.m_rx_uart_agent.monitor [UART_MONITOR] UART MONITOR BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(360) @ 0: uvm_test_top.m_env.m_tx_uart_agent [UART_AGENT] UART AGENT BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(367) @ 0: uvm_test_top.m_env.m_tx_uart_agent [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(112) @ 0: uvm_test_top.m_env.m_tx_uart_agent.driver [UART_DRIVER] UART DRIVER BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(199) @ 0: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] UART MONITOR BUILD PHASE
 # UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(81) @ 0: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER CONNECT PHASE
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(347) @ 0: uvm_test_top.m_env.m_rx_uart_agent [UART_AGENT] UART AGENT CONNECT PHASE
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(347) @ 0: uvm_test_top.m_env.m_tx_uart_agent [UART_AGENT] UART AGENT CONNECT PHASE
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(374) @ 0: uvm_test_top.m_env [UART_ENV] CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(376) @ 0: uvm_test_top.m_env.m_rx_uart_agent [UART_AGENT] UART AGENT CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(376) @ 0: uvm_test_top.m_env.m_tx_uart_agent [UART_AGENT] UART AGENT CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(379) @ 0: uvm_test_top.m_env [UART_ENV] CONNECT PHASE
 # UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(66) @ 0: uvm_test_top [init] init_vseq
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(291) @ 0: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] UART MONITOR RUN PHASE
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(124) @ 0: uvm_test_top.m_env.m_tx_uart_agent.driver [IF_CHECK] serial_if interface connected successfully.
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(291) @ 0: uvm_test_top.m_env.m_rx_uart_agent.monitor [UART_MONITOR] UART MONITOR RUN PHASE
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(124) @ 0: uvm_test_top.m_env.m_rx_uart_agent.driver [IF_CHECK] serial_if interface connected successfully.
-# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(266) @ 19: reporter [BUS2REG] Converted bus item: kind=WRITE, addr=0x8, data=0x1
-# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(266) @ 19: reporter [BUS2REG] Converted bus item: kind=WRITE, addr=0x8, data=0x1
-# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(266) @ 29: reporter [BUS2REG] Converted bus item: kind=WRITE, addr=0x14, data=0x0
-# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(266) @ 29: reporter [BUS2REG] Converted bus item: kind=WRITE, addr=0x14, data=0x0
-# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(266) @ 39: reporter [BUS2REG] Converted bus item: kind=WRITE, addr=0xc, data=0x5
-# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(266) @ 39: reporter [BUS2REG] Converted bus item: kind=WRITE, addr=0xc, data=0x5
-# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(132) @ 39: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
-# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(266) @ 49: reporter [BUS2REG] Converted bus item: kind= READ, addr=0x10, data=0x10
-# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(266) @ 49: reporter [BUS2REG] Converted bus item: kind= READ, addr=0x10, data=0x10
-# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(266) @ 59: reporter [BUS2REG] Converted bus item: kind=WRITE, addr=0x0, data=0x184a9c02
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(115) @ 59: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SEND DATA 184a9c02
-# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(266) @ 59: reporter [BUS2REG] Converted bus item: kind=WRITE, addr=0x0, data=0x184a9c02
-# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(266) @ 69: reporter [BUS2REG] Converted bus item: kind=WRITE, addr=0xc, data=0x7
-# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(266) @ 69: reporter [BUS2REG] Converted bus item: kind=WRITE, addr=0xc, data=0x7
-# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 69: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(316) @ 69: uvm_test_top.m_env.rx_sb [report_phase] 0 characters received by the UART with 0 inserted errors
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(181) @ 69: uvm_test_top.m_env.tx_sb [report_phase] 1 characters transmitted from the UART with no errors
-# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(128) @ 69: uvm_test_top [*** UVM TEST PASSED ***] No RX or TX data errors detected
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(319) @ 0: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] UART MONITOR RUN PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(122) @ 0: uvm_test_top.m_env.m_tx_uart_agent.driver [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(319) @ 0: uvm_test_top.m_env.m_rx_uart_agent.monitor [UART_MONITOR] UART MONITOR RUN PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(122) @ 0: uvm_test_top.m_env.m_rx_uart_agent.driver [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 39: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 59: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 3c770310 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 356757: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 10
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 356787: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 356807: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 9049862e with LCR 01
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 731733: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 2e
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 731763: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 731783: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 95c150af with LCR 02
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 1148373: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 2f
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 1148403: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 1148423: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 1bb6c491 with LCR 03
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 1606677: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 91
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 1606707: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 1606727: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA ce2cd0d9 with LCR 04
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 1939989: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 19
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 1940019: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 1940039: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 13ec2483 with LCR 05
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 2314965: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 03
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 2314995: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 2315015: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA c8287b04 with LCR 06
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 2731605: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 04
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 2731635: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 2731655: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 4f6d82fb with LCR 07
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 3189909: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received fb
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 3189939: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 3189959: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 53e70571 with LCR 08
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 3523221: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 3564885: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 11
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 3564915: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 3564935: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA bd3d57bf with LCR 09
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 3939861: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 3981525: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 3f
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 3981555: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 3981575: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 0ae0b27b with LCR 0a
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 4398165: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 4439829: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 7b
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 4439859: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 4439879: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA ca570758 with LCR 0b
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 4898133: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 4939797: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 58
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 4939827: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 4939847: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 90c821aa with LCR 0c
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 5273109: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 5314773: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0a
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 5314803: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 5314823: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 9f542215 with LCR 0d
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 5689749: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 5731413: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 15
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 5731443: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 5731463: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 8bb06158 with LCR 0e
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 6148053: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 6189717: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 58
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 6189747: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 6189767: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 295f7f27 with LCR 0f
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 6648021: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 6689685: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 27
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 6689715: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 6689735: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 67683247 with LCR 10
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 7022997: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 07
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 7023027: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 7023047: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA f447e84d with LCR 11
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 7397973: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0d
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 7398003: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 7398023: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA c7a06cac with LCR 12
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 7814613: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 2c
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 7814643: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 7814663: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA c43b063a with LCR 13
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 8272917: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 3a
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 8272947: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 8272967: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 5e3c4536 with LCR 14
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 8606229: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 16
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 8606259: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 8606279: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA ca65bdd1 with LCR 15
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 8981205: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 11
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 8981235: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 8981255: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA c78cb84b with LCR 16
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 9397845: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 4b
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 9397875: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 9397895: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA fe865a5d with LCR 17
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 9856149: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 5d
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 9856179: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 9856199: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 3e293169 with LCR 18
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 10189461: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 10231125: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 09
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 10231155: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 10231175: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 7f8132af with LCR 19
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 10606101: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 10647765: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 2f
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 10647795: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 10647815: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA ed062f0b with LCR 1a
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 11064405: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 11106069: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0b
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 11106099: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 11106119: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 18947f43 with LCR 1b
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 11564373: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 11606037: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 43
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 11606067: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 11606087: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 407d89c0 with LCR 1c
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 11939349: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 11981013: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 00
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 11981043: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 11981063: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 278ae037 with LCR 1d
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 12355989: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 12397653: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 37
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 12397683: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 12397703: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 7d538e8c with LCR 1e
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 12814293: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 12855957: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0c
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 12855987: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 12856007: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 8f98629c with LCR 1f
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 13314261: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 13355925: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 9c
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 13355955: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 13355975: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA ca662603 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 13689237: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 03
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 13689267: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 13689287: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 9c113d25 with LCR 01
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 14064213: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 25
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 14064243: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 14064263: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 0d49acb3 with LCR 02
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 14480853: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 33
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 14480883: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 14480903: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 538320c4 with LCR 03
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 14939157: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received c4
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 14939187: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 14939207: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA f2af0927 with LCR 04
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 15272469: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 07
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 15272499: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 15272519: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 8805feb9 with LCR 05
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 15647445: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 39
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 15647475: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 15647495: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA ee953bc1 with LCR 06
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 16064085: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 41
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 16064115: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 16064135: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA cc2cc4e5 with LCR 07
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 16522389: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received e5
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 16522419: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 16522439: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 035ae5f3 with LCR 08
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 16855701: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 16897365: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 13
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 16897395: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 16897415: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 4f07318a with LCR 09
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 17272341: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 17314005: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0a
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 17314035: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 17314055: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 8f6a44aa with LCR 0a
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 17730645: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 17772309: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 2a
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 17772339: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 17772359: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA e15a852a with LCR 0b
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 18230613: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 18272277: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 2a
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 18272307: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 18272327: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA e8f03ed4 with LCR 0c
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 18605589: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 18647253: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 14
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 18647283: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 18647303: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 691691bf with LCR 0d
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 19022229: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 19063893: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 3f
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 19063923: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 19063943: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA d45c320d with LCR 0e
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 19480533: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 19522197: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0d
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 19522227: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 19522247: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 965a4509 with LCR 0f
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 19980501: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 20022165: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 09
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 20022195: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 20022215: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 8e8f2971 with LCR 10
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 20355477: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 11
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 20355507: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 20355527: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 94a38a60 with LCR 11
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 20730453: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 20
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 20730483: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 20730503: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 1e505b68 with LCR 12
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 21147093: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 68
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 21147123: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 21147143: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 37d21411 with LCR 13
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 21605397: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 11
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 21605427: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 21605447: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 6d76c566 with LCR 14
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 21938709: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 06
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 21938739: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 21938759: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA e8482ffa with LCR 15
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 22313685: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 3a
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 22313715: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 22313735: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 07f24b79 with LCR 16
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 22730325: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 79
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 22730355: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 22730375: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA f261015a with LCR 17
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 23188629: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 5a
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 23188659: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 23188679: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 7d00e011 with LCR 18
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 23521941: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 23563605: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 11
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 23563635: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 23563655: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 339c7093 with LCR 19
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 23938581: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 23980245: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 13
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 23980275: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 23980295: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 8bf77cbc with LCR 1a
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 24396885: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 24438549: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 3c
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 24438579: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 24438599: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 7d270cc1 with LCR 1b
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 24896853: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 24938517: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received c1
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 24938547: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 24938567: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA c8487b7d with LCR 1c
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 25271829: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 25313493: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 1d
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 25313523: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 25313543: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 5e1beed4 with LCR 1d
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 25688469: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 0 expected 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 25730133: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 14
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 25730163: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 25730183: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 31248fbe with LCR 1e
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 26146773: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 26188437: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 3e
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(134) @ 26188467: uvm_test_top.m_env.m_apb_agent.sequencer@@host_tx [TEST] RUN TEST
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 26188487: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 75f97279 with LCR 1f
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(290) @ 26646741: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] received parity 1 expected 1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 26688405: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 79
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 26688405: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(321) @ 26688405: uvm_test_top.m_env.rx_sb [report_phase] 0 characters received by the UART with 0 inserted errors
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(186) @ 26688405: uvm_test_top.m_env.tx_sb [report_phase] 64 characters transmitted from the UART with no errors
+# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(129) @ 26688405: uvm_test_top [*** UVM TEST PASSED ***] No TX data errors detected
 # 
 # --- UVM Report Summary ---
 # 
 # ** Report counts by severity
-# UVM_INFO :   44
+# UVM_INFO :  254
 # UVM_WARNING :    0
 # UVM_ERROR :    0
 # UVM_FATAL :    0
@@ -136,22 +343,21 @@
 # [APB_AGENT]     1
 # [APB_DRIVER]     3
 # [APB_MONITOR]     1
-# [BUS2REG]    12
 # [IF_CHECK]     4
 # [Questa UVM]     2
 # [RNTST]     1
-# [TEST]     1
+# [TEST]    64
 # [TEST_DONE]     1
 # [UART_AGENT]     4
 # [UART_DRIVER]     2
 # [UART_ENV]     1
-# [UART_MONITOR]     4
-# [UART_TX_SCOREBOARD]     1
+# [UART_MONITOR]    36
+# [UART_TX_SCOREBOARD]   128
 # [build phase]     1
 # [build_phase]     1
 # [init]     1
 # [report_phase]     2
 # ** Note: $finish    : /home/hieu/questasim/questasim/linux_x86_64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
-#    Time: 69 ns  Iteration: 69  Instance: /testbench
-# End time: 16:37:35 on May 19,2025, Elapsed time: 0:00:03
-# Errors: 0, Warnings: 2
+#    Time: 26688405 ns  Iteration: 63  Instance: /testbench
+# End time: 23:56:59 on May 19,2025, Elapsed time: 0:00:23
+# Errors: 0, Warnings: 0

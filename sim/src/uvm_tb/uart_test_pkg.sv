@@ -70,6 +70,7 @@ apb_agent_cfg m_apb_cfg;
     vseq.tx_uart_config = m_tx_uart_cfg;
     vseq.rx_uart_config = m_rx_uart_cfg;
     vseq.cfg = m_env_cfg;
+    vseq.m_env = m_env; 
   endfunction
 endclass
 
@@ -105,16 +106,16 @@ endclass
 
 
 
-class word_format_poll_test extends uart_test_base;
+class tx_polling_test extends uart_test_base;
 
-`uvm_component_utils(word_format_poll_test)
+`uvm_component_utils(tx_polling_test)
 
-  function new(string name = "word_format_poll_test", uvm_component parent = null);
+  function new(string name = "tx_polling_test", uvm_component parent = null);
     super.new(name, parent);
   endfunction
 
   task run_phase(uvm_phase phase);
-    word_format_poll_vseq vseq = word_format_poll_vseq::type_id::create("vseq");
+    tx_polling_vseq vseq = tx_polling_vseq::type_id::create("vseq");
 
     phase.raise_objection(this);
     init_vseq(vseq);
@@ -125,10 +126,10 @@ class word_format_poll_test extends uart_test_base;
 
   function void report_phase(uvm_phase phase);
     if((m_env.tx_sb.no_errors == 0) && (m_env.tx_sb.no_data_errors == 0) && (m_env.rx_sb.no_reported_errors == 0) && (m_env.rx_sb.no_data_errors == 0)) begin
-      `uvm_info("*** UVM TEST PASSED ***", "No RX or TX data errors detected", UVM_LOW)
+      `uvm_info("*** UVM TEST PASSED ***", "No TX data errors detected", UVM_LOW)
     end
     else begin
-      `uvm_error("*** UVM TEST FAILED ***", "RX or TX data errors detected - see scoreboard reports for more detail")
+      `uvm_error("*** UVM TEST FAILED ***", "TX data errors detected - see scoreboard reports for more detail")
     end
   endfunction
 endclass

@@ -44,6 +44,21 @@ module uart_transmitter(
         endcase
         total_data = data_size + parity_en_i + stop_bit_size + 1;
     end
+    logic [7:0] sampled_data;
+    logic [3:0] total_data_sampled;
+    logic [3:0] data_size_sampled;
+
+    always @(posedge clk or negedge reset_n) begin
+        if(~reset_n) begin
+            sampled_data <= 0;
+            total_data_sampled <= 0;
+            data_size_sampled <= 0;
+        end else begin
+            sampled_data <= data;
+            total_data_sampled <= total_data;
+            data_size_sampled <=  data_size;
+        end
+    end
     logic tick_d;
     always_ff @(posedge clk or negedge reset_n) begin
         if(~reset_n) begin
@@ -70,12 +85,13 @@ module uart_transmitter(
     parity parity_inst
         (
             .parity_type_i (parity_type_i),
-            .data_i        (data_i),
+            .data_i        (sampled_data),
+            .data_bit_num_i(data_bit_num_i),
             .parity_bit_o  (parity_bit_o)
         );
     wire trans_data_fi, trans_stop_fi;
-    assign trans_data_fi = (cnt_data_trans == (1+ data_size));
-    assign trans_stop_fi = (cnt_data_trans == total_data);
+    assign trans_data_fi = (cnt_data_trans == (1+ data_size_sampled));
+    assign trans_stop_fi = (cnt_data_trans == total_data_sampled);
 
     wire load_d0;
     assign load_d0 = (~|cnt_data_trans) | (parity_en_i & ~parity_bit_o & trans_data_fi);
@@ -107,7 +123,7 @@ module uart_transmitter(
             .shift_en_i (shift_en),
             .load_en_i  (load_en),
             .load_d0_i (load_d0),
-            .data_i     (data),
+            .data_i     (sampled_data),
             .tx_o       (tx_o)
         );
 

@@ -9,7 +9,7 @@ package uart_agent_pkg;
 
       case (lcr[1:0])
 
-    2'b00: retParity = ^data[4:0];
+      2'b00: retParity = ^data[4:0];
 
 
         2'b01: retParity = ^data[5:0];
@@ -47,11 +47,10 @@ package uart_agent_pkg;
 
     `uvm_object_utils(uart_transaction)
 
-    // data send to RX // 1 + 8 + 1 + 2
     rand logic [7:0] data;
     rand logic [7:0] lcr;
-    rand logic fe;
 
+    rand logic fe;
     rand logic pe;
 
    	function new(string name = "uart_transaction");
@@ -82,7 +81,6 @@ package uart_agent_pkg;
 
     `uvm_component_utils(uart_sequencer)
     function new(string name, uvm_component parent);
-
 
       super.new(name, parent);
 
@@ -128,7 +126,13 @@ package uart_agent_pkg;
 
             seq_item_port.get_next_item(pkt);
 
+          `LOG(`UART_DRIVER, $sformatf("Item received from sequence: %s", pkt.get_sequence_path()))
+
             `LOG(`UART_DRIVER, "UART DRIVER starts driving")
+             `LOG(`UART_DRIVER, $sformatf("%h", pkt.data))
+            `LOG(`UART_DRIVER, $sformatf("%h", pkt.lcr))
+
+
             @(posedge sline.tick_tx); 
 
             sline.sdata = 0;
@@ -156,7 +160,8 @@ package uart_agent_pkg;
             end
 
             seq_item_port.item_done();
-            // `LOG(`UART_DRIVER, "UART DRIVER finished driving")
+            `LOG(`UART_DRIVER, "UART DRIVER finished driving")
+
         end
       end
     endtask
@@ -212,40 +217,52 @@ endclass
           @(posedge sline.tick_rx);
         end
         // start bit detected
-        wait(sline.tick_tx);
-        repeat(7) @(posedge sline.tick_rx);
+
+        // `LOG(`UART_MONITOR, "start bit detected")
+        @(posedge sline.tick_rx);
+
+        repeat(23) @(posedge sline.tick_rx);
         data[0] = sline.sdata;
-        wait(sline.tick_tx);
+          // `LOG(`UART_MONITOR, $sformatf("%b", sline.sdata))
+        bitPeriod;
         data[1] = sline.sdata;
-        wait(sline.tick_tx);
+                        // `LOG(`UART_MONITOR, $sformatf("%b", sline.sdata))
+
+        bitPeriod;
         data[2] = sline.sdata;
-        wait(sline.tick_tx);
+                        // `LOG(`UART_MONITOR, $sformatf("%b", sline.sdata))
+
+        bitPeriod;
         data[3] = sline.sdata;
-        wait(sline.tick_tx);
+                        // `LOG(`UART_MONITOR, $sformatf("%b", sline.sdata))
+
+        bitPeriod;
         data[4] = sline.sdata;
-        wait(sline.tick_tx);
+                        // `LOG(`UART_MONITOR, $sformatf("%b", sline.sdata))
+
+        bitPeriod;
         if(cfg.lcr[1:0] > 2'b00) begin
 	 				begin
 		          data[5] = sline.sdata;
-                    wait(sline.tick_tx);
+        bitPeriod;
 		        end
-	end else if(cfg.lcr[3]) begin
+	      end else if(cfg.lcr[3]) begin
 		      	begin
 		          parity = sline.sdata;
-                    wait(sline.tick_tx); 
-		 end
-		      end  
+        bitPeriod;
+		      end
+		    end  
 		      if (cfg.lcr[1:0] > 2'b00)
 		        begin
 		          if (cfg.lcr[1:0] > 2'b01)
 		            begin
 		              data[6] = sline.sdata;
-                        wait(sline.tick_tx);
+        bitPeriod;
 		            end
 		          else if (cfg.lcr[3])
 		            begin
 		              parity = sline.sdata;
-                    wait(sline.tick_tx); 
+        bitPeriod;
 		            end
 		        end
 		      if (cfg.lcr[1:0] > 2'b01)
@@ -253,22 +270,25 @@ endclass
 		          if (cfg.lcr[1:0] > 2'b10)
 		            begin
                         data[7] = sline.sdata;
-                            wait(sline.tick_tx);
+        bitPeriod;
 		            end
 		          else if (cfg.lcr[3])
 		            begin
 		              parity = sline.sdata;
-                    wait(sline.tick_tx); 
+        bitPeriod;
 		            end
 		        end
 		      if (cfg.lcr[3] && (cfg.lcr[1:0] > 2'b10) )
 		        begin
 		           parity = sline.sdata;
-                    wait(sline.tick_tx); 
+        bitPeriod;
 		        end
 		      if (cfg.lcr[3])
 		        begin
+
 		          pe = logic'(calParity (cfg.lcr, data));
+                `LOG(`UART_MONITOR, $sformatf("received parity %b expected %b", parity, pe))
+
 		          if (pe != parity)
 		            pe = 1;
 		          else
@@ -276,7 +296,7 @@ endclass
 		        end
 		       stop_bit = sline.sdata;
 				if(stop_bit == 1'b0) fe =1;
-                wait(sline.tick_tx);
+        bitPeriod;
 
 		       if(cfg.lcr[2]) begin
 		            stop_bit = sline.sdata;
@@ -286,6 +306,14 @@ endclass
 
     endtask
 
+    
+task bitPeriod;
+  begin
+    repeat(16)
+      @(posedge sline.tick_rx);
+  end
+endtask
+
 
     task run_phase(uvm_phase phase);
         `LOG(`UART_MONITOR, "UART MONITOR RUN PHASE")
@@ -293,10 +321,11 @@ endclass
         forever begin
     
             receive_pkt();
+            // 3 f -> 
             s_char.data = data;
             s_char.fe = fe;
             s_char.pe = pe;
-                        `LOG(`UART_MONITOR, "UART MONITOR captured")
+              // `LOG(`UART_MONITOR, "UART MONITOR captured")
 
             ap.write(s_char);
     

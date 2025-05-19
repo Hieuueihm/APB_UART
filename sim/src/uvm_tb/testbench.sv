@@ -13,6 +13,7 @@ serial_if RX_UART();
 serial_if TX_UART();
 interrupt_if IRQ();
 wire rts_n;
+wire tick_rx;
 
 apb_uart DUT (
   .clk(clk),
@@ -27,12 +28,13 @@ apb_uart DUT (
   .pslverr(APB.pslverr),
   .pstrb(4'b0001),
   .irq(IRQ.irq),
-
+  
   .tx(TX_UART.sdata),
   .rx(RX_UART.sdata),
   .cts_n   (1'b0),
   .rts_n (rts_n),
-  .baud_o(IRQ.baud_o)
+  .baud_o(IRQ.baud_o),
+  .tick_rx(tick_rx)
   );
   // apb_assertion apb_assertion_inst(
   //   .clk(clk),    
@@ -56,7 +58,7 @@ initial begin
   uvm_config_db #(virtual serial_if)::set(null, "uvm_test_top", "RX_UART", RX_UART);
   uvm_config_db #(virtual serial_if)::set(null, "uvm_test_top", "TX_UART", TX_UART);
   uvm_config_db #(virtual interrupt_if)::set(null, "uvm_test_top", "IRQ", IRQ);
-  run_test("word_format_poll_test");
+  run_test("tx_polling_test");
 end
 
 
@@ -75,13 +77,15 @@ initial begin
 end
 
 assign IRQ.clk = clk;
-assign RX_UART.tick_rx = IRQ.baud_o;
-assign TX_UART.tick_rx = IRQ.baud_o;
+assign RX_UART.tick_tx = IRQ.baud_o;
+assign RX_UART.tick_rx = tick_rx;
 
+assign TX_UART.tick_tx = IRQ.baud_o;
+assign TX_UART.tick_rx = tick_rx;
 initial begin
           $dumpfile("dump_uvm.vcd");
           $dumpvars;
-          #10000ns
+          #2s;
           $finish;
 end 
 

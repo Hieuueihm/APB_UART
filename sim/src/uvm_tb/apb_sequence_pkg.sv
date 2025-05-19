@@ -116,6 +116,8 @@ import uart_env_pkg::*;
 		`uvm_object_utils(uart_host_tx_seq)
 
 		rand int no_tx_chars;
+		int has_data_in = 0;
+		bit [31:0] data_in;
 
 		constraint char_limit_c { no_tx_chars inside {[1:20]};}
 		uart_config_seq cfg;
@@ -139,7 +141,7 @@ import uart_env_pkg::*;
 				end
 
 		    // for(int j = 0; j < 16; j++) begin
-		      rm.TDR.write(status, $urandom(), .parent(this));
+		      rm.TDR.write(status,	has_data_in ? data_in : $urandom(), .parent(this));
 			// `uvm_info("TEST", $sformatf("cfg.OCR[2] = %0b", cfg.OCR[2]), UVM_MEDIUM);
 			// `uvm_info("TEST", $sformatf("cfg.OCR = %03b", cfg.OCR), UVM_MEDIUM);
 
