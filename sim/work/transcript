@@ -1,10 +1,9 @@
-# vsim -voptargs="+acc" -c -do "run -all; quit" work.apb_uart_uvm_tb 
-# Start time: 14:59:50 on May 16,2025
+# vsim -voptargs="+acc" -c -do "run -all; quit" work.testbench 
+# Start time: 11:54:40 on May 19,2025
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
-# ** Warning: ../src/uart_test_pkg.sv(159): (vopt-2250) Function "voidreport_phase" has no return value assignment.
-# ** Warning: ../src/apb_uart_uvm_tb.sv(29): (vopt-2685) [TFMPC] - Too few port connections for 'DUT'.  Expected 18, found 17.
-# ** Warning: ../src/apb_uart_uvm_tb.sv(29): (vopt-2718) [TFMPC] - Missing connection for port 'tick_rx'.
-# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=3.
+# ** Warning: ../src/uvm_tb/testbench.sv(17): (vopt-2685) [TFMPC] - Too few port connections for 'DUT'.  Expected 18, found 17.
+# ** Warning: ../src/uvm_tb/testbench.sv(17): (vopt-2718) [TFMPC] - Missing connection for port 'tick_rx'.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=2.
 # //  Questa Sim-64
 # //  Version 2021.2_1 linux_x86_64 May 15 2021
 # //
@@ -25,16 +24,15 @@
 # Loading work.interrupt_if(fast)
 # Loading work.common_pkg(fast)
 # Loading mtiUvm.uvm_pkg(fast)
-# Loading work.uart_agent_pkg(fast)
-# Loading work.uart_sequence_pkg(fast)
 # Loading work.uart_reg_pkg(fast)
+# Loading work.uart_agent_pkg(fast)
 # Loading work.apb_agent_pkg(fast)
 # Loading work.uart_env_pkg(fast)
 # Loading work.apb_sequence_pkg(fast)
 # Loading work.uart_vsequence_pkg(fast)
 # Loading work.uart_test_pkg(fast)
 # Loading mtiUvm.questa_uvm_pkg(fast)
-# Loading work.apb_uart_uvm_tb(fast)
+# Loading work.testbench(fast)
 # Loading work.apb_if(fast__2)
 # Loading work.serial_if(fast__2)
 # Loading work.interrupt_if(fast__2)
@@ -83,66 +81,119 @@
 # 
 # UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
 # UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(278) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
-# UVM_INFO @ 0: reporter [RNTST] Running test word_format_poll_test...
-# UVM_INFO ../src/uart_test_pkg.sv(34) @ 0: uvm_test_top [build phase] uart_test_base build
-# UVM_INFO ../src/uart_reg_pkg.sv(291) @ 0: reporter [build_phase] UART register phase
-# UVM_INFO ../src/apb_agent_pkg.sv(17) @ 0: reporter [new] apb_agent_cfg new
-# UVM_INFO ../src/apb_agent_pkg.sv(270) @ 0: uvm_test_top.m_env.m_apb_agent [build_phase] apb_agent new
-# UVM_INFO ../src/apb_agent_pkg.sv(278) @ 0: uvm_test_top.m_env.m_apb_agent [build_phase] UVM_ACTIVE SEQUNECER
-# UVM_INFO ../src/apb_agent_pkg.sv(114) @ 0: uvm_test_top.m_env.m_apb_agent.m_driver [new] apb_driver new
-# UVM_INFO ../src/apb_agent_pkg.sv(165) @ 0: uvm_test_top.m_env.m_apb_agent.m_driver [build_phase] apb_driver build
-# UVM_INFO ../src/uart_agent_pkg.sv(59) @ 0: reporter@@Serial_character [UART SEQ ITEM] UART SEQ_ITEM INIT
-# UVM_INFO ../src/uart_agent_pkg.sv(171) @ 0: uvm_test_top.m_env.m_rx_uart_agent.m_uart_monitor [BUILD PHASE] UART MONITOR
-# UVM_INFO ../src/uart_agent_pkg.sv(59) @ 0: reporter@@Serial_character [UART SEQ ITEM] UART SEQ_ITEM INIT
-# UVM_INFO ../src/uart_agent_pkg.sv(171) @ 0: uvm_test_top.m_env.m_tx_uart_agent.m_uart_monitor [BUILD PHASE] UART MONITOR
-# UVM_INFO ../src/apb_agent_pkg.sv(289) @ 0: uvm_test_top.m_env.m_apb_agent [connect_phase] apb_agent connect_phase
-# UVM_INFO ../src/uart_test_pkg.sv(65) @ 0: uvm_test_top [init] init_vseq
-# UVM_INFO ../src/uart_agent_pkg.sv(59) @ 41: reporter@@uart_sequence_item [UART SEQ ITEM] UART SEQ_ITEM INIT
-# UVM_INFO ../src/uart_sequence_pkg.sv(26) @ 41: uvm_test_top.m_env.m_rx_uart_agent.m_uart_sequencer@@rx_serial [RUNNING SEQUENCE] RX SEQUENCE RUN
-# UVM_INFO ../src/uart_agent_pkg.sv(317) @ 41: uvm_test_top.m_env.m_rx_uart_agent.m_uart_driver [UART DRIVER] SEND SCHAR
-# UVM_INFO ../src/uart_env_pkg.sv(112) @ 65: uvm_test_top.m_env.tx_sb [UART TX SCOREBOARD] ce2cd0d9
-# UVM_INFO ../src/uart_agent_pkg.sv(320) @ 291671: uvm_test_top.m_env.m_rx_uart_agent.m_uart_driver [UART DRIVER] ea
-# UVM_INFO ../src/uart_agent_pkg.sv(189) @ 5124927: uvm_test_top.m_env.m_tx_uart_agent.m_uart_monitor [UART MONITOR] WRITE SCHAR
-# UVM_INFO ../src/uart_env_pkg.sv(126) @ 5124927: uvm_test_top.m_env.tx_sb [UART TX SCOREBOARD] MONITOR UART
-# UVM_INFO ../src/uart_env_pkg.sv(137) @ 5124927: uvm_test_top.m_env.tx_sb [UART ITEM] 3f
-# UVM_ERROR ../src/uart_env_pkg.sv(148) @ 5124927: uvm_test_top.m_env.tx_sb [monitor_uart] Error in observed UART TX data expected:19 actual:3f LCR:1
-# UVM_INFO ../src/uart_agent_pkg.sv(189) @ 5249925: uvm_test_top.m_env.m_rx_uart_agent.m_uart_monitor [UART MONITOR] WRITE SCHAR
-# UVM_INFO ../src/uart_env_pkg.sv(308) @ 5249925: uvm_test_top.m_env.rx_sb [UART RX SCOREBOARD] MONITOR UART
-# UVM_INFO ../src/uart_env_pkg.sv(309) @ 5249925: uvm_test_top.m_env.rx_sb [UART RX SCOREBOARD] 00
-# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 5624919: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
-# UVM_INFO ../src/uart_env_pkg.sv(780) @ 5624919: uvm_test_top.m_env.br_sb [report_phase] No baud rate errors detected
-# UVM_INFO ../src/uart_env_pkg.sv(319) @ 5624919: uvm_test_top.m_env.rx_sb [report_phase] 1 characters received by the UART with 0 inserted errors
-# UVM_ERROR ../src/uart_env_pkg.sv(179) @ 5624919: uvm_test_top.m_env.tx_sb [report_phase] 1 characters transmitted with data_errors from 1 transmitted overall
-# UVM_ERROR ../src/uart_test_pkg.sv(130) @ 5624919: uvm_test_top [*** UVM TEST FAILED ***] RX or TX data errors detected - see scoreboard reports for more detail
+# UVM_INFO @ 0: reporter [RNTST] Running test uart_test...
+# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(36) @ 0: uvm_test_top [build phase] uart_test_base build
+# UVM_INFO ../src/uvm_tb/uart_reg_pkg.sv(304) @ 0: reporter [build_phase] UART register phase
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(191) @ 0: uvm_test_top.m_env.m_apb_agent [APB_AGENT] APB AGENT BUILD PHASE
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(63) @ 0: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER NEW
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(69) @ 0: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER BUILD PHASE
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(138) @ 0: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] UVM MONITOR BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(330) @ 0: uvm_test_top.m_env.m_rx_uart_agent [UART_AGENT] UART AGENT BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(337) @ 0: uvm_test_top.m_env.m_rx_uart_agent [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(114) @ 0: uvm_test_top.m_env.m_rx_uart_agent.driver [UART_DRIVER] UART DRIVER BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(194) @ 0: uvm_test_top.m_env.m_rx_uart_agent.monitor [UART_MONITOR] UART MONITOR BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(330) @ 0: uvm_test_top.m_env.m_tx_uart_agent [UART_AGENT] UART AGENT BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(337) @ 0: uvm_test_top.m_env.m_tx_uart_agent [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(114) @ 0: uvm_test_top.m_env.m_tx_uart_agent.driver [UART_DRIVER] UART DRIVER BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(194) @ 0: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] UART MONITOR BUILD PHASE
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(80) @ 0: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(346) @ 0: uvm_test_top.m_env.m_rx_uart_agent [UART_AGENT] UART AGENT CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(346) @ 0: uvm_test_top.m_env.m_tx_uart_agent [UART_AGENT] UART AGENT CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(369) @ 0: uvm_test_top.m_env [UART_ENV] CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(89) @ 0: uvm_test_top [run_phase] run_phase OF UART TEST
+# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(66) @ 0: uvm_test_top [init] init_vseq
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(291) @ 0: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] UART MONITOR RUN PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(124) @ 0: uvm_test_top.m_env.m_tx_uart_agent.driver [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(291) @ 0: uvm_test_top.m_env.m_rx_uart_agent.monitor [UART_MONITOR] UART MONITOR RUN PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(124) @ 0: uvm_test_top.m_env.m_rx_uart_agent.driver [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(43) @ 0: reporter@@quick_reg_access_seq [build phase] create quick_reg_access_seq
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(46) @ 0: reporter@@vseq [run] basic_reg_vseq running
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(48) @ 0: reporter@@quick_reg_access_seq [run phase] quick_reg_access_seq running
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 17: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 19: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 23: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 25: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 29: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 31: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 35: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 37: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 41: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 43: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 47: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 49: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 53: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 55: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 59: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 61: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 65: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 67: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 71: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(64) @ 71: reporter@@quick_reg_access_seq [WRITE] TDR write: status=0, data=0xaa
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 73: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 77: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 79: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 83: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 85: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 89: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 91: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 95: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 97: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 101: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 103: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 107: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 109: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 113: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 115: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 119: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 121: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 125: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 127: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 131: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 133: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 137: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 139: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 143: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 145: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 149: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 151: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 155: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 157: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 161: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 163: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 167: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(165) @ 169: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] APB MONITOR captured
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(118) @ 173: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER finished driving
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 173: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(99) @ 173: uvm_test_top [*** UVM TEST PASSED ***] Register RW paths checked
 # 
 # --- UVM Report Summary ---
 # 
 # ** Report counts by severity
-# UVM_INFO :   30
+# UVM_INFO :   86
 # UVM_WARNING :    0
-# UVM_ERROR :    3
+# UVM_ERROR :    0
 # UVM_FATAL :    0
 # ** Report counts by id
-# [*** UVM TEST FAILED ***]     1
-# [BUILD PHASE]     2
+# [*** UVM TEST PASSED ***]     1
+# [APB_AGENT]     1
+# [APB_DRIVER]    30
+# [APB_MONITOR]    27
+# [IF_CHECK]     4
 # [Questa UVM]     2
 # [RNTST]     1
-# [RUNNING SEQUENCE]     1
 # [TEST_DONE]     1
-# [UART DRIVER]     2
-# [UART ITEM]     1
-# [UART MONITOR]     2
-# [UART RX SCOREBOARD]     2
-# [UART SEQ ITEM]     3
-# [UART TX SCOREBOARD]     2
-# [build phase]     1
-# [build_phase]     4
-# [connect_phase]     1
+# [UART_AGENT]     4
+# [UART_DRIVER]     2
+# [UART_ENV]     1
+# [UART_MONITOR]     4
+# [WRITE]     1
+# [build phase]     2
+# [build_phase]     1
 # [init]     1
-# [monitor_uart]     1
-# [new]     2
-# [report_phase]     3
+# [run]     1
+# [run phase]     1
+# [run_phase]     1
 # ** Note: $finish    : /home/hieu/questasim/questasim/linux_x86_64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
-#    Time: 5624919 ns  Iteration: 67  Instance: /apb_uart_uvm_tb
-# End time: 15:00:05 on May 16,2025, Elapsed time: 0:00:15
-# Errors: 0, Warnings: 3
+#    Time: 173 ns  Iteration: 68  Instance: /testbench
+# End time: 11:54:42 on May 19,2025, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 2
