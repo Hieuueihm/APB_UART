@@ -363,6 +363,9 @@ class uart_env extends uvm_component;
     reg_predictor = uvm_reg_predictor #(apb_transaction)::type_id::create("reg_predictor", this);
     reg_adapter = reg2apb_adapter::type_id::create("reg_adapter");
 
+      tx_sb = uart_tx_scoreboard::type_id::create("tx_sb", this);
+  rx_sb = uart_rx_scoreboard::type_id::create("rx_sb", this);
+
   endfunction
 
   function void connect_phase(uvm_phase phase);
@@ -372,6 +375,14 @@ class uart_env extends uvm_component;
     reg_predictor.map = m_cfg.rm.map;
     reg_predictor.adapter = reg_adapter;
     m_apb_agent.ap.connect(reg_predictor.bus_in);
+    // tx scoreboard
+      m_apb_agent.ap.connect(tx_sb.apb_fifo.analysis_export);
+  m_tx_uart_agent.ap.connect(tx_sb.uart_fifo.analysis_export);
+  tx_sb.rm = m_cfg.rm;
+    // rx scoreboard
+   m_apb_agent.ap.connect(rx_sb.apb_fifo.analysis_export);
+  m_rx_uart_agent.ap.connect(rx_sb.uart_fifo.analysis_export);
+  rx_sb.rm = m_cfg.rm;
 
   endfunction
 

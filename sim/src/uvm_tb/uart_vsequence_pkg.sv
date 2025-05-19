@@ -34,19 +34,19 @@ endclass
 
 class basic_reg_vseq extends uart_vseq_base;
 
-`uvm_object_utils(basic_reg_vseq)
+    `uvm_object_utils(basic_reg_vseq)
 
-function new(string name = "basic_reg_vseq");
-  super.new(name);
-endfunction
+    function new(string name = "basic_reg_vseq");
+    super.new(name);
+    endfunction
 
-task body;
+    task body;
 
-  quick_reg_access_seq t_seq = quick_reg_access_seq::type_id::create("t_seq");
-  `uvm_info("run", "basic_reg_vseq running", UVM_LOW);
-  t_seq.start(apb);
+    quick_reg_access_seq t_seq = quick_reg_access_seq::type_id::create("t_seq");
+    `uvm_info("run", "basic_reg_vseq running", UVM_LOW);
+    t_seq.start(apb);
 
-endtask
+    endtask
 
 endclass
 
