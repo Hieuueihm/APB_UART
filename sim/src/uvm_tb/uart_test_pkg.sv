@@ -125,13 +125,44 @@ class tx_polling_test extends uart_test_base;
 
 
   function void report_phase(uvm_phase phase);
-    if((m_env.tx_sb.no_errors == 0) && (m_env.tx_sb.no_data_errors == 0) && (m_env.rx_sb.no_reported_errors == 0) && (m_env.rx_sb.no_data_errors == 0)) begin
+    if((m_env.tx_sb.no_errors == 0) && (m_env.tx_sb.no_data_errors == 0)) begin
       `uvm_info("*** UVM TEST PASSED ***", "No TX data errors detected", UVM_LOW)
     end
     else begin
       `uvm_error("*** UVM TEST FAILED ***", "TX data errors detected - see scoreboard reports for more detail")
     end
   endfunction
+endclass
+
+
+class rx_polling_test extends uart_test_base;
+
+`uvm_component_utils(rx_polling_test)
+
+  function new(string name = "rx_polling_test", uvm_component parent = null);
+    super.new(name, parent);
+  endfunction
+
+  task run_phase(uvm_phase phase);
+    rx_polling_vseq vseq = rx_polling_vseq::type_id::create("vseq");
+
+    phase.raise_objection(this);
+    init_vseq(vseq);
+    vseq.start(null);
+    phase.drop_objection(this);
+  endtask
+
+
+  function void report_phase(uvm_phase phase);
+    if((m_env.rx_sb.no_reported_errors == 0) && (m_env.rx_sb.no_data_errors == 0)) begin
+      `uvm_info("*** UVM TEST PASSED ***", "No RX data errors detected", UVM_LOW)
+    end
+    else begin
+      `uvm_error("*** UVM TEST FAILED ***", "RX data errors detected - see scoreboard reports for more detail")
+    end
+  endfunction
+
+
 endclass
 
 

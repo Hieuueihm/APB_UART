@@ -132,6 +132,8 @@ import uart_env_pkg::*;
 		  super.body();
 		  i = 0;
 		  `LOG("TEST", "RUN TEST")
+			`LOG("TEST", $sformatf("%h", cfg.LCR[7:5]))
+
 		  while(i < no_tx_chars) begin
 		    rm.LSR.read(status, data, .parent(this));
 
@@ -163,6 +165,7 @@ import uart_env_pkg::*;
 	`uvm_object_utils(uart_host_rx_seq)
 
 	rand int no_rx_chars;
+	event rx_data_event;
 
 	constraint char_limit_c { no_rx_chars inside {[1:20]};}
 
@@ -178,6 +181,7 @@ import uart_env_pkg::*;
 	      rm.LSR.read(status, data, .parent(this));
 	      cfg.wait_for_clock(10);
 	    end
+
 	    rm.RDR.read(status, data, .parent(this));
 	  end
 	endtask

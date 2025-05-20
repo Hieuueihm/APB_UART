@@ -1,18 +1,20 @@
 import common_pkg::*;
 
 module baud_generator #(
-    parameter SYSTEM_FREQUENCY = 100000000, 
-    parameter SAMPLING_RATE = 16            
+    parameter SYSTEM_FREQUENCY = 100000000,
+    parameter SAMPLING_RATE = 16
 ) (
     input clk,
     input reset_n,
-    input [2:0] baud_sl_i,         
-    output logic tick_tx,        
-    output logic tick_rx   
+    input [2:0] baud_sl_i,
+    output logic tick_tx,
+    output logic tick_rx
 );
 
     logic [31:0] BIT_PERIOD_TX, BIT_PERIOD_RX;
     logic [31:0] counter_tx, counter_rx;
+    logic [2:0] baud_sl_prev;
+    logic baud_changed;
 
     logic [31:0] baud_rate;
     always_comb begin
@@ -21,35 +23,46 @@ module baud_generator #(
         BIT_PERIOD_RX = SYSTEM_FREQUENCY / (SAMPLING_RATE * baud_rate);
     end
 
-  // Counter và tick cho TX (1x)
+    // Detect baud rate change
     always_ff @(posedge clk or negedge reset_n) begin
-        if (~reset_n) begin
+        if (!reset_n) begin
+            baud_sl_prev <= 0;
+            baud_changed <= 0;
+        end else begin
+            baud_changed <= (baud_sl_i != baud_sl_prev);
+            baud_sl_prev <= baud_sl_i;
+        end
+    end
+
+    // TX Counter
+    always_ff @(posedge clk or negedge reset_n) begin
+        if (!reset_n || baud_changed) begin
             counter_tx <= 0;
             tick_tx <= 0;
         end else begin
-            if (counter_tx == BIT_PERIOD_TX-1) begin
+            if (counter_tx == BIT_PERIOD_TX - 1) begin
                 counter_tx <= 0;
                 tick_tx <= 1;
-            end else  begin
-                counter_tx <= counter_tx+1; 
+            end else begin
+                counter_tx <= counter_tx + 1;
                 tick_tx <= 0;
             end
         end
     end
 
-  // Counter và tick cho RX (16x)
+    // RX Counter
     always_ff @(posedge clk or negedge reset_n) begin
-        if (~reset_n) begin
+        if (!reset_n || baud_changed) begin
             counter_rx <= 0;
             tick_rx <= 0;
         end else begin
-        if (counter_rx == BIT_PERIOD_RX-1) begin
-            counter_rx <= 0;
-            tick_rx <= 1'b1;
-        end else begin
-            counter_rx <= counter_rx +1;
-            tick_rx <= 0;
-        end
+            if (counter_rx == BIT_PERIOD_RX - 1) begin
+                counter_rx <= 0;
+                tick_rx <= 1;
+            end else begin
+                counter_rx <= counter_rx + 1;
+                tick_rx <= 0;
+            end
         end
     end
 
