@@ -76,7 +76,7 @@ endclass
 
 
 
-
+// test read and write regs
 class uart_test extends uart_test_base;
 
 `uvm_component_utils(uart_test)
@@ -100,7 +100,6 @@ class uart_test extends uart_test_base;
     `uvm_info("*** UVM TEST PASSED ***", "Register RW paths checked", UVM_LOW)
   endfunction
 endclass
-
 
 
 
@@ -135,6 +134,37 @@ class tx_polling_test extends uart_test_base;
 endclass
 
 
+
+  class tx_fifo_test extends uart_test_base;
+
+  `uvm_component_utils(tx_fifo_test)
+
+    function new(string name = "tx_fifo_test", uvm_component parent = null);
+      super.new(name, parent);
+    endfunction
+
+    task run_phase(uvm_phase phase);
+      tx_fifo_vseq vseq = tx_fifo_vseq::type_id::create("vseq");
+
+      phase.raise_objection(this);
+      init_vseq(vseq);
+      vseq.start(null);
+      phase.drop_objection(this);
+    endtask
+
+
+    function void report_phase(uvm_phase phase);
+      if((m_env.tx_sb.no_errors == 0) && (m_env.tx_sb.no_data_errors == 0)) begin
+        `uvm_info("*** UVM TEST PASSED ***", "No TX data errors detected", UVM_LOW)
+      end
+      else begin
+        `uvm_error("*** UVM TEST FAILED ***", "TX data errors detected - see scoreboard reports for more detail")
+      end
+    endfunction
+  endclass
+
+
+
 class rx_polling_test extends uart_test_base;
 
 `uvm_component_utils(rx_polling_test)
@@ -163,7 +193,13 @@ class rx_polling_test extends uart_test_base;
   endfunction
 
 
-endclass
+  endclass
+
+
+
+
+
+
 
 
 

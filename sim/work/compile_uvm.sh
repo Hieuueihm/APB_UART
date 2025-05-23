@@ -6,20 +6,20 @@ TB_DIR="../src/uvm_tb"
 
 vlib work
 
-sverilog_files=$(find "$RTL_DIR" -type f -name "*.sv")
 inc_sverilog_files=$(find "$INC_DIR" -type f -name "*.sv")
+sverilog_files=$(find "$RTL_DIR" -type f -name "*.sv")
 
 echo "Compiling RTL and include files:"
 echo "$inc_sverilog_files"
 echo "$sverilog_files"
 echo
-vlog -sv $inc_sverilog_files
-vlog -sv $sverilog_files
+vlog -sv +define+SVA $inc_sverilog_files
+vlog -sv +define+SVA $sverilog_files
 
 
 
 echo "-> Compiling supporting testbench files"
-vlog -sv +incdir+"$TB_DIR" \
+vlog -sv +define+DEBUG +incdir+"$TB_DIR" \
   "$TB_DIR/common_defines.sv" \
   "$TB_DIR/uart_reg_pkg.sv" \
   "$TB_DIR/apb_agent_pkg.sv" \

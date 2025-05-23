@@ -131,8 +131,8 @@ import uart_env_pkg::*;
 			bit[7:0] data;
 		  super.body();
 		  i = 0;
-		  `LOG("TEST", "RUN TEST")
-			`LOG("TEST", $sformatf("%h", cfg.LCR[7:5]))
+		//   `LOG("TEST", "RUN TEST")
+		// 	`LOG("TEST", $sformatf("%h", cfg.LCR[7:5]))
 
 		  while(i < no_tx_chars) begin
 		    rm.LSR.read(status, data, .parent(this));
@@ -141,7 +141,6 @@ import uart_env_pkg::*;
 	    		rm.LSR.read(status, data, .parent(this));
 					
 				end
-
 		    // for(int j = 0; j < 16; j++) begin
 		      rm.TDR.write(status,	has_data_in ? data_in : $urandom(), .parent(this));
 			// `uvm_info("TEST", $sformatf("cfg.OCR[2] = %0b", cfg.OCR[2]), UVM_MEDIUM);
@@ -149,7 +148,63 @@ import uart_env_pkg::*;
 
 		      rm.OCR.write(status, {29'b0, cfg.OCR[2], 1'b1, cfg.OCR[0]}, .parent(this));
 		      i++;
-		      if(i >= no_tx_chars) begin
+				while(!data[0]) begin
+					rm.LSR.read(status, data, .parent(this));
+				end
+
+			 if(i >= no_tx_chars) begin
+		        break;
+		      end
+		    //   j++;
+		    // end
+		  end
+	endtask
+
+	endclass
+
+
+	class uart_host_tx_seq_wfifo extends common_sequence;
+
+		`uvm_object_utils(uart_host_tx_seq_wfifo)
+
+		rand int no_tx_chars;
+		int has_data_in = 0;
+		bit [31:0] data_in;
+
+		constraint char_limit_c { no_tx_chars inside {[1:20]};}
+		uart_config_seq cfg;
+
+		function new(string name = "uart_host_tx_seq_wfifo");
+		  super.new(name);
+		endfunction
+
+		task body;
+		  int i;
+			bit[7:0] data;
+		  super.body();
+		  i = 0;
+		//   `LOG("TEST", "RUN TEST")
+		// 	`LOG("TEST", $sformatf("%h", cfg.LCR[7:5]))
+
+		  while(i < no_tx_chars) begin
+		    rm.LSR.read(status, data, .parent(this));
+
+		    while(!data[4]) begin
+	    		rm.LSR.read(status, data, .parent(this));
+					
+				end
+		    // for(int j = 0; j < 16; j++) begin
+		      rm.TDR.write(status,	has_data_in ? data_in : $urandom(), .parent(this));
+			// `uvm_info("TEST", $sformatf("cfg.OCR[2] = %0b", cfg.OCR[2]), UVM_MEDIUM);
+			// `uvm_info("TEST", $sformatf("cfg.OCR = %03b", cfg.OCR), UVM_MEDIUM);
+
+		      rm.OCR.write(status, {29'b0, cfg.OCR[2], 1'b1, cfg.OCR[0]}, .parent(this));
+		      i++;
+				// while(!data[0]) begin
+				// 	rm.LSR.read(status, data, .parent(this));
+				// end
+
+			 if(i >= no_tx_chars) begin
 		        break;
 		      end
 		    //   j++;

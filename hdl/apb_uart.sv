@@ -83,15 +83,23 @@ module apb_uart #(
     assign lsr4_set = (~fcr[0] & tdr_empty) | (fcr[0] & fifo_tx_empty);
     assign lsr5_set = (fcr[0] & parity_err & stop_bit_err);
     assign lsr6_set = (~fcr[0] & ~rdr_empty & data_o_valid) | fifo_rx_overrun;
+    logic [31:0] prdata_prev;
+    always_ff @(posedge clk or negedge preset_n) begin 
+        if(~preset_n) begin
+            prdata_prev <= 0;
+        end else begin
+            prdata_prev <= prdata;
+        end
+    end
 
 
-    assign lsr0_reset = cpu_read_lsr;
+    assign lsr0_reset = cpu_read_lsr & ~prdata_prev[0] & prdata[0];
     assign lsr1_reset = (~fcr[0] & rdr_empty) | (fcr[0] & fifo_rx_empty);
-    assign lsr2_reset = cpu_read_lsr;
-    assign lsr3_reset = cpu_read_lsr;
+    assign lsr2_reset = cpu_read_lsr & ~prdata_prev[2] & prdata[2];
+    assign lsr3_reset = cpu_read_lsr & ~prdata_prev[3] & prdata[3];
     assign lsr4_reset = (~fcr[0] & ~tdr_empty) | (fcr[0] & ~fifo_tx_empty);
-    assign lsr5_reset = cpu_read_lsr;
-    assign lsr6_reset = cpu_read_lsr;
+    assign lsr5_reset = cpu_read_lsr & ~prdata_prev[5] & prdata[5];
+    assign lsr6_reset = cpu_read_lsr & ~prdata_prev[6] & prdata[6];
 
     always_ff @(posedge clk or negedge preset_n) begin 
         if(~preset_n) begin

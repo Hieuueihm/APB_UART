@@ -8,7 +8,7 @@ module uart_receiver(
     	input tx_i,
    		input stop_bit_num_i,
     	input [1:0] data_bit_num_i,
-    	output [7:0] data_o,
+    	output logic [7:0] data_o,
     	input rts_ni,
     	output logic data_o_valid,
     	output logic parity_err_o,
@@ -40,7 +40,13 @@ module uart_receiver(
 	logic [3:0] data_size_sampled;
 	logic [3:0] total_data_size_sampled;
     logic [7:0] data;
-    assign data_o = data;
+	always_ff @(posedge clk or negedge reset_n) begin
+		if(~reset_n) begin
+			data_o <= 0;
+		end else if(data_o_valid) begin
+				data_o <= data;
+			end
+		end
     wire [7:0] data_receive;
     wire receive_en;
     	wire receive_data_en;

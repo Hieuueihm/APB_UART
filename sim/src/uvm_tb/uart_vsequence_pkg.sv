@@ -66,7 +66,7 @@ task body;
   bit[4:0] lcr;
   bit[4:0] fcr;
   bit[2:0] ocr;
-    bit [2:0] baud;
+  bit [2:0] baud;
 
   int tx_cnt_before;
 
@@ -79,11 +79,10 @@ task body;
 
   host_tx.no_tx_chars =1;
 
-  repeat(8) begin
-    fcr = 0;
-    repeat(1) begin
+  repeat(1) begin
+      fcr = 0;
       lcr[4:0] = 0;
-      repeat(1) begin
+      repeat(32) begin
         assert(setup.randomize() with {setup.LCR[4:0] == lcr[4:0];
                                       setup.LCR[7:5] == baud[2:0];
                                       setup.FCR == fcr;
@@ -93,6 +92,8 @@ task body;
         tx_uart_config.lcr[4:0] = lcr[4:0];
         tx_uart_config.lcr[7:5] = baud[2:0];
         host_tx.cfg = setup;
+        // host_tx.has_data_in = 1;
+        // host_tx.data_in = 32'h13ec2483;
 
 
         fork
@@ -100,21 +101,74 @@ task body;
           wait(m_env.tx_sb.no_chars_tx == tx_cnt_before + 1);
         join
         tx_cnt_before = m_env.tx_sb.no_chars_tx;
-
         lcr++;
       end
-    fcr++;
-    end
     `LOG("TEST TX POOLING", "CHNAGE BAUD RATE")
   baud++;
-
-
   end
-
 endtask
 
 endclass
 
+
+
+class tx_fifo_vseq extends uart_vseq_base;
+
+`uvm_object_utils(tx_fifo_vseq)
+
+function new(string name = "tx_fifo_vseq");
+  super.new(name);
+endfunction
+
+task body;
+  uart_config_seq setup = uart_config_seq::type_id::create("setup");
+  uart_host_tx_seq_wfifo host_tx = uart_host_tx_seq_wfifo::type_id::create("host_tx");
+  bit[4:0] lcr;
+  bit[4:0] fcr;
+  bit[2:0] ocr;
+  bit [2:0] baud;
+
+  int tx_cnt_before;
+
+
+  tx_cnt_before = 0;
+  baud = 0;
+  lcr = 0;
+  fcr = 0;
+  ocr = 5; 
+
+  host_tx.no_tx_chars =1;
+
+  repeat(1) begin
+      fcr = 1;
+      lcr[4:0] = 0;
+      repeat(32) begin
+        assert(setup.randomize() with {setup.LCR[4:0] == lcr[4:0];
+                                      setup.LCR[7:5] == baud[2:0];
+                                      setup.FCR == fcr;
+                                      setup.OCR == ocr;
+                                      });
+        setup.start(apb);
+        tx_uart_config.lcr[4:0] = lcr[4:0];
+        tx_uart_config.lcr[7:5] = baud[2:0];
+        host_tx.cfg = setup;
+        // host_tx.has_data_in = 1;
+        // host_tx.data_in = 32'h13ec2483;
+
+
+        fork
+          host_tx.start(apb);
+          wait(m_env.tx_sb.no_chars_tx == tx_cnt_before + 1);
+        join
+        tx_cnt_before = m_env.tx_sb.no_chars_tx;
+        lcr++;
+      end
+    // `LOG("TEST TX POOLING", "CHNAGE BAUD RATE")
+  baud++;
+  end
+endtask
+
+endclass
 
 
 

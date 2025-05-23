@@ -59,7 +59,7 @@ module apb_slave (
 		);
 
 
-
+`ifdef SVA
 	property SIGNAL_VALID(signal);
 		@(posedge clk) !$isunknown(signal);
 	endproperty;
@@ -115,5 +115,6 @@ module apb_slave (
 	PWRITE_STABLE: assert property(PSEL_ASSERT_SIGNAL_STABLE(pwrite));
 	PADDR_STABLE: assert property(PSEL_ASSERT_SIGNAL_STABLE(paddr));
 	PWDATA_STABLE: assert property(PSEL_ASSERT_SIGNAL_STABLE(pwdata & pwrite));
+`endif
 
 endmodule 

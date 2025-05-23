@@ -327,6 +327,7 @@ endclass
           if (sline.sdata == 1'b0)
             fe = 1;
         end
+        bitPeriod;
 
     endtask
 
