@@ -350,6 +350,7 @@ endtask
             s_char.data = data;
             s_char.fe = fe;
             s_char.pe = pe;
+            s_char.lcr = cfg.lcr; // để monitor lấy cả lcr cho coverage
               // `LOG(`UART_MONITOR, "UART MONITOR captured")
 
             ap.write(s_char);
@@ -410,40 +411,4 @@ endtask
 
 
     endclass    
-
-
-
-
-
 endpackage
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

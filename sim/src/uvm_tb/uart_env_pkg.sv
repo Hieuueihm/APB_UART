@@ -1,4 +1,3 @@
-
 package uart_env_pkg;
 
 
@@ -12,6 +11,7 @@ import common_pkg::*;
 import apb_agent_pkg::*;
 import uart_agent_pkg::*;
 import uart_reg_pkg::*;
+import apb_uart_coverage_pkg::*;
 
 
 class uart_env_cfg extends uvm_object;
@@ -357,7 +357,9 @@ class uart_env extends uvm_component;
   reg2apb_adapter reg_adapter;
 
   uvm_reg_predictor #(apb_transaction) reg_predictor;
-  
+    apb_coverage apb_cov;
+    uart_coverage tx_uart_coverage;
+    uart_coverage rx_uart_coverage;
 
 
   function new(string name = "UART_ENV", uvm_component parent = null);
@@ -380,8 +382,11 @@ class uart_env extends uvm_component;
     reg_adapter = reg2apb_adapter::type_id::create("reg_adapter");
 
       tx_sb = uart_tx_scoreboard::type_id::create("tx_sb", this);
-  rx_sb = uart_rx_scoreboard::type_id::create("rx_sb", this);
-
+      rx_sb = uart_rx_scoreboard::type_id::create("rx_sb", this);
+  
+    apb_cov = apb_coverage::type_id::create("apb_coverage", this);
+    tx_uart_coverage = uart_coverage::type_id::create("tx_uart_coverage", this);
+    rx_uart_coverage = uart_coverage::type_id::create("rx_uart_coverage", this);
   endfunction
 
   function void connect_phase(uvm_phase phase);
@@ -399,6 +404,11 @@ class uart_env extends uvm_component;
    m_apb_agent.ap.connect(rx_sb.apb_fifo.analysis_export);
   m_rx_uart_agent.ap.connect(rx_sb.uart_fifo.analysis_export);
   rx_sb.rm = m_cfg.rm;
+
+    //coverage
+    m_apb_agent.ap.connect(apb_cov.analysis_export);
+      m_tx_uart_agent.ap.connect(tx_uart_coverage.analysis_export);
+      m_rx_uart_agent.ap.connect(rx_uart_coverage.analysis_export);
 
   endfunction
 

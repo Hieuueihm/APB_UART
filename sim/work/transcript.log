@@ -1,0 +1,431 @@
+# vsim -voptargs="+acc" -coverage "+cover=bcefst" -c -l transcript.log -do "coverage save -onexit apb_uart_coverage.ucdb; run -all; quit" work.testbench 
+# Start time: 17:12:01 on May 25,2025
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# //  Questa Sim-64
+# //  Version 2021.2_1 linux_x86_64 May 15 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.apb_if(fast)
+# Loading work.serial_if(fast)
+# Loading work.interrupt_if(fast)
+# Loading mtiUvm.uvm_pkg(fast)
+# Loading work.uart_agent_pkg(fast)
+# Loading work.common_pkg(fast)
+# Loading work.apb_agent_pkg(fast)
+# Loading work.apb_uart_coverage_pkg(fast)
+# Loading work.uart_reg_pkg(fast)
+# Loading work.uart_env_pkg(fast)
+# Loading work.apb_sequence_pkg(fast)
+# Loading work.uart_vsequence_pkg(fast)
+# Loading work.uart_test_pkg(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading work.testbench(fast)
+# Loading work.apb_if(fast__2)
+# Loading work.serial_if(fast__2)
+# Loading work.interrupt_if(fast__2)
+# Loading work.apb_uart_sv_unit(fast)
+# Loading work.apb_uart(fast)
+# Loading work.apb_slave(fast)
+# Loading work.apb_controller(fast)
+# Loading work.register_file_sv_unit(fast)
+# Loading work.register_file(fast)
+# Loading work.baud_generator_sv_unit(fast)
+# Loading work.baud_generator(fast)
+# Loading work.uart_tx_top(fast)
+# Loading work.synchronizer(fast)
+# Loading work.transmitter_fifo(fast)
+# Loading work.uart_transmitter(fast)
+# Loading work.parity(fast)
+# Loading work.transmitter_controller(fast)
+# Loading work.piso(fast)
+# Loading work.ff(fast)
+# Loading work.uart_rx_top(fast)
+# Loading work.uart_receiver(fast)
+# Loading work.shift_register(fast)
+# Loading work.receiver_controller(fast)
+# Loading work.receiver_fifo(fast)
+# Loading /home/vietduc/workspace/questasim/questasim/uvm-1.1d/linux_x86_64/uvm_dpi.so
+# coverage save -onexit apb_uart_coverage.ucdb
+#  run -all
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(277) @ 0: reporter [Questa UVM] QUESTA_UVM-1.2.3
+# UVM_INFO verilog_src/questa_uvm_pkg-1.2/src/questa_uvm_pkg.sv(278) @ 0: reporter [Questa UVM]  questa_uvm::init(+struct)
+# UVM_INFO @ 0: reporter [RNTST] Running test tx_fifo_test...
+# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(36) @ 0: uvm_test_top [build phase] uart_test_base build
+# UVM_INFO ../src/uvm_tb/uart_reg_pkg.sv(304) @ 0: reporter [build_phase] UART register phase
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(205) @ 0: uvm_test_top.m_env.m_apb_agent [APB_AGENT] APB AGENT BUILD PHASE
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(64) @ 0: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER NEW
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(70) @ 0: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER BUILD PHASE
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(144) @ 0: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] UVM MONITOR BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(386) @ 0: uvm_test_top.m_env.m_rx_uart_agent [UART_AGENT] UART AGENT BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(393) @ 0: uvm_test_top.m_env.m_rx_uart_agent [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(112) @ 0: uvm_test_top.m_env.m_rx_uart_agent.driver [UART_DRIVER] UART DRIVER BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(230) @ 0: uvm_test_top.m_env.m_rx_uart_agent.monitor [UART_MONITOR] UART MONITOR BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(386) @ 0: uvm_test_top.m_env.m_tx_uart_agent [UART_AGENT] UART AGENT BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(393) @ 0: uvm_test_top.m_env.m_tx_uart_agent [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(112) @ 0: uvm_test_top.m_env.m_tx_uart_agent.driver [UART_DRIVER] UART DRIVER BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(230) @ 0: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] UART MONITOR BUILD PHASE
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(81) @ 0: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(402) @ 0: uvm_test_top.m_env.m_rx_uart_agent [UART_AGENT] UART AGENT CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(402) @ 0: uvm_test_top.m_env.m_tx_uart_agent [UART_AGENT] UART AGENT CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(393) @ 0: uvm_test_top.m_env [UART_ENV] CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(66) @ 0: uvm_test_top [init] init_vseq
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(344) @ 0: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] UART MONITOR RUN PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(122) @ 0: uvm_test_top.m_env.m_tx_uart_agent.driver [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(344) @ 0: uvm_test_top.m_env.m_rx_uart_agent.monitor [UART_MONITOR] UART MONITOR RUN PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(122) @ 0: uvm_test_top.m_env.m_rx_uart_agent.driver [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 19: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 29: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 39: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 49: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 59: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 59: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 3c770310 with LCR 00
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 69: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 354153: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=10, lcr=00, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 354153: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 10
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 354163: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 354173: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 354183: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 354193: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 354203: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 354203: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 9049862e with LCR 01
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 354213: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 729129: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=2e, lcr=01, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 729129: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 2e
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 729139: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 729149: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 729159: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 729169: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 729179: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 729179: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 95c150af with LCR 02
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 729189: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 1145769: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=2f, lcr=02, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 1145769: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 2f
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1145779: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1145789: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1145799: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1145809: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1145819: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 1145819: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 1bb6c491 with LCR 03
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1145829: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 1604073: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=91, lcr=03, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 1604073: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 91
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1604083: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1604093: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1604103: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1604113: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1604123: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 1604123: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA ce2cd0d9 with LCR 04
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1604133: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 1937385: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=19, lcr=04, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 1937385: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 19
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1937395: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1937405: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1937415: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1937425: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1937435: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 1937435: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 13ec2483 with LCR 05
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 1937445: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 2312361: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=03, lcr=05, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 2312361: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 03
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 2312371: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 2312381: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 2312391: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 2312401: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 2312411: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 2312411: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA c8287b04 with LCR 06
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 2312421: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 2729001: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=04, lcr=06, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 2729001: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 04
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 2729011: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 2729021: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 2729031: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 2729041: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 2729051: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 2729051: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 4f6d82fb with LCR 07
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 2729061: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 3187305: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=fb, lcr=07, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 3187305: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received fb
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3187315: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3187325: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3187335: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3187345: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3187355: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 3187355: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 53e70571 with LCR 08
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3187365: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 3562281: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=11, lcr=08, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 3562281: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 11
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3562291: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3562301: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3562311: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3562321: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3562331: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 3562331: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA bd3d57bf with LCR 09
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3562341: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 3978921: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=3f, lcr=09, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 3978921: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 3f
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3978931: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3978941: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3978951: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3978961: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3978971: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 3978971: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 0ae0b27b with LCR 0a
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 3978981: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 4437225: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=7b, lcr=0a, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 4437225: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 7b
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 4437235: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 4437245: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 4437255: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 4437265: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 4437275: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 4437275: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA ca570758 with LCR 0b
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 4437285: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 4937193: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=58, lcr=0b, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 4937193: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 58
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 4937203: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 4937213: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 4937223: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 4937233: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 4937243: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 4937243: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 90c821aa with LCR 0c
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 4937253: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 5312169: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=0a, lcr=0c, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 5312169: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0a
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 5312179: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 5312189: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 5312199: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 5312209: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 5312219: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 5312219: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 9f542215 with LCR 0d
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 5312229: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 5728809: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=15, lcr=0d, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 5728809: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 15
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 5728819: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 5728829: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 5728839: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 5728849: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 5728859: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 5728859: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 8bb06158 with LCR 0e
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 5728869: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 6187113: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=58, lcr=0e, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 6187113: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 58
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 6187123: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 6187133: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 6187143: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 6187153: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 6187163: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 6187163: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 295f7f27 with LCR 0f
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 6187173: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 6687081: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=27, lcr=0f, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 6687081: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 27
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 6687091: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 6687101: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 6687111: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 6687121: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 6687131: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 6687131: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 67683247 with LCR 10
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 6687141: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 7020393: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=07, lcr=10, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 7020393: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 07
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7020403: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7020413: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7020423: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7020433: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7020443: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 7020443: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA f447e84d with LCR 11
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7020453: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 7395369: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=0d, lcr=11, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 7395369: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0d
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7395379: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7395389: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7395399: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7395409: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7395419: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 7395419: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA c7a06cac with LCR 12
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7395429: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 7812009: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=2c, lcr=12, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 7812009: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 2c
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7812019: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7812029: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7812039: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7812049: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7812059: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 7812059: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA c43b063a with LCR 13
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 7812069: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 8270313: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=3a, lcr=13, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 8270313: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 3a
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8270323: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8270333: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8270343: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8270353: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8270363: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 8270363: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 5e3c4536 with LCR 14
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8270373: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 8603625: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=16, lcr=14, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 8603625: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 16
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8603635: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8603645: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8603655: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8603665: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8603675: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 8603675: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA ca65bdd1 with LCR 15
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8603685: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 8978601: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=11, lcr=15, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 8978601: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 11
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8978611: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8978621: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8978631: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8978641: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8978651: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 8978651: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA c78cb84b with LCR 16
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 8978661: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 9395241: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=4b, lcr=16, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 9395241: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 4b
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 9395251: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 9395261: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 9395271: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 9395281: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 9395291: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 9395291: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA fe865a5d with LCR 17
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 9395301: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 9853545: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=5d, lcr=17, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 9853545: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 5d
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 9853555: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 9853565: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 9853575: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 9853585: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 9853595: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 9853595: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 3e293169 with LCR 18
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 9853605: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 10228521: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=09, lcr=18, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 10228521: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 09
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 10228531: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 10228541: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 10228551: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 10228561: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 10228571: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 10228571: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 7f8132af with LCR 19
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 10228581: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 10645161: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=2f, lcr=19, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 10645161: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 2f
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 10645171: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 10645181: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 10645191: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 10645201: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 10645211: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 10645211: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA ed062f0b with LCR 1a
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 10645221: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 11103465: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=0b, lcr=1a, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 11103465: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0b
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11103475: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11103485: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11103495: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11103505: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11103515: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 11103515: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 18947f43 with LCR 1b
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11103525: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 11603433: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=43, lcr=1b, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 11603433: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 43
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11603443: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11603453: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11603463: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11603473: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11603483: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 11603483: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 407d89c0 with LCR 1c
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11603493: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 11978409: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=00, lcr=1c, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 11978409: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 00
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11978419: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11978429: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11978439: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11978449: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11978459: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 11978459: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 278ae037 with LCR 1d
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 11978469: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 12395049: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=37, lcr=1d, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 12395049: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 37
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 12395059: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 12395069: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 12395079: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 12395089: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 12395099: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 12395099: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 7d538e8c with LCR 1e
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 12395109: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 12853353: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=0c, lcr=1e, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 12853353: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0c
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 12853363: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=008, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 12853373: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=014, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 12853383: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 12853393: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=010, pwrite=0
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 12853403: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=000, pwrite=1
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(119) @ 12853403: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 8f98629c with LCR 1f
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(64) @ 12853413: uvm_test_top.m_env.apb_coverage [APB_COVERAGE] Received APB transaction: paddr=00c, pwrite=1
+# UVM_INFO ../src/uvm_tb/apb_uart_coverage_pkg.sv(138) @ 13353321: uvm_test_top.m_env.tx_uart_coverage [UART_COVERAGE] Received UART transaction: data=9c, lcr=1f, pe=0, fe=0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(136) @ 13353321: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 9c
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 13353321: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(330) @ 13353321: uvm_test_top.m_env.rx_sb [report_phase] 0 characters received by the UART with 0 inserted errors
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(186) @ 13353321: uvm_test_top.m_env.tx_sb [report_phase] 32 characters transmitted from the UART with no errors
+# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(158) @ 13353321: uvm_test_top [*** UVM TEST PASSED ***] No TX data errors detected
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :  318
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [*** UVM TEST PASSED ***]     1
+# [APB_AGENT]     1
+# [APB_COVERAGE]   192
+# [APB_DRIVER]     3
+# [APB_MONITOR]     1
+# [IF_CHECK]     4
+# [Questa UVM]     2
+# [RNTST]     1
+# [TEST_DONE]     1
+# [UART_AGENT]     4
+# [UART_COVERAGE]    32
+# [UART_DRIVER]     2
+# [UART_ENV]     1
+# [UART_MONITOR]     4
+# [UART_TX_SCOREBOARD]    64
+# [build phase]     1
+# [build_phase]     1
+# [init]     1
+# [report_phase]     2
+# ** Note: $finish    : /home/vietduc/workspace/questasim/questasim/linux_x86_64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 13353321 ns  Iteration: 63  Instance: /testbench
+# Saving coverage database on exit...
+# End time: 17:12:21 on May 25,2025, Elapsed time: 0:00:20
+# Errors: 0, Warnings: 0
