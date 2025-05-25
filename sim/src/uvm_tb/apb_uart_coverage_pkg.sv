@@ -33,24 +33,6 @@ class apb_coverage extends uvm_subscriber #(apb_transaction);
     
     // Cross coverage: apb transaction
     cross_apb_transaction: cross cp_paddr, cp_pwrite {
-      bins tdr_write = binsof(cp_paddr.tdr) && binsof(cp_pwrite.write);
-      bins tdr_read  = binsof(cp_paddr.tdr) && binsof(cp_pwrite.read);
-      bins rdr_write = binsof(cp_paddr.rdr) && binsof(cp_pwrite.write);
-      bins rdr_read  = binsof(cp_paddr.rdr) && binsof(cp_pwrite.read);
-      bins lcr_write = binsof(cp_paddr.lcr) && binsof(cp_pwrite.write);
-      bins lcr_read  = binsof(cp_paddr.lcr) && binsof(cp_pwrite.read);
-      bins ocr_write = binsof(cp_paddr.ocr) && binsof(cp_pwrite.write);
-      bins ocr_read  = binsof(cp_paddr.ocr) && binsof(cp_pwrite.read);
-      bins lsr_write = binsof(cp_paddr.lsr) && binsof(cp_pwrite.write);
-      bins lsr_read  = binsof(cp_paddr.lsr) && binsof(cp_pwrite.read);
-      bins fcr_write = binsof(cp_paddr.fcr) && binsof(cp_pwrite.write);
-      bins fcr_read  = binsof(cp_paddr.fcr) && binsof(cp_pwrite.read);
-      bins ier_write = binsof(cp_paddr.ier) && binsof(cp_pwrite.write);
-      bins ier_read  = binsof(cp_paddr.ier) && binsof(cp_pwrite.read);
-      bins iir_write = binsof(cp_paddr.iir) && binsof(cp_pwrite.write);
-      bins iir_read  = binsof(cp_paddr.iir) && binsof(cp_pwrite.read);
-      bins hcr_write = binsof(cp_paddr.hcr) && binsof(cp_pwrite.write);
-      bins hcr_read  = binsof(cp_paddr.hcr) && binsof(cp_pwrite.read);
     }
   endgroup
 
@@ -97,34 +79,7 @@ class uart_coverage extends uvm_subscriber #(uart_transaction);
     // Cross coverage
     // 1. Cross LCR configuration: all config
     cross_lcr_config: cross cp_lcr_data_bits, cp_lcr_stop_bits, cp_lcr_parity {
-      // 5 bits
-      bins five_bits_stop1_no_parity = binsof(cp_lcr_data_bits.five_bits) && binsof(cp_lcr_stop_bits.stop1) && binsof(cp_lcr_parity.no_parity);
-      bins five_bits_stop1_even = binsof(cp_lcr_data_bits.five_bits) && binsof(cp_lcr_stop_bits.stop1) && binsof(cp_lcr_parity.even_parity);
-      bins five_bits_stop1_odd = binsof(cp_lcr_data_bits.five_bits) && binsof(cp_lcr_stop_bits.stop1) && binsof(cp_lcr_parity.odd_parity);
-      bins five_bits_stop2_no_parity = binsof(cp_lcr_data_bits.five_bits) && binsof(cp_lcr_stop_bits.stop2) && binsof(cp_lcr_parity.no_parity);
-      bins five_bits_stop2_even = binsof(cp_lcr_data_bits.five_bits) && binsof(cp_lcr_stop_bits.stop2) && binsof(cp_lcr_parity.even_parity);
-      bins five_bits_stop2_odd = binsof(cp_lcr_data_bits.five_bits) && binsof(cp_lcr_stop_bits.stop2) && binsof(cp_lcr_parity.odd_parity);
-      // 6 bits
-      bins six_bits_stop1_no_parity = binsof(cp_lcr_data_bits.six_bits) && binsof(cp_lcr_stop_bits.stop1) && binsof(cp_lcr_parity.no_parity);
-      bins six_bits_stop1_even = binsof(cp_lcr_data_bits.six_bits) && binsof(cp_lcr_stop_bits.stop1) && binsof(cp_lcr_parity.even_parity);
-      bins six_bits_stop1_odd = binsof(cp_lcr_data_bits.six_bits) && binsof(cp_lcr_stop_bits.stop1) && binsof(cp_lcr_parity.odd_parity);
-      bins six_bits_stop2_no_parity = binsof(cp_lcr_data_bits.six_bits) && binsof(cp_lcr_stop_bits.stop2) && binsof(cp_lcr_parity.no_parity);
-      bins six_bits_stop2_even = binsof(cp_lcr_data_bits.six_bits) && binsof(cp_lcr_stop_bits.stop2) && binsof(cp_lcr_parity.even_parity);
-      bins six_bits_stop2_odd = binsof(cp_lcr_data_bits.six_bits) && binsof(cp_lcr_stop_bits.stop2) && binsof(cp_lcr_parity.odd_parity);
-      // 7 bits
-      bins seven_bits_stop1_no_parity = binsof(cp_lcr_data_bits.seven_bits) && binsof(cp_lcr_stop_bits.stop1) && binsof(cp_lcr_parity.no_parity);
-      bins seven_bits_stop1_even = binsof(cp_lcr_data_bits.seven_bits) && binsof(cp_lcr_stop_bits.stop1) && binsof(cp_lcr_parity.even_parity);
-      bins seven_bits_stop1_odd = binsof(cp_lcr_data_bits.seven_bits) && binsof(cp_lcr_stop_bits.stop1) && binsof(cp_lcr_parity.odd_parity);
-      bins seven_bits_stop2_no_parity = binsof(cp_lcr_data_bits.seven_bits) && binsof(cp_lcr_stop_bits.stop2) && binsof(cp_lcr_parity.no_parity);
-      bins seven_bits_stop2_even = binsof(cp_lcr_data_bits.seven_bits) && binsof(cp_lcr_stop_bits.stop2) && binsof(cp_lcr_parity.even_parity);
-      bins seven_bits_stop2_odd = binsof(cp_lcr_data_bits.seven_bits) && binsof(cp_lcr_stop_bits.stop2) && binsof(cp_lcr_parity.odd_parity);
-      // 8 bits
-      bins eight_bits_stop1_no_parity = binsof(cp_lcr_data_bits.eight_bits) && binsof(cp_lcr_stop_bits.stop1) && binsof(cp_lcr_parity.no_parity);
-      bins eight_bits_stop1_even = binsof(cp_lcr_data_bits.eight_bits) && binsof(cp_lcr_stop_bits.stop1) && binsof(cp_lcr_parity.even_parity);
-      bins eight_bits_stop1_odd = binsof(cp_lcr_data_bits.eight_bits) && binsof(cp_lcr_stop_bits.stop1) && binsof(cp_lcr_parity.odd_parity);
-      bins eight_bits_stop2_no_parity = binsof(cp_lcr_data_bits.eight_bits) && binsof(cp_lcr_stop_bits.stop2) && binsof(cp_lcr_parity.no_parity);
-      bins eight_bits_stop2_even = binsof(cp_lcr_data_bits.eight_bits) && binsof(cp_lcr_stop_bits.stop2) && binsof(cp_lcr_parity.even_parity);
-      bins eight_bits_stop2_odd = binsof(cp_lcr_data_bits.eight_bits) && binsof(cp_lcr_stop_bits.stop2) && binsof(cp_lcr_parity.odd_parity);
+
     }
   endgroup
 

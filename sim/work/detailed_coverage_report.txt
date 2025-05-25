@@ -1,5 +1,5 @@
 QuestaSim-64 vcover 2021.2_1 Coverage Utility 2021.05 May 15 2021
-Start time: 17:12:22 on May 25,2025
+Start time: 21:00:39 on May 25,2025
 vcover report -details -all apb_uart_coverage.ucdb 
 Coverage Report by instance with details
 
@@ -6350,14 +6350,14 @@ Branch Coverage for instance /apb_uart_coverage_pkg
     ----         ----                      -----     ------ 
   File ../src/uvm_tb/apb_uart_coverage_pkg.sv
 ------------------------------------IF Branch------------------------------------
-    64                                       192     Count coming in to IF
-    64              1                        192     
+    46                                       192     Count coming in to IF
+    46              1                        192     
                                          ***0***     All False Count
 Branch totals: 1 hit of 2 branches = 50.00%
 
 ------------------------------------IF Branch------------------------------------
-    138                                       32     Count coming in to IF
-    138             1                         32     
+    93                                        32     Count coming in to IF
+    93              1                         32     
                                          ***0***     All False Count
 Branch totals: 1 hit of 2 branches = 50.00%
 
@@ -6399,24 +6399,20 @@ Covergroup                                             Metric       Goal       B
         missing/total bins:                                13         18          -                      
         % Hit:                                         27.77%        100          -                      
         Auto, Default and User Defined Bins:
-            bin tdr_write                                  32          1          -    Covered              
-            bin tdr_read                                    0          1          -    ZERO                 
-            bin rdr_write                                   0          1          -    ZERO                 
-            bin rdr_read                                    0          1          -    ZERO                 
-            bin lcr_write                                  32          1          -    Covered              
-            bin lcr_read                                    0          1          -    ZERO                 
-            bin ocr_write                                  64          1          -    Covered              
-            bin ocr_read                                    0          1          -    ZERO                 
-            bin lsr_write                                   0          1          -    ZERO                 
-            bin lsr_read                                   32          1          -    Covered              
-            bin fcr_write                                  32          1          -    Covered              
-            bin fcr_read                                    0          1          -    ZERO                 
-            bin ier_write                                   0          1          -    ZERO                 
-            bin ier_read                                    0          1          -    ZERO                 
-            bin iir_write                                   0          1          -    ZERO                 
-            bin iir_read                                    0          1          -    ZERO                 
-            bin hcr_write                                   0          1          -    ZERO                 
-            bin hcr_read                                    0          1          -    ZERO                 
+            bin <lsr,read>                                 32          1          -    Covered              
+            bin <fcr,write>                                32          1          -    Covered              
+            bin <ocr,write>                                64          1          -    Covered              
+            bin <lcr,write>                                32          1          -    Covered              
+            bin <tdr,write>                                32          1          -    Covered              
+            bin <hcr,*>                                     0          1          2    ZERO                 
+            bin <iir,*>                                     0          1          2    ZERO                 
+            bin <ier,*>                                     0          1          2    ZERO                 
+            bin <rdr,*>                                     0          1          2    ZERO                 
+            bin <fcr,read>                                  0          1          1    ZERO                 
+            bin <ocr,read>                                  0          1          1    ZERO                 
+            bin <lcr,read>                                  0          1          1    ZERO                 
+            bin <tdr,read>                                  0          1          1    ZERO                 
+            bin <lsr,write>                                 0          1          1    ZERO                 
  TYPE /apb_uart_coverage_pkg/uart_coverage/uart_cg     66.66%        100          -    Uncovered            
     covered/total bins:                                    15         33          -                      
     missing/total bins:                                    18         33          -                      
@@ -6447,30 +6443,16 @@ Covergroup                                             Metric       Goal       B
         missing/total bins:                                16         24          -                      
         % Hit:                                         33.33%        100          -                      
         Auto, Default and User Defined Bins:
-            bin five_bits_stop1_no_parity                   1          1          -    Covered              
-            bin five_bits_stop1_even                        0          1          -    ZERO                 
-            bin five_bits_stop1_odd                         0          1          -    ZERO                 
-            bin five_bits_stop2_no_parity                   1          1          -    Covered              
-            bin five_bits_stop2_even                        0          1          -    ZERO                 
-            bin five_bits_stop2_odd                         0          1          -    ZERO                 
-            bin six_bits_stop1_no_parity                    1          1          -    Covered              
-            bin six_bits_stop1_even                         0          1          -    ZERO                 
-            bin six_bits_stop1_odd                          0          1          -    ZERO                 
-            bin six_bits_stop2_no_parity                    1          1          -    Covered              
-            bin six_bits_stop2_even                         0          1          -    ZERO                 
-            bin six_bits_stop2_odd                          0          1          -    ZERO                 
-            bin seven_bits_stop1_no_parity                  1          1          -    Covered              
-            bin seven_bits_stop1_even                       0          1          -    ZERO                 
-            bin seven_bits_stop1_odd                        0          1          -    ZERO                 
-            bin seven_bits_stop2_no_parity                  1          1          -    Covered              
-            bin seven_bits_stop2_even                       0          1          -    ZERO                 
-            bin seven_bits_stop2_odd                        0          1          -    ZERO                 
-            bin eight_bits_stop1_no_parity                  1          1          -    Covered              
-            bin eight_bits_stop1_even                       0          1          -    ZERO                 
-            bin eight_bits_stop1_odd                        0          1          -    ZERO                 
-            bin eight_bits_stop2_no_parity                  1          1          -    Covered              
-            bin eight_bits_stop2_even                       0          1          -    ZERO                 
-            bin eight_bits_stop2_odd                        0          1          -    ZERO                 
+            bin <eight_bits,stop2,no_parity>                1          1          -    Covered              
+            bin <seven_bits,stop2,no_parity>                1          1          -    Covered              
+            bin <six_bits,stop2,no_parity>                  1          1          -    Covered              
+            bin <five_bits,stop2,no_parity>                 1          1          -    Covered              
+            bin <eight_bits,stop1,no_parity>                1          1          -    Covered              
+            bin <seven_bits,stop1,no_parity>                1          1          -    Covered              
+            bin <six_bits,stop1,no_parity>                  1          1          -    Covered              
+            bin <five_bits,stop1,no_parity>                 1          1          -    Covered              
+            bin <*,*,odd_parity>                            0          1          8    ZERO                 
+            bin <*,*,even_parity>                           0          1          8    ZERO                 
 Statement Coverage:
     Enabled Coverage              Bins      Hits    Misses  Coverage
     ----------------              ----      ----    ------  --------
@@ -6486,19 +6468,19 @@ Statement Coverage for instance /apb_uart_coverage_pkg --
     10              1                    ***0***     
     10              2                    ***0***     
     10              3                    ***0***     
-    58              1                          1     
-    59              1                          1     
-    63              1                        192     
-    64              1                        192     
-    65              1                        192     
-    70              1                    ***0***     
-    70              2                    ***0***     
-    70              3                    ***0***     
-    132             1                          2     
-    133             1                          2     
-    137             1                         32     
-    138             1                         32     
-    139             1                         32     
+    40              1                          1     
+    41              1                          1     
+    45              1                        192     
+    46              1                        192     
+    47              1                        192     
+    52              1                    ***0***     
+    52              2                    ***0***     
+    52              3                    ***0***     
+    87              1                          2     
+    88              1                          2     
+    92              1                         32     
+    93              1                         32     
+    94              1                         32     
 
 =================================================================================
 === Instance: /uart_reg_pkg
@@ -9685,24 +9667,20 @@ Covergroup                                             Metric       Goal       B
         missing/total bins:                                13         18          -                      
         % Hit:                                         27.77%        100          -                      
         Auto, Default and User Defined Bins:
-            bin tdr_write                                  32          1          -    Covered              
-            bin tdr_read                                    0          1          -    ZERO                 
-            bin rdr_write                                   0          1          -    ZERO                 
-            bin rdr_read                                    0          1          -    ZERO                 
-            bin lcr_write                                  32          1          -    Covered              
-            bin lcr_read                                    0          1          -    ZERO                 
-            bin ocr_write                                  64          1          -    Covered              
-            bin ocr_read                                    0          1          -    ZERO                 
-            bin lsr_write                                   0          1          -    ZERO                 
-            bin lsr_read                                   32          1          -    Covered              
-            bin fcr_write                                  32          1          -    Covered              
-            bin fcr_read                                    0          1          -    ZERO                 
-            bin ier_write                                   0          1          -    ZERO                 
-            bin ier_read                                    0          1          -    ZERO                 
-            bin iir_write                                   0          1          -    ZERO                 
-            bin iir_read                                    0          1          -    ZERO                 
-            bin hcr_write                                   0          1          -    ZERO                 
-            bin hcr_read                                    0          1          -    ZERO                 
+            bin <lsr,read>                                 32          1          -    Covered              
+            bin <fcr,write>                                32          1          -    Covered              
+            bin <ocr,write>                                64          1          -    Covered              
+            bin <lcr,write>                                32          1          -    Covered              
+            bin <tdr,write>                                32          1          -    Covered              
+            bin <hcr,*>                                     0          1          2    ZERO                 
+            bin <iir,*>                                     0          1          2    ZERO                 
+            bin <ier,*>                                     0          1          2    ZERO                 
+            bin <rdr,*>                                     0          1          2    ZERO                 
+            bin <fcr,read>                                  0          1          1    ZERO                 
+            bin <ocr,read>                                  0          1          1    ZERO                 
+            bin <lcr,read>                                  0          1          1    ZERO                 
+            bin <tdr,read>                                  0          1          1    ZERO                 
+            bin <lsr,write>                                 0          1          1    ZERO                 
  TYPE /apb_uart_coverage_pkg/uart_coverage/uart_cg     66.66%        100          -    Uncovered            
     covered/total bins:                                    15         33          -                      
     missing/total bins:                                    18         33          -                      
@@ -9733,30 +9711,16 @@ Covergroup                                             Metric       Goal       B
         missing/total bins:                                16         24          -                      
         % Hit:                                         33.33%        100          -                      
         Auto, Default and User Defined Bins:
-            bin five_bits_stop1_no_parity                   1          1          -    Covered              
-            bin five_bits_stop1_even                        0          1          -    ZERO                 
-            bin five_bits_stop1_odd                         0          1          -    ZERO                 
-            bin five_bits_stop2_no_parity                   1          1          -    Covered              
-            bin five_bits_stop2_even                        0          1          -    ZERO                 
-            bin five_bits_stop2_odd                         0          1          -    ZERO                 
-            bin six_bits_stop1_no_parity                    1          1          -    Covered              
-            bin six_bits_stop1_even                         0          1          -    ZERO                 
-            bin six_bits_stop1_odd                          0          1          -    ZERO                 
-            bin six_bits_stop2_no_parity                    1          1          -    Covered              
-            bin six_bits_stop2_even                         0          1          -    ZERO                 
-            bin six_bits_stop2_odd                          0          1          -    ZERO                 
-            bin seven_bits_stop1_no_parity                  1          1          -    Covered              
-            bin seven_bits_stop1_even                       0          1          -    ZERO                 
-            bin seven_bits_stop1_odd                        0          1          -    ZERO                 
-            bin seven_bits_stop2_no_parity                  1          1          -    Covered              
-            bin seven_bits_stop2_even                       0          1          -    ZERO                 
-            bin seven_bits_stop2_odd                        0          1          -    ZERO                 
-            bin eight_bits_stop1_no_parity                  1          1          -    Covered              
-            bin eight_bits_stop1_even                       0          1          -    ZERO                 
-            bin eight_bits_stop1_odd                        0          1          -    ZERO                 
-            bin eight_bits_stop2_no_parity                  1          1          -    Covered              
-            bin eight_bits_stop2_even                       0          1          -    ZERO                 
-            bin eight_bits_stop2_odd                        0          1          -    ZERO                 
+            bin <eight_bits,stop2,no_parity>                1          1          -    Covered              
+            bin <seven_bits,stop2,no_parity>                1          1          -    Covered              
+            bin <six_bits,stop2,no_parity>                  1          1          -    Covered              
+            bin <five_bits,stop2,no_parity>                 1          1          -    Covered              
+            bin <eight_bits,stop1,no_parity>                1          1          -    Covered              
+            bin <seven_bits,stop1,no_parity>                1          1          -    Covered              
+            bin <six_bits,stop1,no_parity>                  1          1          -    Covered              
+            bin <five_bits,stop1,no_parity>                 1          1          -    Covered              
+            bin <*,*,odd_parity>                            0          1          8    ZERO                 
+            bin <*,*,even_parity>                           0          1          8    ZERO                 
 
 TOTAL COVERGROUP COVERAGE: 63.88%  COVERGROUP TYPES: 2
 
@@ -9804,5 +9768,5 @@ Name                 File(Line)                   Failure      Pass
 
 Total Coverage By Instance (filtered view): 50.94%
 
-End time: 17:12:22 on May 25,2025, Elapsed time: 0:00:00
+End time: 21:00:39 on May 25,2025, Elapsed time: 0:00:00
 Errors: 0, Warnings: 0
