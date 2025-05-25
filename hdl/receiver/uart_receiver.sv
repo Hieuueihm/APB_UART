@@ -40,13 +40,7 @@ module uart_receiver(
 	logic [3:0] data_size_sampled;
 	logic [3:0] total_data_size_sampled;
     logic [7:0] data;
-	always_ff @(posedge clk or negedge reset_n) begin
-		if(~reset_n) begin
-			data_o <= 0;
-		end else if(data_o_valid) begin
-				data_o <= data;
-			end
-		end
+	
     wire [7:0] data_receive;
     wire receive_en;
     	wire receive_data_en;
@@ -85,7 +79,13 @@ module uart_receiver(
 
 
 
-
+always_ff @(posedge clk or negedge reset_n) begin
+		if(~reset_n) begin
+			data_o <= 0;
+		end else if(receive_total_fi_i) begin
+				data_o <= data;
+			end
+		end
       always_comb begin
         case (data_bit_num_i)
             2'b00: begin

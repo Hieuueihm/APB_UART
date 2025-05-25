@@ -90,6 +90,7 @@ module uart_rx_top (
     logic data_valid;
     wire negedge_rx_pop= ~fifo_rx_pop_i & fifo_rx_pop_d;
     assign fifo_rx_overrun = fifo_en_i & fifo_rx_full_o & receiver_data_valid;
+    
     logic [7:0] msg;
     always_comb begin
         if (fifo_en_i) begin

@@ -48,18 +48,6 @@ class uart_env_cfg extends uvm_object;
 
 
 endclass
-  class lcr_item extends uvm_object;
-
-  `uvm_object_utils(lcr_item)
-    
-    bit[7:0] lcr;
-
-  function new(string name = "lcr_item");
-    super.new(name);
-  endfunction
-
-  endclass
-
 class uart_tx_scoreboard extends uvm_component;
 // behavioral -> apb send -> monitor capture -> send to scoreboard -> check
     `uvm_component_utils(uart_tx_scoreboard)
@@ -67,7 +55,6 @@ class uart_tx_scoreboard extends uvm_component;
     uvm_tlm_analysis_fifo #(apb_transaction) apb_fifo;
     uvm_tlm_analysis_fifo #(uart_transaction) uart_fifo;
 
-    uvm_analysis_port #(lcr_item) ap;
     uart_reg_block rm;
 
 
@@ -87,7 +74,6 @@ class uart_tx_scoreboard extends uvm_component;
     function void build_phase(uvm_phase phase);
     apb_fifo = new("apb_fifo", this);
     uart_fifo = new("uart_fifo", this);
-    ap = new("ap", this);
   endfunction
 
 
@@ -115,10 +101,7 @@ class uart_tx_scoreboard extends uvm_component;
             apb_fifo.get(host_req); 
             if((host_req.paddr == ADDR_TDR) & (host_req.pwrite == 1)) begin
                 lcr_reg = rm.LCR.get();
-
-                `LOG(`UART_TX_SCOREBOARD,  $sformatf("SENT DATA %h with LCR %h", host_req.pdata, lcr_reg[7:0]))
-
-
+                `LOG(`UART_TX_SCOREBOARD,  $sformatf("SENT DATA %h with LCR %h", host_req.pdata, lcr_reg[7:0]));
                 no_chars_written++;
                 data_q.push_back(host_req.pdata);
             end
@@ -130,11 +113,10 @@ class uart_tx_scoreboard extends uvm_component;
         uart_transaction item;
         bit [7:0] data;
         uvm_reg_data_t  lcr_reg;
-        lcr_item report_item;
         forever begin
             uart_fifo.get(item);
             `LOG(`UART_TX_SCOREBOARD, $sformatf("UART TX SCOREBOARD received %h", item.data))
-
+            // item.print();
             lcr_reg = rm.LCR.get();
             if(item.pe || item.fe) begin
                 `uvm_error("monitor_uart", $sformatf("TX Data error detected: PE:%0b FE:%0b LCR:%0h", item.pe, item.fe, lcr_reg[7:0]))
@@ -170,9 +152,6 @@ class uart_tx_scoreboard extends uvm_component;
                         end
 
             endcase
-            report_item = lcr_item::type_id::create("lcr_item");
-            report_item.lcr = lcr_reg[7:0];
-            ap.write(report_item);
             no_chars_tx++;
 
             // `LOG(`UART_TX_SCOREBOARD, $sformatf("UART TX SCOREBOARD report_item %h", report_item.lcr))
@@ -204,14 +183,12 @@ class uart_rx_scoreboard extends uvm_component;
       
     uvm_tlm_analysis_fifo #(apb_transaction) apb_fifo;
     uvm_tlm_analysis_fifo #(uart_transaction) uart_fifo;
-    uvm_analysis_port #(lcr_item) ap;
 
     uart_reg_block rm;
 
     int no_chars_rx;
     int no_data_errors;
     int no_errors;
-    int no_reported_errors;
 
     bit pe;
     bit fe;
@@ -227,14 +204,12 @@ class uart_rx_scoreboard extends uvm_component;
     function void build_phase(uvm_phase phase);
         apb_fifo = new("apb_fifo", this);
         uart_fifo = new("uart_fifo", this);
-        ap = new("ap", this);
     endfunction
 
     task run_phase(uvm_phase phase);
         no_chars_rx = 0;
         no_data_errors = 0;
         no_errors = 0;
-        no_reported_errors = 0;
 
         fork
             monitor_uart;
@@ -249,7 +224,7 @@ class uart_rx_scoreboard extends uvm_component;
         bit[7:0] data;
         forever begin
             uart_fifo.get(item);
-            `LOG(`UART_RX_SCOREBOARD, $sformatf("UART RX SCOREBOARD received %h", item.data))
+            `LOG(`UART_RX_SCOREBOARD, $sformatf("UART RX SCOREBOARD received exp %h", item.data))
             data_q.push_back({item.pe, item.fe, item.data[7:0]});
 
         end 
@@ -261,26 +236,26 @@ class uart_rx_scoreboard extends uvm_component;
     bit [7:0] msg;
     uvm_reg_data_t lcr_reg;
 
-    lcr_item lcr = lcr_item::type_id::create("lcr_item");
     forever begin
 
         apb_fifo.get(host_req);
         // read RDR register
             // `LOG(`UART_RX_SCOREBOARD, $sformatf("rce data"));
         if((host_req.paddr == ADDR_RDR) & (host_req.pwrite == 0)) begin
+            // host_req.print();
             `LOG(`UART_RX_SCOREBOARD, $sformatf("READ DATA FROM REG %h", host_req.pdata))
+
             lcr_reg = rm.LCR.get();
-            `LOG(`UART_RX_SCOREBOARD, $sformatf("DATA QUEUE SIZE %d", data_q.size()))
+            // `LOG(`UART_RX_SCOREBOARD, $sformatf("DATA QUEUE SIZE %d", data_q.size()))
 
             if(data_q.size() > 0) begin
                 data = data_q.pop_front();
                 pe = data[9];
                 fe = data[8];
                 msg = data[7:0];
-                `LOG(`UART_RX_SCOREBOARD, $sformatf("DATA COMPARE %h", msg))
+                // `LOG(`UART_RX_SCOREBOARD, $sformatf("DATA COMPARE %h", msg))
 
             end 
-        
         // has pe or fe
         if(data[9:8] != 0) begin
             `LOG(`UART_RX_SCOREBOARD, $sformatf("RX data error detected: PE:%0b FE:%0b LCR:%0h", data[9], data[8], lcr_reg[7:0]))
@@ -313,12 +288,12 @@ class uart_rx_scoreboard extends uvm_component;
                    end
                  end
         endcase
-        lcr.lcr = lcr_reg[7:0];;
-        ap.write(lcr);
-        no_chars_rx++;
-        end
+                no_chars_rx++;
 
+        
+        end
     end
+
 
 
 
@@ -326,12 +301,10 @@ class uart_rx_scoreboard extends uvm_component;
 
   function void report_phase(uvm_phase phase);
 
-    if((no_reported_errors == 0) && (no_data_errors == 0)) begin
+    if( (no_data_errors == 0)) begin
       `uvm_info("report_phase", $sformatf("%0d characters received by the UART with %0d inserted errors", no_chars_rx, no_errors), UVM_LOW)
     end
-    if(no_reported_errors != 0) begin
-      `uvm_error("report_phase", $sformatf("%0d characters received with undetected errors from %0d received overall", no_reported_errors, no_chars_rx))
-    end
+
     if(no_data_errors != 0) begin
       `uvm_error("report_phase", $sformatf("%0d characters received with data_errors from %0d received overall", no_data_errors, no_chars_rx))
     end

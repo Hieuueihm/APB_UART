@@ -19,7 +19,7 @@ vlog -sv +define+SVA $sverilog_files
 
 
 echo "-> Compiling supporting testbench files"
-vlog -sv +define+DEBUG +incdir+"$TB_DIR" \
+vlog -sv +define+SVA +incdir+"$TB_DIR" \
   "$TB_DIR/common_defines.sv" \
   "$TB_DIR/uart_reg_pkg.sv" \
   "$TB_DIR/apb_agent_pkg.sv" \
@@ -36,5 +36,12 @@ vlog -sv +define+DEBUG +incdir+"$TB_DIR" \
 
 
 # echo
+UVM_V="UVM_LOW"
+UVM_T="rx_polling_test"
+
 echo "Running simulation:"
-vsim -voptargs=+acc -c -do "run -all; quit" work.testbench
+vsim -voptargs=+acc -c -sv_seed random work.testbench \
+  -uvmcontrol=all \
+  +UVM_TESTNAME=$UVM_T\
+  +UVM_VERBOSITY=$UVM_V \
+  -do "run -all; quit"

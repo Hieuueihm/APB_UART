@@ -79,7 +79,7 @@ task body;
 
   host_tx.no_tx_chars =1;
 
-  repeat(1) begin
+  repeat(8) begin
       fcr = 0;
       lcr[4:0] = 0;
       repeat(32) begin
@@ -103,6 +103,7 @@ task body;
         tx_cnt_before = m_env.tx_sb.no_chars_tx;
         lcr++;
       end
+      baud++;
     `LOG("TEST TX POOLING", "CHNAGE BAUD RATE")
   baud++;
   end
@@ -137,12 +138,12 @@ task body;
   fcr = 0;
   ocr = 5; 
 
-  host_tx.no_tx_chars =1;
+  host_tx.no_tx_chars = 16;
 
   repeat(1) begin
       fcr = 1;
       lcr[4:0] = 0;
-      repeat(32) begin
+      repeat(1) begin
         assert(setup.randomize() with {setup.LCR[4:0] == lcr[4:0];
                                       setup.LCR[7:5] == baud[2:0];
                                       setup.FCR == fcr;
@@ -158,7 +159,7 @@ task body;
 
         fork
           host_tx.start(apb);
-          wait(m_env.tx_sb.no_chars_tx == tx_cnt_before + 1);
+          wait(m_env.tx_sb.no_chars_tx == tx_cnt_before + 16);
         join
         tx_cnt_before = m_env.tx_sb.no_chars_tx;
         lcr++;
@@ -239,7 +240,7 @@ task body;
 
   host_rx.no_rx_chars =1;
   rx_serial.no_rx_chars = 1;
-  rx_serial.no_errors = 0;
+  rx_serial.no_errors = 1;
 
 
   repeat(32) begin

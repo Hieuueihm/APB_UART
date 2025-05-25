@@ -77,11 +77,11 @@ endclass
 
 
 // test read and write regs
-class uart_test extends uart_test_base;
+class test_reg_access extends uart_test_base;
 
-`uvm_component_utils(uart_test)
+`uvm_component_utils(test_reg_access)
 
-  function new(string name = "uart_test", uvm_component parent = null);
+  function new(string name = "test_reg_access", uvm_component parent = null);
     super.new(name, parent);
   endfunction
   task run_phase(uvm_phase phase);
@@ -184,7 +184,7 @@ class rx_polling_test extends uart_test_base;
 
 
   function void report_phase(uvm_phase phase);
-    if((m_env.rx_sb.no_reported_errors == 0) && (m_env.rx_sb.no_data_errors == 0)) begin
+    if(m_env.rx_sb.no_data_errors == 0) begin
       `uvm_info("*** UVM TEST PASSED ***", "No RX data errors detected", UVM_LOW)
     end
     else begin

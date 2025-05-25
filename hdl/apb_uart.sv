@@ -67,12 +67,12 @@ module apb_uart #(
     assign cpu_read_lsr = pready & !pwrite & paddr == ADDR_LSR;
     assign cpu_read_iir = pready & !pwrite & paddr == ADDR_IIR;
     logic tdr_empty;
-        wire data_o_valid;
+    wire data_o_valid;
     wire fifo_rx_empty;
     wire fifo_rx_overrun;
     wire parity_err;
     wire stop_bit_err;
-        logic rdr_empty;
+    logic rdr_empty;
     wire [7:0] data_received;
     wire fifo_tx_empty;
     wire fifo_tx_full;

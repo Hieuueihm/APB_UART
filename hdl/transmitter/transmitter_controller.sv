@@ -16,14 +16,14 @@ module transmitter_controller (
 );
 	
 	typedef enum logic [2:0] {
-        IDLE,
-        CTS,
-        WAIT,
-        TRANS_START,
-        TRANS_DATA,
-        TRANS_PARITY,
-        TRANS_STOP,
-        FINISH
+        IDLE, //000
+        CTS,// 001
+        WAIT,// 010
+        TRANS_START, //011
+        TRANS_DATA,// 100
+        TRANS_PARITY, //101
+        TRANS_STOP,//110
+        FINISH//111
     } state_t; 
 	state_t current_state, next_state;
 

@@ -3,31 +3,26 @@ package uart_agent_pkg;
   `include "uvm_macros.svh"
   `include "common_defines.sv"
 
-  function bit calParity(input logic [7:0] lcr, input logic [7:0] data);
+  function bit calParity(bit[7:0] lcr, bit[7:0] data);
+    int num_bits;
+    bit parity;
+    parity = 0;
+    case (lcr[1:0])
+        2'b00: num_bits = 5;
+        2'b01: num_bits = 6;
+        2'b10: num_bits = 7;
+        2'b11: num_bits = 8;
+    endcase
 
-      bit retParity;
+    for (int i = 0; i < num_bits; i++)
+        parity ^= data[i];
 
-      case (lcr[1:0])
+    if (lcr[4]) 
+        return parity;
+    else
+        return ~parity;
+endfunction
 
-      2'b00: retParity = ^data[4:0];
-
-
-        2'b01: retParity = ^data[5:0];
-
-        2'b10: retParity = ^data[6:0];
-
-        2'b11: retParity = ^data[7:0];
-
-      endcase
-
-      if (!lcr[4]) begin
-     retParity = ~retParity;
-
-      end
-
-      return retParity;
-
-    endfunction
 
   class uart_agent_cfg extends uvm_object;
 
@@ -45,7 +40,6 @@ package uart_agent_pkg;
 
   class uart_transaction extends uvm_sequence_item;
 
-    `uvm_object_utils(uart_transaction)
 
     rand logic [7:0] data;
     rand logic [7:0] lcr;
@@ -57,20 +51,13 @@ package uart_agent_pkg;
 	  super.new(name);
 	endfunction
 
+      `uvm_object_utils_begin(uart_transaction)
+          `uvm_field_int(data, UVM_ALL_ON)
+        `uvm_field_int(lcr, UVM_ALL_ON)
+        `uvm_field_int(fe, UVM_ALL_ON)
+        `uvm_field_int(pe, UVM_ALL_ON)
 
-
-    function void do_copy(uvm_object rhs);
-
-      uart_transaction _pkt;
-
-      $cast(_pkt, rhs);
-      super.do_copy(rhs);
-      data = _pkt.data;
-      fe = _pkt.fe;
-      pe = _pkt.pe;
-
-    endfunction
-
+    `uvm_object_utils_end
 
 
   endclass
@@ -124,6 +111,7 @@ package uart_agent_pkg;
         sline.sdata = 1;
         forever
           begin
+            sline.sdata = 1;
             seq_item_port.get_next_item(pkt);
             `uvm_info("UART DRIVER", "SEND SCHAR", UVM_LOW);
             // Start bit
@@ -141,11 +129,13 @@ package uart_agent_pkg;
             if (pkt.lcr[1:0] > 2'b00)
               begin
                 sline.sdata = pkt.data[5];
+
                 bitPeriod;
               end
             if (pkt.lcr[1:0] > 2'b01)
               begin
-                sline.sdata = pkt.data[6];
+                sline.sdata = pkt.data[6];  
+                
                 bitPeriod;
               end
             if (pkt.lcr[1:0] > 2'b10)
@@ -157,35 +147,27 @@ package uart_agent_pkg;
             if (pkt.lcr[3])
               begin
                 sline.sdata = logic'(calParity(pkt.lcr, pkt.data));
-                if (pkt.pe)
+                if (pkt.pe) begin
+                  `LOG(`UART_DRIVER, $sformatf("send msg with parity error: %b", pkt.pe))
                   sline.sdata = ~sline.sdata;
+                end
                 bitPeriod;
+
               end
             // Stop bit
             if (!pkt.fe)
               sline.sdata = 1;
-            else
+            else begin
+              `LOG(`UART_DRIVER, $sformatf("send msg with stopbit error: %b", pkt.fe))
               sline.sdata = 0;
-            bitPeriod;
-            if (!pkt.fe)
-              begin
-                if (pkt.lcr[2])
-                  begin
-                    if (pkt.lcr[1:0] == 2'b00)
-                      begin
-                        repeat(8)
-                          @(posedge sline.tick_tx);
-                      end
-                    else
-                      bitPeriod;
-                  end
-              end
-            else
-              begin
-                sline.sdata = 1;
-                bitPeriod;
-              end
-            seq_item_port.item_done();
+            end
+            bitPeriod; 
+            if(pkt.lcr[2]) begin
+              sline.sdata = 1;
+              bitPeriod;
+            end 
+
+             seq_item_port.item_done();
           end
       end
     endtask
@@ -242,17 +224,16 @@ endclass
 
     task receive_pkt();
         fe = 0;
+        pe = 0;
         data = 0;
       while (sline.sdata !== 1'b1) begin
         @(posedge sline.clk);
       end
-        @(posedge sline.tick_rx);
         while(sline.sdata == 1 || sline.sdata == 1'bx || sline.sdata == 1'bz) begin
           @(posedge sline.tick_rx);
         end
         // start bit detected
 
-        // `LOG(`UART_MONITOR, "start bit detected")
 
         repeat(23) @(posedge sline.tick_rx);
        data[0] = sline.sdata;
@@ -264,71 +245,49 @@ endclass
       data[3] = sline.sdata;
       bitPeriod;
       data[4] = sline.sdata;
-      if (cfg.lcr[1:0] > 2'b00)
-        begin
+        if (cfg.lcr[1:0] > 2'b00) begin
+          bitPeriod();
+          data[5] = sline.sdata; 
+      end
+      if (cfg.lcr[1:0] > 2'b01) begin
+        bitPeriod();
+          data[6] = sline.sdata;
+      end
+      if (cfg.lcr[1:0] > 2'b10) begin
+        bitPeriod();
+          data[7] = sline.sdata;
+      end
+
+        if (cfg.lcr[3])
+          begin
+            bitPeriod;
+            parity = sline.sdata;
+            pe = logic'(calParity (cfg.lcr, data));
+            // `LOG("UART MONITOR", $sformatf("parity %b", pe))
+            if (pe != parity) begin
+                `LOG(`UART_MONITOR, "UART MONITOR: parity error detected")
+                `LOG(`UART_MONITOR, $sformatf("parity: %b expected %d datasend %h", parity, pe, data))
+              pe = 1;
+            end
+            else
+              pe = 0;
+          end
           bitPeriod;
-          data[5] = sline.sdata;
-        end
-      else if (cfg.lcr[3])
-        begin
-          bitPeriod;
-          parity = sline.sdata; // 5 bits with parity
-        end
-
-      if (cfg.lcr[1:0] > 2'b00)
-        begin
-          if (cfg.lcr[1:0] > 2'b01)
-            begin
-              bitPeriod;
-              data[6] = sline.sdata;
-            end
-          else if (cfg.lcr[3])
-            begin
-              bitPeriod;
-              parity = sline.sdata;
-            end
-        end
-
-      if (cfg.lcr[1:0] > 2'b01)
-        begin
-          if (cfg.lcr[1:0] > 2'b10)
-            begin
-              bitPeriod;
-              data[7] = sline.sdata;
-            end
-          else if (cfg.lcr[3])
-            begin
-              bitPeriod;
-              parity = sline.sdata;
-            end
-        end
-
-      if (cfg.lcr[3] && (cfg.lcr[1:0] > 2'b10) )
-        begin
-          bitPeriod;
-          parity = sline.sdata;
-        end
-      if (cfg.lcr[3])
-        begin
-          pe = logic'(calParity (cfg.lcr, data));
-          // `LOG("UART MONITOR", $sformatf("parity %b",))
-          if (pe != parity)
-            pe = 1;
-          else
-            pe = 0;
-        end
-
-      // Check for framing error - get to bit boundary
-      repeat(8)
-        @(posedge sline.tick_rx);
-      repeat(8)
-        begin
-          @(posedge sline.tick_rx);
-          if (sline.sdata == 1'b0)
+          if (sline.sdata == 1'b0) begin
+            `LOG(`UART_MONITOR, "UART MONITOR: stop bit error detected")
+            `LOG(`UART_MONITOR, $sformatf("stop bit: %b", sline.sdata))
             fe = 1;
+          end
+        // bitPeriod;
+        repeat(8) @(posedge sline.tick_rx);
+        if(cfg.lcr[2]) begin
+            bitPeriod;
+            if (sline.sdata == 1'b0) begin
+              `LOG(`UART_MONITOR, "UART MONITOR: stop bit error detected")
+              `LOG(`UART_MONITOR, $sformatf("stop bit: %b", sline.sdata))
+              fe = 1;
+            end
         end
-        bitPeriod;
-
     endtask
 
     
@@ -343,10 +302,12 @@ endtask
     task run_phase(uvm_phase phase);
         `LOG(`UART_MONITOR, "UART MONITOR RUN PHASE")
     
-        forever begin
+      forever begin
     
             receive_pkt();
             // 3 f -> 
+            s_char = new("Serial_character");
+
             s_char.data = data;
             s_char.fe = fe;
             s_char.pe = pe;

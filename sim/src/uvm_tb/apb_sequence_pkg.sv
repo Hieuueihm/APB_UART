@@ -127,37 +127,30 @@ import uart_env_pkg::*;
 		endfunction
 
 		task body;
-		  int i;
 			bit[7:0] data;
 		  super.body();
-		  i = 0;
 		//   `LOG("TEST", "RUN TEST")
 		// 	`LOG("TEST", $sformatf("%h", cfg.LCR[7:5]))
 
-		  while(i < no_tx_chars) begin
 		    rm.LSR.read(status, data, .parent(this));
 
 		    while(!data[4]) begin
 	    		rm.LSR.read(status, data, .parent(this));
 					
 				end
-		    // for(int j = 0; j < 16; j++) begin
+		    for(int j = 0; j < no_tx_chars; j++) begin
 		      rm.TDR.write(status,	has_data_in ? data_in : $urandom(), .parent(this));
+			end
 			// `uvm_info("TEST", $sformatf("cfg.OCR[2] = %0b", cfg.OCR[2]), UVM_MEDIUM);
 			// `uvm_info("TEST", $sformatf("cfg.OCR = %03b", cfg.OCR), UVM_MEDIUM);
 
 		      rm.OCR.write(status, {29'b0, cfg.OCR[2], 1'b1, cfg.OCR[0]}, .parent(this));
-		      i++;
 				while(!data[0]) begin
 					rm.LSR.read(status, data, .parent(this));
 				end
 
-			 if(i >= no_tx_chars) begin
-		        break;
-		      end
 		    //   j++;
 		    // end
-		  end
 	endtask
 
 	endclass
@@ -179,37 +172,30 @@ import uart_env_pkg::*;
 		endfunction
 
 		task body;
-		  int i;
 			bit[7:0] data;
 		  super.body();
-		  i = 0;
 		//   `LOG("TEST", "RUN TEST")
 		// 	`LOG("TEST", $sformatf("%h", cfg.LCR[7:5]))
 
-		  while(i < no_tx_chars) begin
 		    rm.LSR.read(status, data, .parent(this));
 
 		    while(!data[4]) begin
 	    		rm.LSR.read(status, data, .parent(this));
 					
 				end
-		    // for(int j = 0; j < 16; j++) begin
+		     for(int j = 0; j < no_tx_chars; j++) begin
 		      rm.TDR.write(status,	has_data_in ? data_in : $urandom(), .parent(this));
+			 end
 			// `uvm_info("TEST", $sformatf("cfg.OCR[2] = %0b", cfg.OCR[2]), UVM_MEDIUM);
 			// `uvm_info("TEST", $sformatf("cfg.OCR = %03b", cfg.OCR), UVM_MEDIUM);
 
 		      rm.OCR.write(status, {29'b0, cfg.OCR[2], 1'b1, cfg.OCR[0]}, .parent(this));
-		      i++;
 				// while(!data[0]) begin
 				// 	rm.LSR.read(status, data, .parent(this));
 				// end
-
-			 if(i >= no_tx_chars) begin
-		        break;
-		      end
+			
 		    //   j++;
 		    // end
-		  end
 	endtask
 
 	endclass

@@ -18,37 +18,25 @@ package apb_agent_pkg;
 
 
   class apb_transaction extends uvm_sequence_item;
-   `uvm_object_utils(apb_transaction)
 
     rand logic [11:0] paddr;
     rand logic [31:0] pdata;
     rand logic pwrite;
     rand logic [3:0] pstrb;
 
-    constraint pstrb_c { pstrb == 4'b0001; }
+    constraint pstrb_read { !pwrite -> pstrb == 4'b0 ; solve pwrite before pstrb;}
+    constraint pstrb_write { pwrite -> pstrb == 4'b0001 ; solve pwrite before pstrb;}
 
  function new(string name = "apb_transaction");
     super.new(name);
   endfunction
 
+     `uvm_object_utils_begin(apb_transaction)
+        `uvm_field_int(pdata, UVM_ALL_ON)
+        `uvm_field_int(paddr, UVM_ALL_ON)
+        `uvm_field_int(pwrite, UVM_ALL_ON)
+    `uvm_object_utils_end 
 
-
-
-
-
-
-
-    function void do_copy(uvm_object rhs);
-      apb_transaction _pkt;
-      $cast(_pkt, rhs);
-      super.do_copy(rhs);
-      paddr   = _pkt.paddr;
-      pdata  = _pkt.pdata;
-      pwrite  = _pkt.pwrite;
-      pstrb  = _pkt.pstrb;
-
-
-    endfunction
 
   endclass
 

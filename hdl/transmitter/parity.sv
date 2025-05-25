@@ -17,7 +17,7 @@ module parity (
         endcase
 
         // Apply parity type: 0 = even, 1 = odd
-        parity_bit_o = (parity_type_i == 1'b1) ? parity_calculated : ~parity_calculated;
+        parity_bit_o = (parity_type_i) ? parity_calculated : ~parity_calculated;
     end
 
 endmodule : parity
