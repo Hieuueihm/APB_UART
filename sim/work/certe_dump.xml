@@ -1,5 +1,5 @@
 <certe_dump>
-  <instance type=" rx_polling_test "> 
+  <instance type=" rx_fifo_test "> 
      uvm_test_top 
   
      <instance type=" uart_env "> 

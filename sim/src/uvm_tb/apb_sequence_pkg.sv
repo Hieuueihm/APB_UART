@@ -148,9 +148,6 @@ import uart_env_pkg::*;
 				while(!data[0]) begin
 					rm.LSR.read(status, data, .parent(this));
 				end
-
-		    //   j++;
-		    // end
 	endtask
 
 	endclass
@@ -180,9 +177,8 @@ import uart_env_pkg::*;
 		    rm.LSR.read(status, data, .parent(this));
 
 		    while(!data[4]) begin
-	    		rm.LSR.read(status, data, .parent(this));
-					
-				end
+	    		rm.LSR.read(status, data, .parent(this));	
+			end
 		     for(int j = 0; j < no_tx_chars; j++) begin
 		      rm.TDR.write(status,	has_data_in ? data_in : $urandom(), .parent(this));
 			 end
@@ -194,8 +190,6 @@ import uart_env_pkg::*;
 				// 	rm.LSR.read(status, data, .parent(this));
 				// end
 			
-		    //   j++;
-		    // end
 	endtask
 
 	endclass
@@ -224,6 +218,33 @@ import uart_env_pkg::*;
 	    end
 
 	    rm.RDR.read(status, data, .parent(this));
+	  end
+	endtask
+
+	endclass
+
+		class uart_host_rx_seq_wfifo extends common_sequence;
+
+	`uvm_object_utils(uart_host_rx_seq_wfifo)
+
+	rand int no_rx_chars;
+	event rx_data_event;
+
+	constraint char_limit_c { no_rx_chars inside {[1:20]};}
+
+	function new(string name = "uart_host_rx_seq_wfifo");
+	  super.new(name);
+	endfunction
+
+	task body;
+	  super.body();
+	  for(int i = 0; i < no_rx_chars; i++) begin
+	    rm.LSR.read(status, data, .parent(this));
+	    while(!data[1]) begin
+	      rm.LSR.read(status, data, .parent(this));
+	      cfg.wait_for_clock(10);
+	    end
+	   	 rm.RDR.read(status, data, .parent(this));
 	  end
 	endtask
 

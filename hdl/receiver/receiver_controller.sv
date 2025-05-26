@@ -16,14 +16,14 @@ module receiver_controller(
 	);
 
 	typedef enum logic [2:0] {
-        IDLE,
-        RTS,
-        SCAN,
-        WAIT_START,
-        RECEIVE_DATA,
-        RECEIVE_PARITY,
-        RECEIVE_STOP,
-        FINISH
+        IDLE, //00 
+        RTS,// 001
+        SCAN, //010
+        WAIT_START, //011
+        RECEIVE_DATA,//100
+        RECEIVE_PARITY,//101
+        RECEIVE_STOP,//110
+        FINISH//111
     } state_t; 
 	state_t current_state, next_state;
 			// hold state
@@ -46,7 +46,7 @@ module receiver_controller(
 			RECEIVE_DATA: next_state = (receive_data_fi_i & parity_en_i) ? RECEIVE_PARITY : (receive_data_fi_i & ~ parity_en_i) ? RECEIVE_STOP : RECEIVE_DATA;  
 			RECEIVE_PARITY : next_state = (clk_2x_i) ? RECEIVE_STOP : RECEIVE_PARITY;
 			RECEIVE_STOP: next_state = (receive_total_fi_i) ? FINISH: RECEIVE_STOP;
-			FINISH: next_state =  IDLE;
+			FINISH: next_state =  (rx_en_i & ~rts_ni & start_bit_detected_i) ? WAIT_START : (rx_en_i & ~rts_ni) ? SCAN : (rx_en_i) ? RTS : IDLE;
 		endcase
 		
 	end

@@ -191,23 +191,23 @@ endclass
         // `uvm_info("RUNNING SEQUENCE", "RX SEQUENCE RUN", UVM_LOW);
 
         repeat(no_rx_chars) begin
-          start_item(rx_char);
-        assert(rx_char.randomize() with {
-          data[4:0] != 0;
-          pe dist {1 := 1, 0 := 9};
-          fe dist {1 := 1, 0 := 9};
-        });
-          rx_char.lcr = lcr_r;
-          // rx_char.data[7:0] = 8'h8d;
-                   `uvm_info("RUNNING SEQUENCE", $sformatf("%h %h", rx_char.data, rx_char.lcr), UVM_LOW);
+            start_item(rx_char);
+          assert(rx_char.randomize() with {
+            data[4:0] != 0;
+            pe dist {1 := 1, 0 := 9};
+            fe dist {1 := 1, 0 := 9};
+          });
+            rx_char.lcr = lcr_r;
+            // rx_char.data[7:0] = 8'h8d;
+                    `uvm_info("RUNNING SEQUENCE", $sformatf("%h %h", rx_char.data, rx_char.lcr), UVM_LOW);
 
-          if(no_errors) begin
-              rx_char.fe = 0;
-              rx_char.pe = 0;
-          end
-        finish_item(rx_char);
+            if(no_errors) begin
+                rx_char.fe = 0;
+                rx_char.pe = 0;
+            end
+          finish_item(rx_char);
+          // #10;
         end
-
     endtask
 
 endclass
@@ -257,6 +257,70 @@ task body;
         rx_serial.start(uart);
         wait(m_env.rx_sb.no_chars_rx == rx_cnt_before + 1);
       join
+      rx_cnt_before = m_env.rx_sb.no_chars_rx;
+
+      lcr++;
+  end
+
+endtask
+
+endclass
+
+class rx_fifo_vseq extends uart_vseq_base;
+
+`uvm_object_utils(rx_fifo_vseq)
+
+function new(string name = "rx_fifo_vseq");
+  super.new(name);
+endfunction
+
+task body;
+  uart_config_seq setup = uart_config_seq::type_id::create("setup");
+  uart_host_rx_seq_wfifo host_rx = uart_host_rx_seq_wfifo::type_id::create("host_rx");
+  uart_rx_seq rx_serial = uart_rx_seq::type_id::create("rx_serial");
+
+  bit[7:0] lcr;
+  bit[4:0] fcr;
+  bit[2:0] ocr;
+  int rx_cnt_before;
+
+
+  rx_cnt_before = 0;
+
+  lcr = 0;
+  fcr = 1;
+  ocr = 5; 
+
+  host_rx.no_rx_chars =16;
+  rx_serial.no_rx_chars = 16;
+  rx_serial.no_errors = 1;
+
+
+  repeat(1) begin
+      assert(setup.randomize() with {setup.LCR == lcr;
+                                    setup.FCR == fcr;
+                                    setup.OCR == ocr;
+                                    });
+      setup.start(apb);
+      rx_uart_config.lcr = lcr;
+      rx_serial.lcr_r = lcr;
+
+      fork
+        rx_serial.start(uart);
+        // host_rx.start(apb);
+
+        // wait(m_env.rx_sb.no_chars_rx == rx_cnt_before + 16);
+        
+      join
+      `LOG("RX FIFO VSEQ", $sformatf("RX COUNT BEFORE: %0d", rx_cnt_before))
+      
+      fork
+        host_rx.start(apb);
+        wait(m_env.rx_sb.no_chars_rx == rx_cnt_before + 16);
+
+        
+      join
+    
       rx_cnt_before = m_env.rx_sb.no_chars_rx;
 
       lcr++;

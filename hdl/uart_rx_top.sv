@@ -87,11 +87,12 @@ module uart_rx_top (
             fifo_rx_pop_d <= fifo_rx_pop_i;
         end
     end
-    logic data_valid;
     wire negedge_rx_pop= ~fifo_rx_pop_i & fifo_rx_pop_d;
     assign fifo_rx_overrun = fifo_en_i & fifo_rx_full_o & receiver_data_valid;
     
     logic [7:0] msg;
+    logic data_valid;
+
     always_comb begin
         if (fifo_en_i) begin
             msg       = fifo_out;
@@ -101,13 +102,21 @@ module uart_rx_top (
             data_valid = receiver_data_valid;
         end
     end
+    logic data_valid_d;
     always_ff @(posedge clk or posedge reset_n) begin : proc_
         if(~reset_n) begin
-            data_o <= 0;
-            data_o_valid <= 0;            
+            data_o_valid <= 0;
+            data_valid_d <= 0;      
         end else  begin
+            data_valid_d <= data_valid;
+             data_o_valid <= data_valid_d;
+        end
+    end
+    always_ff @(posedge clk or posedge reset_n) begin
+        if(~reset_n) begin
+            data_o <= 0;
+        end else if(data_valid_d) begin
             data_o <= msg;
-             data_o_valid <= data_valid;
         end
     end
 

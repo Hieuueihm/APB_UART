@@ -64,7 +64,7 @@ module transmitter_controller (
 			TRANS_DATA: next_state = (trans_data_fi_i & parity_en_i) ? TRANS_PARITY : (trans_data_fi_i & ~parity_en_i) ? TRANS_STOP : TRANS_DATA;
 			TRANS_PARITY: next_state = (tick_d_i) ? TRANS_STOP : TRANS_PARITY;
 			TRANS_STOP: next_state = (trans_stop_fi_i) ? FINISH : TRANS_STOP;
-			FINISH:	next_state = IDLE;
+			FINISH:	next_state = (tx_en_i & ~cts_ni & start_en_d1) ? TRANS_START : (tx_en_i & ~cts_ni) ? WAIT : (tx_en_i) ? CTS :  IDLE;
 			default: next_state = IDLE; 
 		endcase
 		

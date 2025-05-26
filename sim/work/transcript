@@ -1,0 +1,221 @@
+# vsim -voptargs="+acc" -c -sv_seed random work.testbench -uvmcontrol=all "+UVM_TESTNAME=rx_fifo_test" "+UVM_VERBOSITY=UVM_LOW" -do "run -all; quit" 
+# Start time: 15:57:31 on May 26,2025
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# //  Questa Sim-64
+# //  Version 2021.2_1 linux_x86_64 May 15 2021
+# //
+# //  Copyright 1991-2021 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  QuestaSim and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.apb_if(fast)
+# Loading work.serial_if(fast)
+# Loading work.interrupt_if(fast)
+# Loading work.common_pkg(fast)
+# Loading mtiUvm.uvm_pkg(fast)
+# Loading work.uart_reg_pkg(fast)
+# Loading work.uart_agent_pkg(fast)
+# Loading work.apb_agent_pkg(fast)
+# Loading work.uart_env_pkg(fast)
+# Loading work.apb_sequence_pkg(fast)
+# Loading work.uart_vsequence_pkg(fast)
+# Loading work.uart_test_pkg(fast)
+# Loading mtiUvm.questa_uvm_pkg(fast)
+# Loading work.testbench(fast)
+# Loading work.apb_if(fast__2)
+# Loading work.serial_if(fast__2)
+# Loading work.interrupt_if(fast__2)
+# Loading work.apb_uart_sv_unit(fast)
+# Loading work.apb_uart(fast)
+# Loading work.apb_slave(fast)
+# Loading work.apb_controller(fast)
+# Loading work.register_file_sv_unit(fast)
+# Loading work.register_file(fast)
+# Loading work.baud_generator_sv_unit(fast)
+# Loading work.baud_generator(fast)
+# Loading work.uart_tx_top(fast)
+# Loading work.synchronizer(fast)
+# Loading work.transmitter_fifo(fast)
+# Loading work.uart_transmitter(fast)
+# Loading work.parity(fast)
+# Loading work.transmitter_controller(fast)
+# Loading work.piso(fast)
+# Loading work.ff(fast)
+# Loading work.uart_rx_top(fast)
+# Loading work.uart_receiver(fast)
+# Loading work.shift_register(fast)
+# Loading work.receiver_controller(fast)
+# Loading work.receiver_fifo(fast)
+# Loading /home/hieu/questasim/questasim/uvm-1.1d/linux_x86_64/uvm_dpi.so
+# Sv_Seed = 2097515711
+# run -all
+# ----------------------------------------------------------------
+# UVM-1.1d
+# (C) 2007-2013 Mentor Graphics Corporation
+# (C) 2007-2013 Cadence Design Systems, Inc.
+# (C) 2006-2013 Synopsys, Inc.
+# (C) 2011-2013 Cypress Semiconductor Corp.
+# ----------------------------------------------------------------
+# 
+#   ***********       IMPORTANT RELEASE NOTES         ************
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_NO_DEPRECATED undefined.
+#   See http://www.eda.org/svdb/view.php?id=3313 for more details.
+# 
+#   You are using a version of the UVM library that has been compiled
+#   with `UVM_OBJECT_MUST_HAVE_CONSTRUCTOR undefined.
+#   See http://www.eda.org/svdb/view.php?id=3770 for more details.
+# 
+#       (Specify +UVM_NO_RELNOTES to turn off this notice)
+# 
+# UVM_INFO @ 0: reporter [RNTST] Running test rx_fifo_test...
+# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(36) @ 0: uvm_test_top [build phase] uart_test_base build
+# UVM_INFO ../src/uvm_tb/uart_reg_pkg.sv(304) @ 0: reporter [build_phase] UART register phase
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(193) @ 0: uvm_test_top.m_env.m_apb_agent [APB_AGENT] APB AGENT BUILD PHASE
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(52) @ 0: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER NEW
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(58) @ 0: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER BUILD PHASE
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(132) @ 0: uvm_test_top.m_env.m_apb_agent.monitor [APB_MONITOR] UVM MONITOR BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(346) @ 0: uvm_test_top.m_env.m_rx_uart_agent [UART_AGENT] UART AGENT BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(353) @ 0: uvm_test_top.m_env.m_rx_uart_agent [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(99) @ 0: uvm_test_top.m_env.m_rx_uart_agent.driver [UART_DRIVER] UART DRIVER BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(212) @ 0: uvm_test_top.m_env.m_rx_uart_agent.monitor [UART_MONITOR] UART MONITOR BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(346) @ 0: uvm_test_top.m_env.m_tx_uart_agent [UART_AGENT] UART AGENT BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(353) @ 0: uvm_test_top.m_env.m_tx_uart_agent [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(99) @ 0: uvm_test_top.m_env.m_tx_uart_agent.driver [UART_DRIVER] UART DRIVER BUILD PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(212) @ 0: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] UART MONITOR BUILD PHASE
+# UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(69) @ 0: uvm_test_top.m_env.m_apb_agent.driver [APB_DRIVER] APB DRIVER CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(362) @ 0: uvm_test_top.m_env.m_rx_uart_agent [UART_AGENT] UART AGENT CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(362) @ 0: uvm_test_top.m_env.m_tx_uart_agent [UART_AGENT] UART AGENT CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(361) @ 0: uvm_test_top.m_env [UART_ENV] CONNECT PHASE
+# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(66) @ 0: uvm_test_top [init] init_vseq
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(303) @ 0: uvm_test_top.m_env.m_tx_uart_agent.monitor [UART_MONITOR] UART MONITOR RUN PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(109) @ 0: uvm_test_top.m_env.m_tx_uart_agent.driver [IF_CHECK] serial_if interface connected successfully.
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(303) @ 0: uvm_test_top.m_env.m_rx_uart_agent.monitor [UART_MONITOR] UART MONITOR RUN PHASE
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(109) @ 0: uvm_test_top.m_env.m_rx_uart_agent.driver [IF_CHECK] serial_if interface connected successfully.
+# **************************************************************************
+# * Questa UVM Transaction Recording Turned ON.                            *
+# * recording_detail has been set.                                         *
+# *  To turn off, set 'recording_detail' to off:                           *
+# * uvm_config_db#(int)            ::set(null, "", "recording_detail", 0); *
+# * uvm_config_db#(uvm_bitstream_t)::set(null, "", "recording_detail", 0); *
+# **************************************************************************
+# Unable to lock WLF file "vsim.wlf". Retrying 1 times, errno 11
+# Unable to lock WLF file "vsim.wlf". Retrying 2 times, errno 11
+# Unable to lock WLF file "vsim.wlf". Retrying 3 times, errno 11
+# Cannot lock WLF file: "vsim.wlf"
+#           errno 11: Resource temporarily unavailable.
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: unknown  Hostname: DESKTOP-4VU606L  ProcessID: 942
+#           Attempting to use alternate WLF file "./wlftVfElY3".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftVfElY3
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 39: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] cf 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 39: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 291657: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 0f
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 291657: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] e6 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 291657: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 583305: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 06
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 583305: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 31 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 583305: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 874953: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 11
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 874953: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 47 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 874953: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 1166601: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 07
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 1166601: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 28 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 1166601: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 1458249: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 08
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 1458249: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 56 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 1458249: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 1749897: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 16
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 1749897: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 33 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 1749897: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 2041545: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 13
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 2041545: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 5d 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 2041545: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 2333193: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 1d
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 2333193: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 76 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 2333193: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 2624841: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 16
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 2624841: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 0f 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 2624841: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 2916489: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 0f
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 2916489: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] f6 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 2916489: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 3208137: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 16
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 3208137: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 61 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 3208137: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 3499785: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 01
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 3499785: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 65 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 3499785: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 3791433: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 05
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 3791433: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 83 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 3791433: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 4083081: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 03
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 4083081: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 9a 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 4083081: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 4374729: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 1a
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(202) @ 4374729: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] de 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 4374729: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 4666377: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 1e
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(315) @ 4666377: reporter@@vseq [RX FIFO VSEQ] RX COUNT BEFORE: 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666397: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 0000000f
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666417: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000006
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666437: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000011
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666457: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000007
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666477: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000008
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666497: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000016
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666517: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000013
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666537: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 0000001d
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666557: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000016
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666577: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 0000000f
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666597: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000016
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666617: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000001
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666637: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000005
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666657: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000003
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666677: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 0000001a
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 4666697: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 0000001e
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 4666697: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(305) @ 4666697: uvm_test_top.m_env.rx_sb [report_phase] 16 characters received by the UART with 0 inserted errors
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(165) @ 4666697: uvm_test_top.m_env.tx_sb [report_phase] 0 characters transmitted from the UART with no errors
+# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(220) @ 4666697: uvm_test_top [*** UVM TEST PASSED ***] No RX data errors detected
+# 
+# --- UVM Report Summary ---
+# 
+# ** Report counts by severity
+# UVM_INFO :   93
+# UVM_WARNING :    0
+# UVM_ERROR :    0
+# UVM_FATAL :    0
+# ** Report counts by id
+# [*** UVM TEST PASSED ***]     1
+# [APB_AGENT]     1
+# [APB_DRIVER]     3
+# [APB_MONITOR]     1
+# [IF_CHECK]     4
+# [RNTST]     1
+# [RUNNING SEQUENCE]    16
+# [RX FIFO VSEQ]     1
+# [TEST_DONE]     1
+# [UART DRIVER]    16
+# [UART_AGENT]     4
+# [UART_DRIVER]     2
+# [UART_ENV]     1
+# [UART_MONITOR]     4
+# [UART_RX_SCOREBOARD]    32
+# [build phase]     1
+# [build_phase]     1
+# [init]     1
+# [report_phase]     2
+# ** Note: $finish    : /home/hieu/questasim/questasim/linux_x86_64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
+#    Time: 4666697 ns  Iteration: 70  Instance: /testbench
+# End time: 15:57:49 on May 26,2025, Elapsed time: 0:00:18
+# Errors: 0, Warnings: 2
