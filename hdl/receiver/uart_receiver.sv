@@ -65,12 +65,13 @@ module uart_receiver(
 
 	assign parity_bit = (parity_check_sampled) ? tx_sync : 0; 
 
-	
-	assign parity_err = (~parity_en_i) ? 0 : 
-                      (parity_check_sampled? ~(((^data) ^ parity_bit_sampled)^parity_type_i) : 0);
+	wire expected_parity_bit = (^data) ^ parity_type_i;
 
-  	assign stop_bit_1_check = (count_data == data_size_sampled + parity_en_i + 1) && data_receive_en; 
-  	assign stop_bit_2_check = (count_data == data_size_sampled + parity_en_i + 2) && data_receive_en;
+	assign parity_err = (parity_en_i && parity_check_sampled) ?
+						(parity_bit_sampled != expected_parity_bit) : 1'b0;
+
+  	assign stop_bit_1_check = (count_data == data_size_sampled + parity_en_i) && data_receive_en; 
+  	assign stop_bit_2_check = (count_data == data_size_sampled + parity_en_i + 1) && data_receive_en;
 	logic stop_bit_1_check_sampled;
 	logic stop_bit_2_check_sampled;
 

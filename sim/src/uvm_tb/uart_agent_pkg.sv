@@ -148,8 +148,9 @@ endfunction
               begin
                 sline.sdata = logic'(calParity(pkt.lcr, pkt.data));
                 if (pkt.pe) begin
-                  `LOG(`UART_DRIVER, $sformatf("send msg with parity error: %b", pkt.pe))
                   sline.sdata = ~sline.sdata;
+                  `LOG(`UART_DRIVER, $sformatf("send msg with parity error: %b", sline.sdata))
+
                 end
                 bitPeriod;
 

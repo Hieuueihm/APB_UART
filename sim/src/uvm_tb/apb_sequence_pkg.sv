@@ -250,4 +250,124 @@ import uart_env_pkg::*;
 
 	endclass
 
+	
+	class uart_host_rx_seq_parity extends common_sequence;
+
+	`uvm_object_utils(uart_host_rx_seq_parity)
+
+	rand int no_rx_chars;
+	event rx_data_event;
+
+	constraint char_limit_c { no_rx_chars inside {[1:20]};}
+
+	function new(string name = "uart_host_rx_seq_parity");
+	  super.new(name);
+	endfunction
+
+	task body;
+	  super.body();
+	  for(int i = 0; i < no_rx_chars; i++) begin
+	    rm.LSR.read(status, data, .parent(this));
+	    while(!data[2]) begin
+	      rm.LSR.read(status, data, .parent(this));
+		  cfg.wait_for_clock(10);
+		//   `LOG("HOST_RX_SEQ_PARITY", $sformatf("LSR: %b", data))
+
+	    end
+
+		`LOG("HOST_RX_SEQ_PARITY", "PARITY ERROR DETECTED")
+	   	 rm.RDR.read(status, data, .parent(this));
+
+	    rm.LSR.read(status, data, .parent(this));
+		if(!data[2]) begin
+			`LOG("HOST_RX_SEQ_PARITY", "PARITY ERROR CLEARED AFTER READING LSR")
+		end
+
+	  end
+	endtask
+
+	endclass
+
+
+		class uart_host_rx_seq_frame extends common_sequence;
+
+	`uvm_object_utils(uart_host_rx_seq_frame)
+
+	rand int no_rx_chars;
+	event rx_data_event;
+
+	constraint char_limit_c { no_rx_chars inside {[1:20]};}
+
+	function new(string name = "uart_host_rx_seq_frame");
+	  super.new(name);
+	endfunction
+
+	task body;
+	  super.body();
+	  for(int i = 0; i < no_rx_chars; i++) begin
+	    rm.LSR.read(status, data, .parent(this));
+	    while(!data[3]) begin
+	      rm.LSR.read(status, data, .parent(this));
+		  cfg.wait_for_clock(10);
+		//   `LOG("HOST_RX_SEQ_PARITY", $sformatf("LSR: %b", data))
+
+	    end
+
+		`LOG("HOST_RX_SEQ_FRAME", "FRAME ERROR DETECTED")
+	   	 rm.RDR.read(status, data, .parent(this));
+
+	    rm.LSR.read(status, data, .parent(this));
+		if(!data[3]) begin
+			`LOG("HOST_RX_SEQ_FRAME", "FRAME ERROR CLEARED AFTER READING LSR")
+		end
+
+	  end
+	endtask
+
+	endclass
+
+
+
+
+		class uart_host_rx_seq_overrun extends common_sequence;
+
+	`uvm_object_utils(uart_host_rx_seq_overrun)
+
+	rand int no_rx_chars;
+	event rx_data_event;
+
+	constraint char_limit_c { no_rx_chars inside {[1:20]};}
+
+	function new(string name = "uart_host_rx_seq_overrun");
+	  super.new(name);
+	endfunction
+
+	task body;
+	  super.body();
+	  for(int i = 0; i < no_rx_chars; i++) begin
+	    rm.LSR.read(status, data, .parent(this));
+	    while(!data[6]) begin
+	      rm.LSR.read(status, data, .parent(this));
+		  cfg.wait_for_clock(10);
+		//   `LOG("HOST_RX_SEQ_PARITY", $sformatf("LSR: %b", data))
+	    end
+
+		`LOG("HOST_RX_SEQ_OVERRUN", "OVERRUN DETECTED")
+	   	 rm.RDR.read(status, data, .parent(this));
+		 rm.LSR.read(status, data, .parent(this));
+		if(!data[6]) begin
+			`LOG("HOST_RX_SEQ_FRAME", "OVERRUN ERROR CLEARED AFTER READING LSR")
+		end
+			
+		rm.RDR.read(status, data, .parent(this));
+
+
+	    
+
+	  end
+	endtask
+
+	endclass
+
+
 endpackage 

@@ -229,6 +229,99 @@ class rx_fifo_test extends uart_test_base;
 
 
 
+class parity_error_test extends uart_test_base;
+
+`uvm_component_utils(parity_error_test)
+
+  function new(string name = "parity_error_test", uvm_component parent = null);
+    super.new(name, parent);
+  endfunction
+
+  task run_phase(uvm_phase phase);
+    rx_parity_vseq vseq = rx_parity_vseq::type_id::create("vseq");
+
+    phase.raise_objection(this);
+    init_vseq(vseq);
+    vseq.start(null);
+    phase.drop_objection(this);
+  endtask
+
+
+  function void report_phase(uvm_phase phase);
+    if(m_env.rx_sb.no_data_errors == 0) begin
+      `uvm_info("*** UVM TEST PASSED ***", "No RX data errors detected", UVM_LOW)
+    end
+    else begin
+      `uvm_error("*** UVM TEST FAILED ***", "RX data errors detected - see scoreboard reports for more detail")
+    end
+  endfunction
+
+
+  endclass
+
+
+class frame_error_test extends uart_test_base;
+
+`uvm_component_utils(frame_error_test)
+
+  function new(string name = "frame_error_test", uvm_component parent = null);
+    super.new(name, parent);
+  endfunction
+
+  task run_phase(uvm_phase phase);
+    rx_frame_vseq vseq = rx_frame_vseq::type_id::create("vseq");
+
+    phase.raise_objection(this);
+    init_vseq(vseq);
+    vseq.start(null);
+    phase.drop_objection(this);
+  endtask
+
+
+  function void report_phase(uvm_phase phase);
+    if(m_env.rx_sb.no_data_errors == 0) begin
+      `uvm_info("*** UVM TEST PASSED ***", "No RX data errors detected", UVM_LOW)
+    end
+    else begin
+      `uvm_error("*** UVM TEST FAILED ***", "RX data errors detected - see scoreboard reports for more detail")
+    end
+  endfunction
+
+
+  endclass
+
+
+  class overrun_error_test extends uart_test_base;
+
+`uvm_component_utils(overrun_error_test)
+
+  function new(string name = "overrun_error_test", uvm_component parent = null);
+    super.new(name, parent);
+  endfunction
+
+  task run_phase(uvm_phase phase);
+    rx_overrun_vseq vseq = rx_overrun_vseq::type_id::create("vseq");
+
+    phase.raise_objection(this);
+    init_vseq(vseq);
+    vseq.start(null);
+    phase.drop_objection(this);
+  endtask
+
+
+  function void report_phase(uvm_phase phase);
+    if(m_env.rx_sb.no_data_errors == 0) begin
+      `uvm_info("*** UVM TEST PASSED ***", "No RX data errors detected", UVM_LOW)
+    end
+    else begin
+      `uvm_error("*** UVM TEST FAILED ***", "RX data errors detected - see scoreboard reports for more detail")
+    end
+  endfunction
+
+
+  endclass
+
+
 
 
 

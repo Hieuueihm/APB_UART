@@ -52,6 +52,57 @@ class basic_reg_vseq extends uart_vseq_base;
 endclass
 
 
+
+
+  class uart_rx_seq extends uvm_sequence #(uart_transaction);
+
+    `uvm_object_utils(uart_rx_seq)
+
+    rand int no_rx_chars;
+
+    rand bit[7:0] lcr_r;
+    rand bit no_errors;
+    bit fe_fixed;
+    bit pe_fixed;
+
+    function new(string name = "uart_rx_seq");
+        super.new(name);
+    endfunction
+
+    task body;
+        uart_transaction rx_char = uart_transaction::type_id::create("rx_char");
+        // `uvm_info("RUNNING SEQUENCE", "RX SEQUENCE RUN", UVM_LOW);
+
+        repeat(no_rx_chars) begin
+            start_item(rx_char);
+          assert(rx_char.randomize() with {
+            data[4:0] != 0;
+            pe dist {1 := 1, 0 := 9};
+            fe dist {1 := 1, 0 := 9};
+          });
+            rx_char.lcr = lcr_r;
+            // rx_char.data[7:0] = 8'h8d;
+                    `uvm_info("RUNNING SEQUENCE", $sformatf("%h %h", rx_char.data, rx_char.lcr), UVM_LOW);
+
+            if(no_errors) begin
+                rx_char.fe = 0;
+                rx_char.pe = 0;
+            end
+            if (fe_fixed) begin
+              rx_char.fe = 1;
+            end
+            if(pe_fixed) begin
+              rx_char.pe = 1;
+            end
+          finish_item(rx_char);
+          // #10;
+        end
+    endtask
+
+endclass
+
+
+
 class tx_polling_vseq extends uart_vseq_base;
 
 `uvm_object_utils(tx_polling_vseq)
@@ -173,45 +224,6 @@ endclass
 
 
 
-  class uart_rx_seq extends uvm_sequence #(uart_transaction);
-
-    `uvm_object_utils(uart_rx_seq)
-
-    rand int no_rx_chars;
-
-    rand bit[7:0] lcr_r;
-    rand bit no_errors;
-
-    function new(string name = "uart_rx_seq");
-        super.new(name);
-    endfunction
-
-    task body;
-        uart_transaction rx_char = uart_transaction::type_id::create("rx_char");
-        // `uvm_info("RUNNING SEQUENCE", "RX SEQUENCE RUN", UVM_LOW);
-
-        repeat(no_rx_chars) begin
-            start_item(rx_char);
-          assert(rx_char.randomize() with {
-            data[4:0] != 0;
-            pe dist {1 := 1, 0 := 9};
-            fe dist {1 := 1, 0 := 9};
-          });
-            rx_char.lcr = lcr_r;
-            // rx_char.data[7:0] = 8'h8d;
-                    `uvm_info("RUNNING SEQUENCE", $sformatf("%h %h", rx_char.data, rx_char.lcr), UVM_LOW);
-
-            if(no_errors) begin
-                rx_char.fe = 0;
-                rx_char.pe = 0;
-            end
-          finish_item(rx_char);
-          // #10;
-        end
-    endtask
-
-endclass
-
 
 class rx_polling_vseq extends uart_vseq_base;
 
@@ -321,6 +333,176 @@ task body;
         
       join
     
+      rx_cnt_before = m_env.rx_sb.no_chars_rx;
+
+      lcr++;
+  end
+
+endtask
+
+endclass
+
+
+
+
+class rx_parity_vseq extends uart_vseq_base;
+
+`uvm_object_utils(rx_parity_vseq)
+
+function new(string name = "rx_parity_vseq");
+  super.new(name);
+endfunction
+
+task body;
+  uart_config_seq setup = uart_config_seq::type_id::create("setup");
+  uart_host_rx_seq_parity host_rx = uart_host_rx_seq_parity::type_id::create("host_rx");
+  uart_rx_seq rx_serial = uart_rx_seq::type_id::create("rx_serial");
+
+  bit[7:0] lcr;
+  bit[4:0] fcr;
+  bit[2:0] ocr;
+  int rx_cnt_before;
+
+
+  rx_cnt_before = 0;
+
+  lcr = 8'd8;
+  fcr = 0;
+  ocr = 5; 
+
+  host_rx.no_rx_chars =1;
+  rx_serial.no_rx_chars = 1;
+  rx_serial.pe_fixed = 1;
+
+
+  repeat(1) begin
+      assert(setup.randomize() with {setup.LCR == lcr;
+                                    setup.FCR == fcr;
+                                    setup.OCR == ocr;
+                                    });
+      setup.start(apb);
+      rx_uart_config.lcr = lcr;
+      rx_serial.lcr_r = lcr;
+
+      fork
+        host_rx.start(apb);
+        rx_serial.start(uart);
+        wait(m_env.rx_sb.no_chars_rx == rx_cnt_before + 1);
+      join
+      rx_cnt_before = m_env.rx_sb.no_chars_rx;
+
+      lcr++;
+  end
+
+endtask
+
+endclass
+
+
+
+
+
+
+class rx_frame_vseq extends uart_vseq_base;
+
+`uvm_object_utils(rx_frame_vseq)
+
+function new(string name = "rx_frame_vseq");
+  super.new(name);
+endfunction
+
+task body;
+  uart_config_seq setup = uart_config_seq::type_id::create("setup");
+  uart_host_rx_seq_frame host_rx = uart_host_rx_seq_frame::type_id::create("host_rx");
+  uart_rx_seq rx_serial = uart_rx_seq::type_id::create("rx_serial");
+
+  bit[7:0] lcr;
+  bit[4:0] fcr;
+  bit[2:0] ocr;
+  int rx_cnt_before;
+
+
+  rx_cnt_before = 0;
+
+  lcr = 8'd8;
+  fcr = 0;
+  ocr = 5; 
+
+  host_rx.no_rx_chars =1;
+  rx_serial.no_rx_chars = 1;
+  rx_serial.fe_fixed = 1;
+
+
+  repeat(1) begin
+      assert(setup.randomize() with {setup.LCR == lcr;
+                                    setup.FCR == fcr;
+                                    setup.OCR == ocr;
+                                    });
+      setup.start(apb);
+      rx_uart_config.lcr = lcr;
+      rx_serial.lcr_r = lcr;
+
+      fork
+        host_rx.start(apb);
+        rx_serial.start(uart);
+        wait(m_env.rx_sb.no_chars_rx == rx_cnt_before + 1);
+      join
+      rx_cnt_before = m_env.rx_sb.no_chars_rx;
+
+      lcr++;
+  end
+
+endtask
+
+endclass
+
+class rx_overrun_vseq extends uart_vseq_base;
+
+`uvm_object_utils(rx_overrun_vseq)
+
+function new(string name = "rx_overrun_vseq");
+  super.new(name);
+endfunction
+
+task body;
+  uart_config_seq setup = uart_config_seq::type_id::create("setup");
+  uart_host_rx_seq_overrun host_rx = uart_host_rx_seq_overrun::type_id::create("host_rx");
+  uart_rx_seq rx_serial = uart_rx_seq::type_id::create("rx_serial");
+
+  bit[7:0] lcr;
+  bit[4:0] fcr;
+  bit[2:0] ocr;
+  int rx_cnt_before;
+
+
+  rx_cnt_before = 0;
+
+  lcr = 0;
+  fcr = 0;
+  ocr = 5; 
+
+  host_rx.no_rx_chars =1;
+  rx_serial.no_rx_chars = 2;
+  rx_serial.no_errors = 1;
+
+  repeat(1) begin
+      assert(setup.randomize() with {setup.LCR == lcr;
+                                    setup.FCR == fcr;
+                                    setup.OCR == ocr;
+                                    });
+      setup.start(apb);
+      rx_uart_config.lcr = lcr;
+      rx_serial.lcr_r = lcr;
+
+      fork
+        rx_serial.start(uart);
+      join
+      `LOG("RX OVERRUN VSEQ", $sformatf("RX COUNT BEFORE: %0d", rx_cnt_before))
+
+      fork
+        host_rx.start(apb);
+        wait(m_env.rx_sb.no_chars_rx == rx_cnt_before + 2);
+      join
       rx_cnt_before = m_env.rx_sb.no_chars_rx;
 
       lcr++;
