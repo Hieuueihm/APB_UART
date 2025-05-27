@@ -1,9 +1,6 @@
-# vsim -voptargs="+acc" -c -sv_seed random work.testbench -uvmcontrol=all "+UVM_TESTNAME=overrun_error_test" "+UVM_VERBOSITY=UVM_LOW" -do "run -all; quit" 
-# Start time: 19:52:02 on May 26,2025
-# ** Note: (vsim-3812) Design is being optimized...
-# ** Note: (vopt-143) Recognized 1 FSM in module "transmitter_controller(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "receiver_controller(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "apb_controller(fast)".
+# vsim -voptargs="+acc" -c -sv_seed random work.testbench -uvmcontrol=all "+UVM_TESTNAME=interrupt_test" "+UVM_VERBOSITY=UVM_LOW" -do "run -all; quit" 
+# Start time: 08:38:44 on May 27,2025
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # //  Questa Sim-64
 # //  Version 2021.2_1 linux_x86_64 May 15 2021
 # //
@@ -58,7 +55,7 @@
 # Loading work.receiver_controller(fast)
 # Loading work.receiver_fifo(fast)
 # Loading /home/hieu/questasim/questasim/uvm-1.1d/linux_x86_64/uvm_dpi.so
-# Sv_Seed = 1693217134
+# Sv_Seed = 1992486063
 # run -all
 # ----------------------------------------------------------------
 # UVM-1.1d
@@ -80,7 +77,7 @@
 # 
 #       (Specify +UVM_NO_RELNOTES to turn off this notice)
 # 
-# UVM_INFO @ 0: reporter [RNTST] Running test overrun_error_test...
+# UVM_INFO @ 0: reporter [RNTST] Running test interrupt_test...
 # UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(36) @ 0: uvm_test_top [build phase] uart_test_base build
 # UVM_INFO ../src/uvm_tb/uart_reg_pkg.sv(304) @ 0: reporter [build_phase] UART register phase
 # UVM_INFO ../src/uvm_tb/apb_agent_pkg.sv(193) @ 0: uvm_test_top.m_env.m_apb_agent [APB_AGENT] APB AGENT BUILD PHASE
@@ -117,58 +114,62 @@
 # Cannot lock WLF file: "vsim.wlf"
 #           errno 11: Resource temporarily unavailable.
 # ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
-#           File in use by: unknown  Hostname: DESKTOP-4VU606L  ProcessID: 1014
-#           Attempting to use alternate WLF file "./wlftLvtDj9".
+#           File in use by: unknown  Hostname: DESKTOP-4VU606L  ProcessID: 4131
+#           Attempting to use alternate WLF file "./wlftoYmmIi".
 # ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
-#           Using alternate file: ./wlftLvtDj9
-# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(85) @ 39: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 7d 00
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 39: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 291657: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 1d
-# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(85) @ 291657: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 6c 00
-# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 291657: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 583305: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 0c
-# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(500) @ 583305: reporter@@vseq [RX OVERRUN VSEQ] RX COUNT BEFORE: 0
-# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(355) @ 583345: uvm_test_top.m_env.m_apb_agent.sequencer@@host_rx [HOST_RX_SEQ_OVERRUN] OVERRUN DETECTED
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 583355: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 0000000c
-# UVM_ERROR ../src/uvm_tb/uart_env_pkg.sv(269) @ 583355: uvm_test_top.m_env.rx_sb [monitor_uart] Error in observed UART RX data expected:1d actual:c LCR:00000000 case 00
-# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(359) @ 583365: uvm_test_top.m_env.m_apb_agent.sequencer@@host_rx [HOST_RX_SEQ_FRAME] OVERRUN ERROR CLEARED AFTER READING LSR
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 583375: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 0000000c
-# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 583375: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
-# UVM_ERROR ../src/uvm_tb/uart_env_pkg.sv(309) @ 583375: uvm_test_top.m_env.rx_sb [report_phase] 1 characters received with data_errors from 2 received overall
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(165) @ 583375: uvm_test_top.m_env.tx_sb [report_phase] 0 characters transmitted from the UART with no errors
-# UVM_ERROR ../src/uvm_tb/uart_test_pkg.sv(317) @ 583375: uvm_test_top [*** UVM TEST FAILED ***] RX data errors detected - see scoreboard reports for more detail
+#           Using alternate file: ./wlftoYmmIi
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(85) @ 49: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 99 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 49: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 291657: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 19
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(394) @ 291669: uvm_test_top.m_env.m_apb_agent.sequencer@@host_rx [HOST_INTR_SEQ] INTERRUPT DETECTED
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(396) @ 291679: uvm_test_top.m_env.m_apb_agent.sequencer@@host_rx [HOST_INTR_SEQ] IIR id: 10
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 291689: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000019
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(405) @ 291739: uvm_test_top.m_env.m_apb_agent.sequencer@@host_rx [HOST_INTR_SEQ] INTERRUPT DETECTED
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(408) @ 291749: uvm_test_top.m_env.m_apb_agent.sequencer@@host_rx [HOST_INTR_SEQ] IIR id: 01
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 291759: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000019
+# UVM_INFO ../src/uvm_tb/uart_vsequence_pkg.sv(85) @ 291799: uvm_test_top.m_env.m_rx_uart_agent.sequencer@@rx_serial [RUNNING SEQUENCE] 55 00
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(116) @ 291799: uvm_test_top.m_env.m_rx_uart_agent.driver [UART DRIVER] SEND SCHAR
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(162) @ 541641: uvm_test_top.m_env.m_rx_uart_agent.driver [UART_DRIVER] send msg with stopbit error: 1
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(278) @ 562473: uvm_test_top.m_env.m_rx_uart_agent.monitor [UART_MONITOR] UART MONITOR: stop bit error detected
+# UVM_INFO ../src/uvm_tb/uart_agent_pkg.sv(279) @ 562473: uvm_test_top.m_env.m_rx_uart_agent.monitor [UART_MONITOR] stop bit: 0
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(227) @ 583305: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] UART RX SCOREBOARD received exp 15
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(416) @ 583313: uvm_test_top.m_env.m_apb_agent.sequencer@@host_rx [HOST_INTR_SEQ] INTERRUPT DETECTED
+# UVM_INFO ../src/uvm_tb/apb_sequence_pkg.sv(419) @ 583323: uvm_test_top.m_env.m_apb_agent.sequencer@@host_rx [HOST_INTR_SEQ] IIR id: 11
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(246) @ 583333: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] READ DATA FROM REG 00000015
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(261) @ 583333: uvm_test_top.m_env.rx_sb [UART_RX_SCOREBOARD] RX data error detected: PE:0 FE:1 LCR:0
+# UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 583333: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(305) @ 583333: uvm_test_top.m_env.rx_sb [report_phase] 3 characters received by the UART with 1 inserted errors
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(165) @ 583333: uvm_test_top.m_env.tx_sb [report_phase] 0 characters transmitted from the UART with no errors
+# UVM_INFO ../src/uvm_tb/uart_test_pkg.sv(346) @ 583333: uvm_test_top [*** UVM TEST PASSED ***] No RX data errors detected
 # 
 # --- UVM Report Summary ---
 # 
 # ** Report counts by severity
-# UVM_INFO :   37
+# UVM_INFO :   47
 # UVM_WARNING :    0
-# UVM_ERROR :    3
+# UVM_ERROR :    0
 # UVM_FATAL :    0
 # ** Report counts by id
-# [*** UVM TEST FAILED ***]     1
+# [*** UVM TEST PASSED ***]     1
 # [APB_AGENT]     1
 # [APB_DRIVER]     3
 # [APB_MONITOR]     1
-# [HOST_RX_SEQ_FRAME]     1
-# [HOST_RX_SEQ_OVERRUN]     1
+# [HOST_INTR_SEQ]     6
 # [IF_CHECK]     4
 # [RNTST]     1
 # [RUNNING SEQUENCE]     2
-# [RX OVERRUN VSEQ]     1
 # [TEST_DONE]     1
 # [UART DRIVER]     2
 # [UART_AGENT]     4
-# [UART_DRIVER]     2
+# [UART_DRIVER]     3
 # [UART_ENV]     1
-# [UART_MONITOR]     4
-# [UART_RX_SCOREBOARD]     4
+# [UART_MONITOR]     6
+# [UART_RX_SCOREBOARD]     6
 # [build phase]     1
 # [build_phase]     1
 # [init]     1
-# [monitor_uart]     1
 # [report_phase]     2
 # ** Note: $finish    : /home/hieu/questasim/questasim/linux_x86_64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
-#    Time: 583375 ns  Iteration: 70  Instance: /testbench
-# End time: 19:52:14 on May 26,2025, Elapsed time: 0:00:12
+#    Time: 583333 ns  Iteration: 69  Instance: /testbench
+# End time: 08:38:54 on May 27,2025, Elapsed time: 0:00:10
 # Errors: 0, Warnings: 2

@@ -512,4 +512,84 @@ endtask
 
 endclass
 
+
+
+class interrupt_vseq extends uart_vseq_base;
+
+`uvm_object_utils(interrupt_vseq)
+
+function new(string name = "interrupt_vseq");
+  super.new(name);
+endfunction
+
+task body;
+  uart_config_seq setup = uart_config_seq::type_id::create("setup");
+  uart_host_intr_seq host = uart_host_intr_seq::type_id::create("host_rx");
+  uart_rx_seq rx_serial = uart_rx_seq::type_id::create("rx_serial");
+
+  bit[7:0] lcr;
+  bit[4:0] fcr;
+  bit[2:0] ocr;
+  bit [2:0] ier;
+  int rx_cnt_before;
+
+
+  rx_cnt_before = 0;
+  ier = 3'b001;
+  lcr = 0;
+  fcr = 0;
+  ocr = 5; 
+
+  rx_serial.no_rx_chars = 1;
+  rx_serial.no_errors = 1;
+
+
+  repeat(3) begin
+      assert(setup.randomize() with {setup.LCR == lcr;
+                                    setup.FCR == fcr;
+                                    setup.OCR == ocr;
+                                    setup.IER == ier;
+                                    });
+      setup.start(apb);
+      host.ier = ier;
+      host.s_cfg = setup;
+      rx_uart_config.lcr = lcr;
+      rx_serial.lcr_r = lcr;
+      if(ier == 3'b100) begin
+        rx_serial.fe_fixed = 1;
+      end
+
+
+      fork
+        case(ier) 
+          3'b001: begin
+            rx_serial.start(uart);
+              host.start(apb);
+
+          end
+
+          3'b010: begin
+            host.start(apb);
+          end
+
+          3'b100: begin
+            rx_serial.start(uart);
+            host.start(apb);
+          end
+
+        endcase
+
+        // wait(m_env.rx_sb.no_chars_rx == rx_cnt_before + 1);
+      join
+      rx_cnt_before = m_env.rx_sb.no_chars_rx;
+
+      // lcr++;
+    ier = ier << 1; // test 
+
+  end
+
+endtask
+
+endclass
+
 endpackage

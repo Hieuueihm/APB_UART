@@ -323,6 +323,38 @@ class frame_error_test extends uart_test_base;
 
 
 
+  class interrupt_test extends uart_test_base;
+
+`uvm_component_utils(interrupt_test)
+
+  function new(string name = "interrupt_test", uvm_component parent = null);
+    super.new(name, parent);
+  endfunction
+
+  task run_phase(uvm_phase phase);
+    interrupt_vseq vseq = interrupt_vseq::type_id::create("vseq");
+
+    phase.raise_objection(this);
+    init_vseq(vseq);
+    vseq.start(null);
+    phase.drop_objection(this);
+  endtask
+
+
+  function void report_phase(uvm_phase phase);
+    if(m_env.rx_sb.no_data_errors == 0) begin
+      `uvm_info("*** UVM TEST PASSED ***", "No RX data errors detected", UVM_LOW)
+    end
+    else begin
+      `uvm_error("*** UVM TEST FAILED ***", "RX data errors detected - see scoreboard reports for more detail")
+    end
+  endfunction
+
+
+  endclass
+
+
+
 
 
 

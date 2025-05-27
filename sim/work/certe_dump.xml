@@ -1,5 +1,5 @@
 <certe_dump>
-  <instance type=" overrun_error_test "> 
+  <instance type=" interrupt_test "> 
      uvm_test_top 
   
      <instance type=" uart_env "> 

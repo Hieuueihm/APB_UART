@@ -267,7 +267,7 @@ module apb_uart #(
     wire data_rdy_intr = ier[0];
     wire tdr_empty_intr = ier[1];
     wire received_lsr_intr = ier[2];
-    wire lsr_stt = (lsr[2] | lsr[3] | lsr[4] | lsr[5] | lsr[6]);
+    wire lsr_stt = (lsr[2] | lsr[3]  | lsr[5] | lsr[6]);
     // iir write
        always_ff @(posedge clk or negedge preset_n) begin 
         if(~preset_n) begin

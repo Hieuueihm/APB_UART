@@ -94,6 +94,7 @@ import uart_env_pkg::*;
 		rand bit[7:0] LCR;
 		rand bit[4:0] FCR;
 		rand bit[2:0] OCR;
+		rand bit[2:0] IER;
 
 		function new(string name = "uart_config_seq");
 		  super.new(name);
@@ -104,6 +105,8 @@ import uart_env_pkg::*;
 		  rm.LCR.write(status, {'0, LCR}, .parent(this));
 		//   rm.LCR.read(status, data, .parent(this));
 		  rm.FCR.write(status, {'0, FCR}, .parent(this));
+			rm.IER.write(status, {'0, IER}, .parent(this));
+		  
 		  rm.OCR.write(status, {'0, OCR}, .parent(this));
 		
 
@@ -365,6 +368,70 @@ import uart_env_pkg::*;
 	    
 
 	  end
+	endtask
+
+	endclass
+
+		class uart_host_intr_seq extends common_sequence;
+
+	`uvm_object_utils(uart_host_intr_seq)
+
+	event rx_data_event;
+	bit [2:0] ier;
+			uart_config_seq s_cfg;
+
+
+
+	function new(string name = "uart_host_intr_seq");
+	  super.new(name);
+	endfunction
+
+	task body;
+	  super.body();
+	  case(ier) 
+		3'b001: begin
+			wait(cfg.IRQ.irq == 1);
+			`LOG("HOST_INTR_SEQ", "INTERRUPT DETECTED")
+			rm.IIR.read(status, data, .parent(this));
+			`LOG("HOST_INTR_SEQ", $sformatf("IIR id: %b", data[2:1]))
+			rm.RDR.read(status, data, .parent(this));
+			
+
+		end
+
+		3'b010: begin
+			rm.OCR.write(status, {29'b0, s_cfg.OCR[2], 1'b1, s_cfg.OCR[0]}, .parent(this));
+			wait(cfg.IRQ.irq == 1);
+			`LOG("HOST_INTR_SEQ", "INTERRUPT DETECTED")
+						rm.IIR.read(status, data, .parent(this));
+
+						`LOG("HOST_INTR_SEQ", $sformatf("IIR id: %b", data[2:1]))
+
+			rm.RDR.read(status, data, .parent(this));
+
+		end
+
+		3'b100: begin
+						wait(cfg.IRQ.irq == 1);
+						`LOG("HOST_INTR_SEQ", "INTERRUPT DETECTED")
+						rm.IIR.read(status, data, .parent(this));
+
+						`LOG("HOST_INTR_SEQ", $sformatf("IIR id: %b", data[2:1]))
+
+			rm.RDR.read(status, data, .parent(this));
+
+
+
+		end
+
+
+
+	  endcase
+	  
+
+
+	    
+
 	endtask
 
 	endclass
