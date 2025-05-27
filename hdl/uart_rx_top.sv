@@ -10,10 +10,11 @@ module uart_rx_top (
     input        stop_bit_num_i,
     input [1:0]  data_bit_num_i,
     input        fifo_en_i,    
-    input logic force_rts_i,                
+    input  force_rts_i,                
     input        fifo_rx_pop_i,
     input [1:0]  fifo_rx_trig_level_i,
     input        hf_en_i,
+    input rdr_empty_i,
     output logic [7:0]  data_o,
     output logic        data_o_valid,
     output logic        parity_err_o,
@@ -29,6 +30,7 @@ module uart_rx_top (
     wire fifo_rx_full_o;
     wire trigger_fifo_lt_14;
     assign trigger_fifo_lt_14 = ~(fifo_rx_trig_level_i[0] & fifo_rx_trig_level_i[1]);
+
     uart_receiver uart_rx_inst (
         .clk(clk),
         .reset_n(reset_n),
@@ -48,17 +50,20 @@ module uart_rx_top (
     wire fifo_rx_triggered;
     logic [7:0] fifo_out;
     logic       fifo_push;
+
+
+    
     always_ff @(posedge clk or negedge reset_n) begin
         if(~reset_n) begin
             rts_no <= 0;
         end else if(hf_en_i) begin
            if(force_rts_i) begin
             rts_no <= 0;
-        end else if((trigger_fifo_lt_14 & fifo_rx_triggered) | (~trigger_fifo_lt_14 & fifo_rx_triggered)) begin 
-            rts_no <= 1;
-        end else if((trigger_fifo_lt_14 & rts_no & fifo_rx_empty_o) | (~trigger_fifo_lt_14 & ~fifo_rx_triggered)) begin
-            rts_no <= 0;
-        end
+            end else if( (~fifo_en_i & ~rdr_empty_i) | (fifo_en_i &(trigger_fifo_lt_14 & fifo_rx_triggered) | (~trigger_fifo_lt_14 & fifo_rx_triggered))) begin 
+                rts_no <= 1;
+            end else if(  (~fifo_en_i & rdr_empty_i) | (fifo_en_i & (trigger_fifo_lt_14 & rts_no & fifo_rx_empty_o) | (~trigger_fifo_lt_14 & ~fifo_rx_triggered))) begin
+                rts_no <= 0;
+            end
          end
         
     end
@@ -77,7 +82,7 @@ module uart_rx_top (
         .fifo_rx_empty_o(fifo_rx_empty_o),
         .fifo_rx_trig_level_i(fifo_rx_trig_level_i),
         .fifo_rx_full_o(fifo_rx_full_o),
-    .fifo_rx_triggered_o (fifo_rx_triggered)
+        .fifo_rx_triggered_o (fifo_rx_triggered)
            );
     logic fifo_rx_pop_d;
     always_ff @(posedge clk or negedge reset_n) begin 

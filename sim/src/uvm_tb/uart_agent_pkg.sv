@@ -109,6 +109,7 @@ endfunction
             `uvm_info("IF_CHECK", "serial_if interface connected successfully.", UVM_LOW)
        begin
         sline.sdata = 1;
+        sline.handshake = 0;
         forever
           begin
             sline.sdata = 1;

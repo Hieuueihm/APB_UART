@@ -59,7 +59,7 @@ module transmitter_controller (
 		case (current_state)
 			IDLE:  next_state = (tx_en_i) ? CTS: IDLE;
 			CTS: next_state = (~cts_ni) ? WAIT : (~tx_en_i) ? IDLE: CTS;
-			WAIT: next_state = (~tx_en_i)? IDLE : (start_en_d1) ? TRANS_START : WAIT;
+			WAIT: next_state = (cts_ni) ? CTS :  (~tx_en_i)? IDLE : (start_en_d1) ? TRANS_START : WAIT;
 			TRANS_START: next_state =  (tick_d_i) ? TRANS_DATA: TRANS_START;
 			TRANS_DATA: next_state = (trans_data_fi_i & parity_en_i) ? TRANS_PARITY : (trans_data_fi_i & ~parity_en_i) ? TRANS_STOP : TRANS_DATA;
 			TRANS_PARITY: next_state = (tick_d_i) ? TRANS_STOP : TRANS_PARITY;

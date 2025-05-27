@@ -77,6 +77,7 @@ module apb_uart #(
     wire fifo_tx_empty;
     wire fifo_tx_full;
     wire lsr0_set;
+
     assign lsr1_set = (~fcr[0] & ~rdr_empty) | (fcr[0] & ~fifo_rx_empty);
     assign lsr2_set = parity_err;
     assign lsr3_set = stop_bit_err;
@@ -185,7 +186,8 @@ module apb_uart #(
             .stop_bit_err_o       (stop_bit_err),
             .fifo_rx_empty_o      (fifo_rx_empty),
             .fifo_rx_overrun     (fifo_rx_overrun),
-            .rts_no              (rts_n)
+            .rts_no              (rts_n),
+            .rdr_empty_i      (rdr_empty)
         );
 
 

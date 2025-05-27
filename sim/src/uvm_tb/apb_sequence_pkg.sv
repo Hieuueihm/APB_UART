@@ -95,6 +95,7 @@ import uart_env_pkg::*;
 		rand bit[4:0] FCR;
 		rand bit[2:0] OCR;
 		rand bit[2:0] IER;
+		rand bit[1:0] HCR;
 
 		function new(string name = "uart_config_seq");
 		  super.new(name);
@@ -105,6 +106,8 @@ import uart_env_pkg::*;
 		  rm.LCR.write(status, {'0, LCR}, .parent(this));
 		//   rm.LCR.read(status, data, .parent(this));
 		  rm.FCR.write(status, {'0, FCR}, .parent(this));
+		  			rm.HCR.write(status, {'0, HCR}, .parent(this));
+
 			rm.IER.write(status, {'0, IER}, .parent(this));
 		  
 		  rm.OCR.write(status, {'0, OCR}, .parent(this));
@@ -123,7 +126,7 @@ import uart_env_pkg::*;
 		bit [31:0] data_in;
 
 		constraint char_limit_c { no_tx_chars inside {[1:20]};}
-		uart_config_seq cfg;
+		uart_config_seq s_cfg;
 
 		function new(string name = "uart_host_tx_seq");
 		  super.new(name);
@@ -147,7 +150,7 @@ import uart_env_pkg::*;
 			// `uvm_info("TEST", $sformatf("cfg.OCR[2] = %0b", cfg.OCR[2]), UVM_MEDIUM);
 			// `uvm_info("TEST", $sformatf("cfg.OCR = %03b", cfg.OCR), UVM_MEDIUM);
 
-		      rm.OCR.write(status, {29'b0, cfg.OCR[2], 1'b1, cfg.OCR[0]}, .parent(this));
+		      rm.OCR.write(status, {29'b0, s_cfg.OCR[2], 1'b1, s_cfg.OCR[0]}, .parent(this));
 				while(!data[0]) begin
 					rm.LSR.read(status, data, .parent(this));
 				end
@@ -165,7 +168,7 @@ import uart_env_pkg::*;
 		bit [31:0] data_in;
 
 		constraint char_limit_c { no_tx_chars inside {[1:20]};}
-		uart_config_seq cfg;
+		uart_config_seq s_cfg;
 
 		function new(string name = "uart_host_tx_seq_wfifo");
 		  super.new(name);
@@ -188,7 +191,7 @@ import uart_env_pkg::*;
 			// `uvm_info("TEST", $sformatf("cfg.OCR[2] = %0b", cfg.OCR[2]), UVM_MEDIUM);
 			// `uvm_info("TEST", $sformatf("cfg.OCR = %03b", cfg.OCR), UVM_MEDIUM);
 
-		      rm.OCR.write(status, {29'b0, cfg.OCR[2], 1'b1, cfg.OCR[0]}, .parent(this));
+		      rm.OCR.write(status, {29'b0, s_cfg.OCR[2], 1'b1, s_cfg.OCR[0]}, .parent(this));
 				// while(!data[0]) begin
 				// 	rm.LSR.read(status, data, .parent(this));
 				// end
@@ -424,17 +427,56 @@ import uart_env_pkg::*;
 
 		end
 
-
-
 	  endcase
-	  
-
-
-	    
-
+	
 	endtask
 
 	endclass
 
+
+
+	class uart_host_hf_seq extends common_sequence;
+
+	`uvm_object_utils(uart_host_hf_seq)
+
+	event rx_data_event;
+	bit [2:0] ier;
+	uart_config_seq s_cfg;
+
+
+
+	function new(string name = "uart_host_hf_seq");
+	  super.new(name);
+	endfunction
+
+	task body;
+	  super.body();
+	   rm.LSR.read(status, data, .parent(this));
+	    while(!data[1]) begin
+	      rm.LSR.read(status, data, .parent(this));
+	      cfg.wait_for_clock(10);
+	    end
+	   	 rm.RDR.read(status, data, .parent(this));
+
+		  rm.LSR.read(status, data, .parent(this));
+	    while(!data[1]) begin
+	      rm.LSR.read(status, data, .parent(this));
+	      cfg.wait_for_clock(10);
+	    end
+	   	 rm.RDR.read(status, data, .parent(this));
+
+
+		 
+		  rm.LSR.read(status, data, .parent(this));
+	    while(!data[1]) begin
+	      rm.LSR.read(status, data, .parent(this));
+	      cfg.wait_for_clock(10);
+	    end
+	   	 rm.RDR.read(status, data, .parent(this));
+
+
+	endtask
+
+	endclass
 
 endpackage 

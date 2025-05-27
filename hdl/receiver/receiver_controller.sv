@@ -41,7 +41,7 @@ module receiver_controller(
 		case (current_state)
 			IDLE:  next_state = (rx_en_i) ? RTS: IDLE;
 			RTS: next_state = (~rts_ni) ? SCAN : (~rx_en_i) ? IDLE: RTS; 
-			SCAN: next_state = (~rx_en_i)? IDLE : (start_bit_detected_i) ? WAIT_START : SCAN;
+			SCAN: next_state = (rts_ni) ? RTS : (~rx_en_i)? IDLE : (start_bit_detected_i) ? WAIT_START : SCAN;
 			WAIT_START: next_state = (clk_1x_i) ? RECEIVE_DATA: WAIT_START;
 			RECEIVE_DATA: next_state = (receive_data_fi_i & parity_en_i) ? RECEIVE_PARITY : (receive_data_fi_i & ~ parity_en_i) ? RECEIVE_STOP : RECEIVE_DATA;  
 			RECEIVE_PARITY : next_state = (clk_2x_i) ? RECEIVE_STOP : RECEIVE_PARITY;

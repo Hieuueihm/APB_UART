@@ -32,8 +32,8 @@ apb_uart DUT (
   
   .tx(TX_UART.sdata),
   .rx(RX_UART.sdata),
-  .cts_n   (1'b0),
-  .rts_n (rts_n),
+  .cts_n   (TX_UART.handshake),
+  .rts_n (RX_UART.handshake),
   .baud_o(tick_tx),
   .tick_rx(tick_rx)
   );

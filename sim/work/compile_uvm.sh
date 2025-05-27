@@ -37,7 +37,7 @@ vlog -sv +define+SVA +incdir+"$TB_DIR" \
 
 # echo
 UVM_V="UVM_LOW"
-UVM_T="interrupt_test"
+UVM_T="tx_fifo_test"
 
 echo "Running simulation:"
 vsim -voptargs=+acc -c -sv_seed random work.testbench \

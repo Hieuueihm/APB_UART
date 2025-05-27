@@ -142,7 +142,7 @@ task body;
         setup.start(apb);
         tx_uart_config.lcr[4:0] = lcr[4:0];
         tx_uart_config.lcr[7:5] = baud[2:0];
-        host_tx.cfg = setup;
+        host_tx.s_cfg = setup;
         // host_tx.has_data_in = 1;
         // host_tx.data_in = 32'h13ec2483;
 
@@ -203,7 +203,7 @@ task body;
         setup.start(apb);
         tx_uart_config.lcr[4:0] = lcr[4:0];
         tx_uart_config.lcr[7:5] = baud[2:0];
-        host_tx.cfg = setup;
+        host_tx.s_cfg = setup;
         // host_tx.has_data_in = 1;
         // host_tx.data_in = 32'h13ec2483;
 
@@ -591,5 +591,83 @@ task body;
 endtask
 
 endclass
+
+
+class hf_vseq extends uart_vseq_base;
+
+`uvm_object_utils(hf_vseq)
+
+function new(string name = "hf_vseq");
+  super.new(name);
+endfunction
+
+task body;
+  uart_config_seq setup = uart_config_seq::type_id::create("setup");
+  uart_host_hf_seq host = uart_host_hf_seq::type_id::create("host_rx");
+  uart_rx_seq rx_serial = uart_rx_seq::type_id::create("rx_serial");
+
+  bit[7:0] lcr;
+  bit[4:0] fcr;
+  bit[2:0] ocr;
+  bit [2:0] ier;
+  bit [1:0] hcr;
+  int rx_cnt_before;
+
+
+  rx_cnt_before = 0;
+  // ier = 3'b001;
+  hcr = 2'b1;
+  lcr = 0;
+  fcr = 0;
+  ocr = 5; 
+
+  rx_serial.no_rx_chars = 15;
+  rx_serial.no_errors = 1;
+
+
+  repeat(1) begin
+      fcr= 5'b11001;
+      assert(setup.randomize() with {setup.LCR == lcr;
+                                    setup.FCR == fcr;
+                                    setup.OCR == ocr;
+                                    setup.IER == ier;
+                                    setup.HCR == hcr;
+                                    });
+      setup.start(apb);
+      host.ier = ier;
+      host.s_cfg = setup;
+      rx_uart_config.lcr = lcr;
+      rx_serial.lcr_r = lcr;
+
+
+
+      fork
+        rx_serial.start(uart);
+        // wait(m_env.rx_sb.no_chars_rx == rx_cnt_before + 1);
+      
+      join
+        if(rx_uart_config.sline.handshake == 1) begin
+          `LOG("HF VSEQ", "HANDSHAKE IS 1")
+        end
+      fork
+        host.start(apb);
+        // wait(m_env.rx_sb.no_chars_rx == rx_cnt_before + 1);
+      
+      join
+        if(rx_uart_config.sline.handshake == 0) begin
+          `LOG("HF VSEQ", "HANDSHAKE IS 0")
+        end
+
+      rx_cnt_before = m_env.rx_sb.no_chars_rx;
+
+      // lcr++;
+    // ier = ier << 1; // test 
+
+  end
+
+endtask
+
+endclass
+
 
 endpackage
