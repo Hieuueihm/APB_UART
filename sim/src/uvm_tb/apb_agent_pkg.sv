@@ -237,7 +237,7 @@ typedef uvm_sequencer #(apb_transaction) apb_sequencer;
          if (rw.kind == UVM_WRITE)
             apb.pstrb = 4'b0001; 
         else
-        apb.pstrb = 4'b0000;
+            apb.pstrb = 4'b0000;
     
 
 		    return apb;
