@@ -1,2 +1,2 @@
-~/questasim/mentor2021_crack/run_mclicgen.sh
+~/tools/questasim/mentor2021_crack/run_mclicgen.sh
 source ~/.bashrc

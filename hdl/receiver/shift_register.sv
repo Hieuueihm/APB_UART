@@ -6,7 +6,7 @@ module shift_register(
 		output [7:0] data_o
 	);
 	logic [7:0] shift_regs;
-	always_ff @(posedge clk or posedge clk) begin
+	always_ff @(posedge clk or negedge reset_n) begin
 		if(~reset_n) begin
 			shift_regs <= 0;
 		end else if(shift_en_i) begin
