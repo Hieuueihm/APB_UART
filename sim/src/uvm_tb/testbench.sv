@@ -18,6 +18,9 @@ wire tick_tx;
 
 apb_uart DUT (
   .clk(clk),
+  .reset_n(preset_n),
+
+  .pclk(clk),
   .preset_n(preset_n),
   .paddr(APB.paddr),
   .pwdata(APB.pwdata),
@@ -27,7 +30,7 @@ apb_uart DUT (
   .psel(APB.psel),
   .pready(APB.pready),
   .pslverr(APB.pslverr),
-  .pstrb(4'b0001),
+  .pstrb(APB.pstrb),
   .irq(IRQ.irq),
   
   .tx(TX_UART.sdata),

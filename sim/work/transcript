@@ -1,5 +1,5 @@
 # vsim -voptargs="+acc" -c -sv_seed random work.testbench -uvmcontrol=all "+UVM_TESTNAME=tx_fifo_test" "+UVM_VERBOSITY=UVM_LOW" -do "run -all; quit" 
-# Start time: 10:36:11 on May 28,2025
+# Start time: 14:43:06 on May 28,2025
 # ** Error (suppressible): (vsim-19) Failed to access library '/home/hieu/questasim/questasim/uvm-1.1d' at "/home/hieu/questasim/questasim/uvm-1.1d".
 # No such file or directory. (errno = ENOENT)
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
@@ -59,7 +59,7 @@
 # Loading work.receiver_controller(fast)
 # Loading work.receiver_fifo(fast)
 # Loading /home/hieu/tools/questasim/questasim/uvm-1.1d/linux_x86_64/uvm_dpi.so
-# Sv_Seed = 1823508127
+# Sv_Seed = 2994198590
 # run -all
 # ----------------------------------------------------------------
 # UVM-1.1d
@@ -112,38 +112,48 @@
 # * uvm_config_db#(int)            ::set(null, "", "recording_detail", 0); *
 # * uvm_config_db#(uvm_bitstream_t)::set(null, "", "recording_detail", 0); *
 # **************************************************************************
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 79: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA ba0aa21a with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 89: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 7c13a7c1 with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 99: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA a7b398d1 with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 109: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA a113d210 with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 119: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 785265bc with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 129: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA b2368efd with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 139: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA b34dc6f5 with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 149: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 98b96217 with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 159: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 835aee7d with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 169: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 1fa6f706 with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 179: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 43b05f74 with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 189: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 52077df3 with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 199: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA edb304d0 with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 209: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 53dd4cc0 with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 219: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 89c96383 with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 229: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 8628eaea with LCR 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 333321: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 1a
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 624969: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 01
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 916617: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 11
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 1208265: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 10
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 1499913: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 1c
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 1791561: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 1d
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 2083209: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 15
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 2374857: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 17
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 2666505: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 1d
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 2958153: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 06
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 3249801: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 14
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 3541449: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 13
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 3833097: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 10
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 4124745: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 00
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 4416393: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 03
-# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 4708041: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0a
+# Unable to lock WLF file "vsim.wlf". Retrying 1 times, errno 11
+# Unable to lock WLF file "vsim.wlf". Retrying 2 times, errno 11
+# Unable to lock WLF file "vsim.wlf". Retrying 3 times, errno 11
+# Cannot lock WLF file: "vsim.wlf"
+#           errno 11: Resource temporarily unavailable.
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: unknown  Hostname: DESKTOP-4VU606L  ProcessID: 965
+#           Attempting to use alternate WLF file "./wlftxQUKJy".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftxQUKJy
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 79: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 00964b62 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 89: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 6667d1fe with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 99: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 8eae7499 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 109: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 237a8542 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 119: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA c61e6f49 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 129: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 5936d1ea with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 139: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA f9483708 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 149: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA afc24103 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 159: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 7d98b997 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 169: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 0def99cb with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 179: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 3da86521 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 189: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA d7f99d54 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 199: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA eb1cee89 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 209: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 28944074 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 219: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 09645382 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(104) @ 229: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] SENT DATA 67377942 with LCR 00
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 333321: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 02
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 624969: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 1e
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 916617: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 19
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 1208265: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 02
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 1499913: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 09
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 1791561: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0a
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 2083209: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 08
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 2374857: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 03
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 2666505: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 17
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 2958153: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 0b
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 3249801: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 01
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 3541449: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 14
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 3833097: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 09
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 4124745: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 14
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 4416393: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 02
+# UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(118) @ 4708041: uvm_test_top.m_env.tx_sb [UART_TX_SCOREBOARD] UART TX SCOREBOARD received 02
 # UVM_INFO verilog_src/uvm-1.1d/src/base/uvm_objection.svh(1267) @ 4708041: reporter [TEST_DONE] 'run' phase is ready to proceed to the 'extract' phase
 # UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(305) @ 4708041: uvm_test_top.m_env.rx_sb [report_phase] 0 characters received by the UART with 0 inserted errors
 # UVM_INFO ../src/uvm_tb/uart_env_pkg.sv(165) @ 4708041: uvm_test_top.m_env.tx_sb [report_phase] 16 characters transmitted from the UART with no errors
@@ -175,5 +185,5 @@
 # [report_phase]     2
 # ** Note: $finish    : /home/hieu/tools/questasim/questasim/linux_x86_64/../verilog_src/uvm-1.1d/src/base/uvm_root.svh(430)
 #    Time: 4708041 ns  Iteration: 63  Instance: /testbench
-# End time: 10:36:22 on May 28,2025, Elapsed time: 0:00:11
-# Errors: 1, Warnings: 0
+# End time: 14:43:26 on May 28,2025, Elapsed time: 0:00:20
+# Errors: 1, Warnings: 2

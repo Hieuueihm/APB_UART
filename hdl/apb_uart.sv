@@ -4,9 +4,11 @@ module apb_uart #(
     parameter SYSTEM_FREQUENCY = 100000000,
     parameter SAMPLING_RATE = 16
 )(
-    input clk,    
+    input clk,  
+    input reset_n,
+
+    input pclk,  
     input preset_n,  
-    
     input psel,
     input penable,
     input pwrite,
@@ -41,7 +43,7 @@ module apb_uart #(
 
     apb_slave apb_slave_inst
         (
-            .clk      (clk),
+            .clk      (pclk),
             .preset_n (preset_n),
             .psel     (psel),
             .penable  (penable),

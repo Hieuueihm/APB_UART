@@ -24,7 +24,7 @@ package apb_agent_pkg;
     rand logic pwrite;
     rand logic [3:0] pstrb;
 
-    constraint pstrb_read { !pwrite -> pstrb == 4'b0 ; solve pwrite before pstrb;}
+    constraint pstrb_read { !pwrite -> pstrb == 4'd0 ; solve pwrite before pstrb;}
     constraint pstrb_write { pwrite -> pstrb == 4'b0001 ; solve pwrite before pstrb;}
 
  function new(string name = "apb_transaction");
@@ -233,6 +233,12 @@ typedef uvm_sequencer #(apb_transaction) apb_sequencer;
 		    apb.pwrite = (rw.kind == UVM_READ) ? 0 : 1;
 		    apb.paddr = rw.addr;
 		    apb.pdata = rw.data;
+
+         if (rw.kind == UVM_WRITE)
+            apb.pstrb = 4'b0001; 
+        else
+        apb.pstrb = 4'b0000;
+    
 
 		    return apb;
 		 endfunction
