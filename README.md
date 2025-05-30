@@ -66,7 +66,6 @@ APB_UART/
 │ │ └── uart_vsequence_pkg.sv
 │ │
 │ ├── work/ # Simulation output/scripts
-│ │ ├── license.dat
 │ │ ├── run_batch.tcl
 │ │ ├── vsim_uvm.sh
 │ │ ├── xrun_uvm.sh
@@ -78,7 +77,7 @@ Before running the simulation, make sure you have:
 - Reviewed the UVM-based testbench components (`sim/src/uvm_tb`)
 - Installed and configured one of the supported simulators: **QuestaSim** or **Cadence Xcelium**
 
-> *If you use any other EDA tool, you must create your own compilation and simulation scripts manually.*
+*If you use any other EDA tool, you must create your own compilation and simulation scripts manually.*
 
 ---
 
