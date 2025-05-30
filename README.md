@@ -18,7 +18,7 @@ The project includes:
 APB_UART/
 ├── doc/ # Documentation & diagrams
 │ ├── spec/ # Specification documents
-│ │ ├── APB_UART_Specification.pdf
+│ │ └── APB_UART_Specification.pdf
 |
 ├── hdl/ # RTL Design files
 │ ├── apb/ # APB interface modules
@@ -68,7 +68,10 @@ APB_UART/
 │ ├── work/ # Simulation output/scripts
 │ │ ├── run_batch.tcl
 │ │ ├── vsim_uvm.sh
-│ │ ├── xrun_uvm.sh
+│ │ └── xrun_uvm.sh
+|
+├── .gitignore
+└── README.md
 ```
 ## How to run
 
