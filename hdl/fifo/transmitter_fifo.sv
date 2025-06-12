@@ -19,9 +19,13 @@ module transmitter_fifo #(parameter DEPTH = 16)(
     // logic [7:0] fifo_tx_o_reg;
     assign fifo_tx_o = mem[rd_ptr];
    
-     always_ff @(posedge clk or negedge reset_n) begin
-        if (~reset_n | fifo_tx_reset_i) begin
+     always_ff @(posedge clk) begin
+        if (~reset_n ) begin
             rd_ptr <= 0;
+            wr_ptr <= 0;
+            count  <= 0;
+        end else if(fifo_tx_reset_i)  begin 
+             rd_ptr <= 0;
             wr_ptr <= 0;
             count  <= 0;
         end else begin

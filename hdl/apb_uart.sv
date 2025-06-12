@@ -1,11 +1,12 @@
 // test module -> main
 import common_pkg::*;
+
 module apb_uart #(
-    parameter SYSTEM_FREQUENCY = 100000000,
+    parameter SYSTEM_FREQUENCY = 50_000_000,
     parameter SAMPLING_RATE = 16
 )(
-    input clk,  
-    input reset_n,
+    // input clk,  
+    // input reset_n,
 
     input pclk,  
     input preset_n,  
@@ -20,9 +21,11 @@ module apb_uart #(
     output[31:0] prdata,
     // irq
     output irq,
+
+    // for cheecking
     output logic baud_o,
-    output logic tick_rx, // need for checking
-    // flow control
+    output logic tick_rx, 
+    // UART INTERFACE
     input cts_n,
     input rx,
     output tx,
@@ -41,16 +44,41 @@ module apb_uart #(
     logic [31:0] iir;
     logic [31:0] hcr;
 
+    logic [31:0] pwdata_d;
+    logic psel_d;
+    logic penable_d;
+    logic pwrite_d;
+    logic [11:0] paddr_d;
+    logic [3:0] pstrb_d;
+    always_ff @(posedge pclk or negedge preset_n) begin
+        if(~preset_n) begin
+             pwdata_d<= 0;
+             psel_d <= 0;
+             penable_d <= 0;
+             pwrite_d <= 0;
+             paddr_d <= 0;
+             pstrb_d <= 0;
+        end else begin
+            pwdata_d <= pwdata;
+            psel_d <= psel;
+            penable_d <= penable;
+            pwrite_d <= pwrite;
+            paddr_d <= paddr;
+            pstrb_d <= pstrb;
+        end
+    end
+
+
     apb_slave apb_slave_inst
         (
             .clk      (pclk),
             .preset_n (preset_n),
-            .psel     (psel),
-            .penable  (penable),
-            .pwrite   (pwrite),
-            .paddr    (paddr),
-            .pstrb    (pstrb),
-            .pwdata   (pwdata),
+            .psel     (psel_d),
+            .penable  (penable_d),
+            .pwrite   (pwrite_d),
+            .paddr    (paddr_d),
+            .pstrb    (pstrb_d),
+            .pwdata   (pwdata_d),
             .pready   (pready),
             .pslverr  (pslverr),
             .prdata   (prdata),
@@ -87,7 +115,7 @@ module apb_uart #(
     assign lsr5_set = (fcr[0] & parity_err & stop_bit_err);
     assign lsr6_set = (~fcr[0] & ~rdr_empty & data_o_valid) | fifo_rx_overrun;
     logic [31:0] prdata_prev;
-    always_ff @(posedge clk or negedge preset_n) begin 
+    always_ff @(posedge pclk or negedge preset_n) begin 
         if(~preset_n) begin
             prdata_prev <= 0;
         end else begin
@@ -104,10 +132,16 @@ module apb_uart #(
     assign lsr5_reset = cpu_read_lsr & ~prdata_prev[5] & prdata[5];
     assign lsr6_reset = cpu_read_lsr & ~prdata_prev[6] & prdata[6];
 
-    always_ff @(posedge clk or negedge preset_n) begin 
+    logic cpu_write_tdr_r;
+
+    always_ff @(posedge pclk or negedge preset_n) begin
+        if (~preset_n) cpu_write_tdr_r <= 0;
+        else cpu_write_tdr_r <= cpu_write_tdr;
+    end
+    always_ff @(posedge pclk or negedge preset_n) begin 
         if(~preset_n) begin
              tdr_empty<= 1;
-        end else if(cpu_write_tdr) begin
+        end else if(cpu_write_tdr_r) begin
              tdr_empty <= 0;
         end else if((~fcr[0] &~tdr_empty & ocr[1] ) | (fcr[0] & ocr[1] & fifo_tx_empty)) begin
             tdr_empty <= 1;
@@ -115,7 +149,7 @@ module apb_uart #(
     end
     assign fifo_rx_pop_ready = cpu_read_rdr & ~fifo_rx_empty;
     logic fifo_rx_pop;
-    always_ff @(posedge clk or negedge preset_n) begin
+    always_ff @(posedge pclk or negedge preset_n) begin
         if(~preset_n) begin
             fifo_rx_pop <= 0;
         end else begin
@@ -131,7 +165,7 @@ module apb_uart #(
         .SYSTEM_FREQUENCY(SYSTEM_FREQUENCY),
         .SAMPLING_RATE(SAMPLING_RATE)
     ) baud_gen_inst (
-        .clk(clk),
+        .clk(pclk),
         .reset_n(preset_n),
         .baud_sl_i(lcr[7:5]),
         .tick_tx(baud_o),
@@ -144,7 +178,7 @@ module apb_uart #(
 
     uart_tx_top uart_tx_top_inst
         (
-            .clk             (clk),
+            .clk             (pclk),
             .reset_n         (preset_n),
             .fifo_en_i       (fcr[0]),
             .tx_en_i         (ocr[0]),
@@ -157,7 +191,7 @@ module apb_uart #(
             .data_bit_num_i  (lcr[1:0]),
             .fifo_tx_reset_i(fcr[2]),
             .data_i          (tdr[7:0]),
-            .write_data_i    (cpu_write_tdr), 
+            .write_data_i    (cpu_write_tdr_r), 
             .start_tx_i  (ocr[1]), 
             .tx_o            (tx),
             .fifo_tx_empty_o (fifo_tx_empty),
@@ -167,7 +201,7 @@ module apb_uart #(
 
     uart_rx_top uart_rx_top_inst
         (
-            .clk                  (clk),
+            .clk                  (pclk),
             .reset_n              (preset_n),
             .rx_en_i              (ocr[2]),
             .tick_i               (tick_rx),
@@ -195,7 +229,7 @@ module apb_uart #(
 
 
 
-    always_ff @(posedge clk or negedge preset_n) begin 
+    always_ff @(posedge pclk or negedge preset_n) begin 
         if(~preset_n) begin
             lsr[31:0] <= 0;
         end else begin
@@ -254,7 +288,7 @@ module apb_uart #(
     end
 
     // rdr set
-    always_ff @(posedge clk or negedge preset_n) begin 
+    always_ff @(posedge pclk or negedge preset_n) begin 
         if(~preset_n) begin
             rdr <= 0;
             rdr_empty <= 1;
@@ -268,12 +302,9 @@ module apb_uart #(
 
 
     // interrupt handler
-    wire data_rdy_intr = ier[0];
-    wire tdr_empty_intr = ier[1];
-    wire received_lsr_intr = ier[2];
     wire lsr_stt = (lsr[2] | lsr[3]  | lsr[5] | lsr[6]);
     // iir write
-       always_ff @(posedge clk or negedge preset_n) begin 
+       always_ff @(posedge pclk or negedge preset_n) begin 
         if(~preset_n) begin
             iir <= 32'h00000001; 
         end else begin

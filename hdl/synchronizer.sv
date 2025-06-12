@@ -1,3 +1,4 @@
+
 module synchronizer(
 	input clk,
 	input reset_n,

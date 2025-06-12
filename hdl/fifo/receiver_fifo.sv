@@ -29,7 +29,7 @@ module receiver_fifo #(
     assign fifo_rx_full_o  = (count == DEPTH);
     assign fifo_rx_o = mem[rd_ptr];
 
-    always_ff @(posedge clk or negedge  reset_n) begin
+    always_ff @(posedge clk ) begin
         if (fifo_rx_reset_i | ~reset_n) begin
             rd_ptr <= 0;
             wr_ptr <= 0;

@@ -1,3 +1,4 @@
+
 module parity (
     input  logic        parity_type_i,     // 0: even, 1: odd
     input  logic [7:0]  data_i,

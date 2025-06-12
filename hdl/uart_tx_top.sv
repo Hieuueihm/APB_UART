@@ -1,3 +1,4 @@
+
 module uart_tx_top (
     input        clk,
     input        reset_n,
@@ -26,19 +27,22 @@ module uart_tx_top (
     // FIFO output
     logic [7:0] fifo_data_out;
     logic       fifo_push;
-    logic write_data_d;
+    logic write_data_d1, write_data_d2;
+
     always_ff @(posedge clk or negedge reset_n) begin 
-        if(~reset_n) begin
-             write_data_d<= 0;
+        if (~reset_n) begin
+            write_data_d1 <= 0;
+            write_data_d2 <= 0;
         end else begin
-            write_data_d <= write_data_i;
+            write_data_d1 <= write_data_i;
+            write_data_d2 <= write_data_d1;
         end
     end
     synchronizer inst_synchronizer (.clk(clk), .reset_n(reset_n), .async(cts_ni), .sync(cts_sync));
 
     logic tx_busy_pulse;
 
-    assign negedge_write_data_en = ~write_data_i & write_data_d;
+    assign negedge_write_data_en = ~write_data_d1 & write_data_d2;
     assign fifo_push = fifo_en_i & negedge_write_data_en;
     assign cts_n = hf_en_i ? cts_sync : 0;
     // FIFO instance

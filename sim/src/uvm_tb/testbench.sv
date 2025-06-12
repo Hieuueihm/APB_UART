@@ -17,8 +17,8 @@ wire tick_rx;
 wire tick_tx;
 
 apb_uart DUT (
-  .clk(clk),
-  .reset_n(preset_n),
+  // .clk(clk),
+  // .reset_n(preset_n),
 
   .pclk(clk),
   .preset_n(preset_n),
