@@ -132,16 +132,16 @@ module apb_uart #(
     assign lsr5_reset = cpu_read_lsr & ~prdata_prev[5] & prdata[5];
     assign lsr6_reset = cpu_read_lsr & ~prdata_prev[6] & prdata[6];
 
-    logic cpu_write_tdr_r;
+    logic cpu_write_tdr_d;
 
     always_ff @(posedge pclk or negedge preset_n) begin
-        if (~preset_n) cpu_write_tdr_r <= 0;
-        else cpu_write_tdr_r <= cpu_write_tdr;
+        if (~preset_n) cpu_write_tdr_d <= 0;
+        else cpu_write_tdr_d <= cpu_write_tdr;
     end
     always_ff @(posedge pclk or negedge preset_n) begin 
         if(~preset_n) begin
              tdr_empty<= 1;
-        end else if(cpu_write_tdr_r) begin
+        end else if(cpu_write_tdr_d) begin
              tdr_empty <= 0;
         end else if((~fcr[0] &~tdr_empty & ocr[1] ) | (fcr[0] & ocr[1] & fifo_tx_empty)) begin
             tdr_empty <= 1;
@@ -191,7 +191,7 @@ module apb_uart #(
             .data_bit_num_i  (lcr[1:0]),
             .fifo_tx_reset_i(fcr[2]),
             .data_i          (tdr[7:0]),
-            .write_data_i    (cpu_write_tdr_r), 
+            .write_data_i    (cpu_write_tdr_d), 
             .start_tx_i  (ocr[1]), 
             .tx_o            (tx),
             .fifo_tx_empty_o (fifo_tx_empty),
