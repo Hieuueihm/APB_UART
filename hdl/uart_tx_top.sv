@@ -29,7 +29,7 @@ module uart_tx_top (
     logic       fifo_push;
     logic write_data_d1, write_data_d2;
 
-    always_ff @(posedge clk or negedge reset_n) begin 
+    always_ff @(posedge clk) begin 
         if (~reset_n) begin
             write_data_d1 <= 0;
             write_data_d2 <= 0;
@@ -72,7 +72,7 @@ module uart_tx_top (
         end
     end
     logic tx_busy_d;
-    always_ff @(posedge clk or negedge reset_n) begin 
+    always_ff @(posedge clk) begin 
         if(~reset_n) begin
             tx_busy_d <= 0;
         end else begin
@@ -80,7 +80,7 @@ module uart_tx_top (
         end
     end
     assign negedge_tx_busy = ~tx_busy & tx_busy_d;
-        always_ff @(posedge clk or negedge reset_n) begin 
+        always_ff @(posedge clk) begin 
         if(~reset_n) begin
             tx_busy_pulse <= 0;
         end else if (negedge_tx_busy) begin
@@ -89,7 +89,7 @@ module uart_tx_top (
             tx_busy_pulse <= 0;
         end
     end
-     always_ff @(posedge clk or negedge reset_n) begin
+     always_ff @(posedge clk) begin
         if (~reset_n) begin
             tx_busy <= 1'b0;
         end else if (trans_fi_o) begin

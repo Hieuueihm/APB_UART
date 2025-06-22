@@ -127,10 +127,10 @@ module tb_axi4_uart;
 
     $display("Cấu hình UART...");
 
-    axi_write({20'd0, ADDR_LCR}, 32'h00000003); // 8-bit
-    axi_write({20'd0, ADDR_FCR}, 32'h00000000); // FIFO on
+    axi_write({20'd0, ADDR_LCR}, 32'h00000003); 
+    axi_write({20'd0, ADDR_FCR}, 32'h00000001); 
     axi_write({20'd0, ADDR_HCR}, 32'h00000000);
-    axi_write({20'd0, ADDR_OCR}, 32'h00000005); // TX_EN + RX_EN // 101
+    axi_write({20'd0, ADDR_OCR}, 32'h00000005); 
 
   
 
@@ -138,8 +138,11 @@ module tb_axi4_uart;
     // for (int i = 1; i <= 5; i++) begin
       axi_write({20'd0, ADDR_TDR}, 32'd10); // Gửi từ TX
       axi_write({20'd0, ADDR_OCR}, 32'h00000007); // start_tx
+      axi_write({20'd0, ADDR_TDR}, 32'd11); // Gửi từ TX
+
     $display("Gửi dữ liệu qua UART....1.");
       #1000000; // Chờ truyền xong
+    axi_read({20'd0, ADDR_RDR});    // end
     axi_read({20'd0, ADDR_RDR});    // end
 
     #200;

@@ -19,7 +19,7 @@ assign pslverr_o = addr_err_i & pready_o;
   } state_e;
 
   state_e current_state, next_state;
-  always_ff @(posedge clk or negedge reset_n) begin
+  always_ff @(posedge clk) begin
     if (~reset_n) begin
       current_state <= IDLE;
     end else begin

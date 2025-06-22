@@ -55,7 +55,7 @@ module axi4_lite (
     logic [31:0] iir;
     logic [31:0] hcr, hcr_d;
 
-    always_ff @(posedge clk or negedge rst_n) begin 
+    always_ff @(posedge clk) begin 
         if(~rst_n) begin
             rdr <= 0;
             lsr <= 0;

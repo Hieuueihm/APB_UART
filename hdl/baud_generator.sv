@@ -42,7 +42,7 @@ module baud_generator #(
     end
 
     // Detect baud rate change
-    always_ff @(posedge clk or negedge reset_n) begin
+    always_ff @(posedge clk) begin
         if (!reset_n) begin
             baud_sl_prev <= 0;
             baud_changed <= 0;
@@ -51,7 +51,7 @@ module baud_generator #(
             baud_sl_prev <= baud_sl_i;
         end
     end
-    always_ff @(posedge clk or negedge reset_n) begin : proc_
+    always_ff @(posedge clk) begin : proc_
         if(~reset_n) begin
             BIT_PERIOD_TX <= BIT_PERIOD_TX_LUT[6];
             BIT_PERIOD_RX <= BIT_PERIOD_RX_LUT[6];
@@ -62,7 +62,7 @@ module baud_generator #(
     end
 
     // TX Counter
-    always_ff @(posedge clk ) begin
+    always_ff @(posedge clk) begin
         if (~reset_n ) begin
             counter_tx <= 0;
             tick_tx <= 0;
@@ -81,7 +81,7 @@ module baud_generator #(
     end
 
     // RX Counter
-    always_ff @(posedge clk ) begin
+    always_ff @(posedge clk) begin
         if (!reset_n || baud_changed) begin
             counter_rx <= 0;
             tick_rx <= 0;

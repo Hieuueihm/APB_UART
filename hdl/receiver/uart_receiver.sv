@@ -28,7 +28,7 @@ module uart_receiver(
 
 	// detect start bit
 	logic d1;
-	always_ff @(posedge clk or negedge reset_n) begin 
+	always_ff @(posedge clk) begin 
 		if(~reset_n) begin
 			d1 <= 0;
 		end else begin
@@ -81,7 +81,7 @@ module uart_receiver(
 
 
 
-always_ff @(posedge clk or negedge reset_n) begin
+always_ff @(posedge clk) begin
 		if(~reset_n) begin
 			data_o <= 0;
 		end else if(receive_total_fi_i) begin
@@ -111,7 +111,7 @@ always_ff @(posedge clk or negedge reset_n) begin
     end
 
 	
-	always_ff @(posedge clk or negedge reset_n) begin
+	always_ff @(posedge clk) begin
 		if(~reset_n) begin
 			 parity_err_o <= 0;
 			 data_size_sampled <= 0;
@@ -136,7 +136,7 @@ always_ff @(posedge clk or negedge reset_n) begin
 
 
 
-	always_ff @(posedge clk or negedge reset_n) begin
+	always_ff @(posedge clk) begin
 		if(~reset_n) begin
 			 count_data <= 0;
 		end else if(data_receive_en) begin
@@ -147,7 +147,7 @@ always_ff @(posedge clk or negedge reset_n) begin
 	end
 
 
-	always_ff @(posedge clk or negedge reset_n) begin 
+	always_ff @(posedge clk) begin 
 		if(~reset_n) begin
 			clk_div <= 0;
 		end else if(tick_i) begin

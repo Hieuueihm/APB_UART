@@ -119,7 +119,7 @@ module axi4_uart #(
     assign lsr5_set = (fcr[0] & parity_err & stop_bit_err);
     assign lsr6_set = (~fcr[0] & ~rdr_empty & data_o_valid) | fifo_rx_overrun;
     logic [31:0] s_axi_rdata_prev;
-    always_ff @(posedge clk or negedge rst_n) begin 
+    always_ff @(posedge clk) begin 
         if(~rst_n) begin
             s_axi_rdata_prev <= 0;
         end else begin
@@ -138,11 +138,11 @@ module axi4_uart #(
 
     logic cpu_write_tdr_d;
 
-    always_ff @(posedge clk or negedge rst_n) begin
+    always_ff @(posedge clk) begin
         if (~rst_n) cpu_write_tdr_d <= 0;
         else cpu_write_tdr_d <= cpu_write_tdr;
     end // fix set up violation
-    always_ff @(posedge clk or negedge rst_n) begin 
+    always_ff @(posedge clk) begin 
         if(~rst_n) begin
              tdr_empty<= 1;
         end else if(cpu_write_tdr_d) begin
@@ -153,7 +153,7 @@ module axi4_uart #(
     end
     assign fifo_rx_pop_ready = cpu_read_rdr & ~fifo_rx_empty;
     logic fifo_rx_pop;
-    always_ff @(posedge clk or negedge rst_n) begin
+    always_ff @(posedge clk) begin
         if(~rst_n) begin
             fifo_rx_pop <= 0;
         end else begin
@@ -233,7 +233,7 @@ module axi4_uart #(
 
 
 
-    always_ff @(posedge clk or negedge rst_n) begin 
+    always_ff @(posedge clk) begin 
         if(~rst_n) begin
             lsr[31:0] <= 0;
         end else begin
@@ -292,7 +292,7 @@ module axi4_uart #(
     end
 
     // rdr set
-    always_ff @(posedge clk or negedge rst_n) begin 
+    always_ff @(posedge clk) begin 
         if(~rst_n) begin
             rdr <= 0;
             rdr_empty <= 1;
@@ -308,7 +308,7 @@ module axi4_uart #(
     // interrupt handler
     wire lsr_stt = (lsr[2] | lsr[3]  | lsr[5] | lsr[6]);
     // iir write
-       always_ff @(posedge clk or negedge rst_n) begin 
+       always_ff @(posedge clk) begin 
         if(~rst_n) begin
             iir <= 32'h00000001; 
         end else begin

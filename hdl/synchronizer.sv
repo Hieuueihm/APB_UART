@@ -7,7 +7,7 @@ module synchronizer(
 );
 	logic d1;
 
-	always_ff @(posedge clk or negedge reset_n) begin 
+	always_ff @(posedge clk) begin 
 		if(~reset_n) begin
 			 d1 <= 0;
 			 sync <= 0;

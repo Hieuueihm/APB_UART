@@ -28,7 +28,7 @@ module transmitter_controller (
 	state_t current_state, next_state;
 
 		// hold state
-	always_ff @(posedge clk or negedge reset_n) begin 
+	always_ff @(posedge clk) begin 
 		if(~reset_n) begin
 				current_state <= IDLE;
 		end else begin
@@ -36,7 +36,7 @@ module transmitter_controller (
 			end
 		end
 	logic start_tx_d;
-	always_ff @(posedge clk or negedge reset_n) begin 
+	always_ff @(posedge clk) begin 
 		if(~reset_n) begin
 			 start_tx_d<= 0;
 		end else begin
@@ -45,7 +45,7 @@ module transmitter_controller (
 	end
 	assign negedge_start = start_tx_d & ~start_tx_i; 
 	logic start_en_d, start_en_d1;
-	always_ff @(posedge clk or negedge reset_n) begin : proc_
+	always_ff @(posedge clk) begin : proc_
 		if(~reset_n) begin
 			start_en_d <= 0;
 			start_en_d1 <= 0;

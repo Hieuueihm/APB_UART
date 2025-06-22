@@ -27,7 +27,7 @@ module register_file (
   wire start_tx_pulse;
   assign start_tx_pulse = ocr_o[1];
 
-  always_ff @(posedge clk or negedge reset_n) begin
+  always_ff @(posedge clk) begin
     if (~reset_n) begin
       tdr_o       <= 32'b0;
       lcr_o       <= 32'b0;

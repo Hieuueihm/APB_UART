@@ -6,7 +6,7 @@ module ff #(parameter BIT_RESET = 1) (
 	input en_i,
 	output logic Q
 );
-	always_ff @(posedge clk or negedge reset_n) begin : proc_
+	always_ff @(posedge clk) begin : proc_
 		if(~reset_n) begin
 			Q <= BIT_RESET;
 		end else if(en_i) begin

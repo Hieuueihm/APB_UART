@@ -27,7 +27,7 @@ module receiver_controller(
     } state_t; 
 	state_t current_state, next_state;
 			// hold state
-	always_ff @(posedge clk or negedge reset_n) begin 
+	always_ff @(posedge clk) begin 
 		if(~reset_n) begin
 				current_state <= IDLE;
 		end else begin

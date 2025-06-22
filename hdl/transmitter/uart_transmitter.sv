@@ -50,7 +50,7 @@ module uart_transmitter(
     logic [3:0] total_data_sampled;
     logic [3:0] data_size_sampled;
 
-    always_ff @(posedge clk or negedge reset_n) begin
+    always_ff @(posedge clk) begin
         if(~reset_n) begin
             sampled_data <= 0;
             total_data_sampled <= 0;
@@ -62,7 +62,7 @@ module uart_transmitter(
         end
     end
     logic tick_d;
-    always_ff @(posedge clk or negedge reset_n) begin
+    always_ff @(posedge clk) begin
         if(~reset_n) begin
             tick_d <= 0;
         end else begin
@@ -70,7 +70,7 @@ module uart_transmitter(
         end
     end
 
-    always_ff @(posedge clk or negedge reset_n) begin 
+    always_ff @(posedge clk) begin 
             if(~reset_n) begin
                  cnt_data_trans <= 0;
             end else if(shift_en) begin
@@ -108,7 +108,7 @@ module uart_transmitter(
     logic trans_stop_fi_sampled;
 
 
-    always_ff @(posedge clk or negedge reset_n) begin
+    always_ff @(posedge clk) begin
            if(~reset_n) begin
             load_d0_sampled <= 0;
             load_en_sampled <= 0;
