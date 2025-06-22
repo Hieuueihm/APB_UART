@@ -1,9 +1,0 @@
-# compile verilog/system verilog design source files
-verilog xil_defaultlib  \
-"tb_axi4_uart_time_impl.v" \
-
-sv xil_defaultlib  \
-"../../../../../../../src/tb_axi4_uart.sv" \
-
-# Do not sort compile order
-nosort

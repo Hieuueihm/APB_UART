@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<ProcessHandle Version="1" Minor="0">
-    <Process Command="vivado" Owner="hieu" Host="hieu-virtual-machine" Pid="21634" HostCore="2" HostMemory="7954972">
-    </Process>
-</ProcessHandle>
