@@ -30,11 +30,7 @@ module receiver_fifo #(
     assign fifo_rx_o = mem[rd_ptr];
 
     always_ff @(posedge clk) begin
-        if (~reset_n) begin
-            rd_ptr <= 0;
-            wr_ptr <= 0;
-            count  <= 0;
-        end else if(fifo_rx_reset_i) begin
+        if (fifo_rx_reset_i | ~reset_n) begin
             rd_ptr <= 0;
             wr_ptr <= 0;
             count  <= 0;

@@ -255,27 +255,16 @@ module axi4_lite (
             ocr_d <= ocr;
         end
     end
-    assign rx_reset_pulse = fcr_d[1];
-    assign tx_reset_pulse = fcr_d[2];
-    always @(posedge clk) begin 
-        if(~rst_n) begin
-            fcr_d <= 0;
-        end else if(rx_reset_pulse) begin
-            fcr_d[1] <= 1'b0;
-        end else if(tx_reset_pulse) begin
-            fcr_d[2] <= 1'b0;
-        end else begin
-            fcr_d <= fcr;
-        end
-    end
     always @(posedge clk) begin 
         if(~rst_n) begin
             tdr_d <= 0;
+            fcr_d <= 0;
             ier_d <= 0;
             hcr_d <= 0;
             lcr_d <= 0;
         end else begin
             tdr_d <= tdr;
+            fcr_d <= fcr;
             ier_d <= ier;
             hcr_d <= hcr;
             lcr_d <= lcr;

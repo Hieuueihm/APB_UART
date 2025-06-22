@@ -1,31 +1,41 @@
 // test module -> main
 import common_pkg::*;
 
-module apb_uart #(
+module axi4_uart #(
     parameter SYSTEM_FREQUENCY = 50_000_000,
     parameter SAMPLING_RATE = 16
 )(
     // input clk,  
     // input reset_n,
 
-    input pclk,  
-    input preset_n,  
-    input psel,
-    input penable,
-    input pwrite,
-    input[11:0] paddr,
-    input[3:0] pstrb,
-    input[31:0] pwdata,
-    output pready,
-    output pslverr,
-    output[31:0] prdata,
-    // irq
+
+    input clk,
+    input rst_n,
+
+    input [31:0] s_axi_awaddr,
+    input  s_axi_awvalid,
+    output s_axi_awready,
+
+    input [31:0] s_axi_wdata,
+    input [3:0]  s_axi_wstrb,
+    input s_axi_wvalid,
+    output s_axi_wready,
+
+    output [1:0] s_axi_bresp,
+    output s_axi_bvalid,
+    input s_axi_bready,
+
+    input [31:0] s_axi_araddr,
+    input s_axi_arvalid,
+    output s_axi_arready,
+
+    output [31:0] s_axi_rdata,
+    output [1:0] s_axi_rresp,
+    output s_axi_rvalid,
+    input s_axi_rready,
+
     output irq,
 
-    // for cheecking
-    output logic baud_o,
-    output logic tick_rx, 
-    // UART INTERFACE
     input cts_n,
     input rx,
     output tx,
@@ -34,6 +44,11 @@ module apb_uart #(
     
 
 );
+
+ // for cheecking
+    logic baud_o; // tick_rx
+    logic tick_rx; // tick_tx
+    // UART INTERFACE
     logic [31:0] tdr;
     logic [31:0] rdr;
     logic [31:0] lcr;
@@ -44,58 +59,47 @@ module apb_uart #(
     logic [31:0] iir;
     logic [31:0] hcr;
 
-    logic [31:0] pwdata_d;
-    logic psel_d;
-    logic penable_d;
-    logic pwrite_d;
-    logic [11:0] paddr_d;
-    logic [3:0] pstrb_d;
-    always_ff @(posedge pclk or negedge preset_n) begin
-        if(~preset_n) begin
-             pwdata_d<= 0;
-             psel_d <= 0;
-             penable_d <= 0;
-             pwrite_d <= 0;
-             paddr_d <= 0;
-             pstrb_d <= 0;
-        end else begin
-            pwdata_d <= pwdata;
-            psel_d <= psel;
-            penable_d <= penable;
-            pwrite_d <= pwrite;
-            paddr_d <= paddr;
-            pstrb_d <= pstrb;
-        end
-    end
 
 
-    apb_slave apb_slave_inst
+   
+        axi4_lite inst_axi4_lite
         (
-            .clk      (pclk),
-            .preset_n (preset_n),
-            .psel     (psel_d),
-            .penable  (penable_d),
-            .pwrite   (pwrite_d),
-            .paddr    (paddr_d),
-            .pstrb    (pstrb_d),
-            .pwdata   (pwdata_d),
-            .pready   (pready),
-            .pslverr  (pslverr),
-            .prdata   (prdata),
-            .tdr      (tdr),
-            .rdr      (rdr),
-            .lcr      (lcr),
-            .ocr      (ocr),
-            .lsr      (lsr),
-            .fcr      (fcr),
-            .ier      (ier),
-            .iir      (iir),
-            .hcr     (hcr)
+            .clk           (clk),
+            .rst_n         (rst_n),
+            .s_axi_awaddr  (s_axi_awaddr),
+            .s_axi_awvalid (s_axi_awvalid),
+            .s_axi_awready (s_axi_awready),
+            .s_axi_wdata   (s_axi_wdata),
+            .s_axi_wstrb   (s_axi_wstrb),
+            .s_axi_wvalid  (s_axi_wvalid),
+            .s_axi_wready  (s_axi_wready),
+            .s_axi_bresp   (s_axi_bresp),
+            .s_axi_bvalid  (s_axi_bvalid),
+            .s_axi_bready  (s_axi_bready),
+            .s_axi_araddr  (s_axi_araddr),
+            .s_axi_arvalid (s_axi_arvalid),
+            .s_axi_arready (s_axi_arready),
+            .s_axi_rdata   (s_axi_rdata),
+            .s_axi_rresp   (s_axi_rresp),
+            .s_axi_rvalid  (s_axi_rvalid),
+            .s_axi_rready  (s_axi_rready),
+            .tdr_o         (tdr),
+            .rdr_i         (rdr),
+            .lcr_o         (lcr),
+            .ocr_o         (ocr),
+            .lsr_i         (lsr),
+            .fcr_o         (fcr),
+            .ier_o         (ier),
+            .iir_i         (iir),
+            .hcr_o         (hcr)
         );
-    assign cpu_read_rdr = pready & !pwrite & paddr == ADDR_RDR;
-    assign cpu_write_tdr = pready & pwrite & paddr == ADDR_TDR;
-    assign cpu_read_lsr = pready & !pwrite & paddr == ADDR_LSR;
-    assign cpu_read_iir = pready & !pwrite & paddr == ADDR_IIR;
+    assign cpu_write_tdr = s_axi_awvalid & s_axi_awready & s_axi_awaddr[11:0] == ADDR_TDR;
+
+    assign cpu_read_rdr = (s_axi_arvalid & s_axi_arready) & (s_axi_araddr[11:0] == ADDR_RDR);
+    assign cpu_read_lsr = (s_axi_arvalid & s_axi_arready) & (s_axi_araddr[11:0] == ADDR_LSR);
+    assign cpu_read_iir = (s_axi_arvalid & s_axi_arready) & (s_axi_araddr[11:0] == ADDR_IIR);
+
+
     logic tdr_empty;
     wire data_o_valid;
     wire fifo_rx_empty;
@@ -114,32 +118,32 @@ module apb_uart #(
     assign lsr4_set = (~fcr[0] & tdr_empty) | (fcr[0] & fifo_tx_empty);
     assign lsr5_set = (fcr[0] & parity_err & stop_bit_err);
     assign lsr6_set = (~fcr[0] & ~rdr_empty & data_o_valid) | fifo_rx_overrun;
-    logic [31:0] prdata_prev;
-    always_ff @(posedge pclk or negedge preset_n) begin 
-        if(~preset_n) begin
-            prdata_prev <= 0;
+    logic [31:0] s_axi_rdata_prev;
+    always_ff @(posedge clk) begin 
+        if(~rst_n) begin
+            s_axi_rdata_prev <= 0;
         end else begin
-            prdata_prev <= prdata;
+            s_axi_rdata_prev <= s_axi_rdata;
         end
     end
 
 
-    assign lsr0_reset = cpu_read_lsr & ~prdata_prev[0] & prdata[0];
+    assign lsr0_reset = cpu_read_lsr & ~s_axi_rdata_prev[0] & s_axi_rdata[0];
     assign lsr1_reset = (~fcr[0] & rdr_empty) | (fcr[0] & fifo_rx_empty);
-    assign lsr2_reset = cpu_read_lsr & ~prdata_prev[2] & prdata[2];
-    assign lsr3_reset = cpu_read_lsr & ~prdata_prev[3] & prdata[3];
+    assign lsr2_reset = cpu_read_lsr & ~s_axi_rdata_prev[2] & s_axi_rdata[2];
+    assign lsr3_reset = cpu_read_lsr & ~s_axi_rdata_prev[3] & s_axi_rdata[3];
     assign lsr4_reset = (~fcr[0] & ~tdr_empty) | (fcr[0] & ~fifo_tx_empty);
-    assign lsr5_reset = cpu_read_lsr & ~prdata_prev[5] & prdata[5];
-    assign lsr6_reset = cpu_read_lsr & ~prdata_prev[6] & prdata[6];
+    assign lsr5_reset = cpu_read_lsr & ~s_axi_rdata_prev[5] & s_axi_rdata[5];
+    assign lsr6_reset = cpu_read_lsr & ~s_axi_rdata_prev[6] & s_axi_rdata[6];
 
     logic cpu_write_tdr_d;
 
-    always_ff @(posedge pclk or negedge preset_n) begin
-        if (~preset_n) cpu_write_tdr_d <= 0;
+    always_ff @(posedge clk) begin
+        if (~rst_n) cpu_write_tdr_d <= 0;
         else cpu_write_tdr_d <= cpu_write_tdr;
-    end // to fix set up violation
-    always_ff @(posedge pclk or negedge preset_n) begin 
-        if(~preset_n) begin
+    end // fix set up violation
+    always_ff @(posedge clk) begin 
+        if(~rst_n) begin
              tdr_empty<= 1;
         end else if(cpu_write_tdr_d) begin
              tdr_empty <= 0;
@@ -149,8 +153,8 @@ module apb_uart #(
     end
     assign fifo_rx_pop_ready = cpu_read_rdr & ~fifo_rx_empty;
     logic fifo_rx_pop;
-    always_ff @(posedge pclk or negedge preset_n) begin
-        if(~preset_n) begin
+    always_ff @(posedge clk) begin
+        if(~rst_n) begin
             fifo_rx_pop <= 0;
         end else begin
             fifo_rx_pop <= fifo_rx_pop_ready;
@@ -165,8 +169,8 @@ module apb_uart #(
         .SYSTEM_FREQUENCY(SYSTEM_FREQUENCY),
         .SAMPLING_RATE(SAMPLING_RATE)
     ) baud_gen_inst (
-        .clk(pclk),
-        .reset_n(preset_n),
+        .clk(clk),
+        .reset_n(rst_n),
         .baud_sl_i(lcr[7:5]),
         .tick_tx(baud_o),
         .tick_rx(tick_rx)
@@ -178,8 +182,8 @@ module apb_uart #(
 
     uart_tx_top uart_tx_top_inst
         (
-            .clk             (pclk),
-            .reset_n         (preset_n),
+            .clk             (clk),
+            .reset_n         (rst_n),
             .fifo_en_i       (fcr[0]),
             .tx_en_i         (ocr[0]),
             .parity_type_i   (lcr[4]),
@@ -201,8 +205,8 @@ module apb_uart #(
 
     uart_rx_top uart_rx_top_inst
         (
-            .clk                  (pclk),
-            .reset_n              (preset_n),
+            .clk                  (clk),
+            .reset_n              (rst_n),
             .rx_en_i              (ocr[2]),
             .tick_i               (tick_rx),
             .parity_type_i        (lcr[4]),
@@ -229,8 +233,8 @@ module apb_uart #(
 
 
 
-    always_ff @(posedge pclk or negedge preset_n) begin 
-        if(~preset_n) begin
+    always_ff @(posedge clk) begin 
+        if(~rst_n) begin
             lsr[31:0] <= 0;
         end else begin
             if(lsr0_set) begin
@@ -288,8 +292,8 @@ module apb_uart #(
     end
 
     // rdr set
-    always_ff @(posedge pclk or negedge preset_n) begin 
-        if(~preset_n) begin
+    always_ff @(posedge clk) begin 
+        if(~rst_n) begin
             rdr <= 0;
             rdr_empty <= 1;
         end else if(data_o_valid) begin
@@ -304,8 +308,8 @@ module apb_uart #(
     // interrupt handler
     wire lsr_stt = (lsr[2] | lsr[3]  | lsr[5] | lsr[6]);
     // iir write
-       always_ff @(posedge pclk or negedge preset_n) begin 
-        if(~preset_n) begin
+       always_ff @(posedge clk) begin 
+        if(~rst_n) begin
             iir <= 32'h00000001; 
         end else begin
             if(cpu_read_iir) begin
