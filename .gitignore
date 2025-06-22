@@ -7,3 +7,4 @@ sim/work/[^.]*
 !sim/work/xrun_directed.sh
 !sim/work/xrun_uvm.sh
 !sim/work/axi4_uart
+sim/work
