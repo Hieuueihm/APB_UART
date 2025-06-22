@@ -1,0 +1,6 @@
+0.7
+2020.2
+May  7 2023
+15:10:42
+/home/hieu/Workspace/APB_UART/sim/src/tb_axi4_uart.sv,1750568015,systemVerilog,,,,tb_axi4_uart,,uvm,,,,,,
+/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.sim/sim_1/impl/func/xsim/tb_axi4_uart_func_impl.v,1750568022,verilog,,,,axi4_lite;axi4_uart;baud_generator;ff;ff_0;ff_1;ff_2;ff_3;ff_4;ff_5;ff_6;glbl;piso;receiver_controller;receiver_fifo;shift_register;synchronizer;synchronizer_7;transmitter_controller;transmitter_fifo;uart_receiver;uart_rx_top;uart_transmitter;uart_tx_top,,uvm,,,,,,

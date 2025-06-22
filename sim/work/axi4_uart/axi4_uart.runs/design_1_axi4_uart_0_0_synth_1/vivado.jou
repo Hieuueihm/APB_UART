@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2023.1 (64-bit)
+# SW Build 3865809 on Sun May  7 15:04:56 MDT 2023
+# IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+# SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+# Start of session at: Sun Jun 22 12:02:30 2025
+# Process ID: 21077
+# Current directory: /home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.runs/design_1_axi4_uart_0_0_synth_1
+# Command line: vivado -log design_1_axi4_uart_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_axi4_uart_0_0.tcl
+# Log file: /home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.runs/design_1_axi4_uart_0_0_synth_1/design_1_axi4_uart_0_0.vds
+# Journal file: /home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.runs/design_1_axi4_uart_0_0_synth_1/vivado.jou
+# Running On: hieu-virtual-machine, OS: Linux, CPU Frequency: 2496.009 MHz, CPU Physical cores: 2, Host memory: 8145 MB
+#-----------------------------------------------------------
+source design_1_axi4_uart_0_0.tcl -notrace

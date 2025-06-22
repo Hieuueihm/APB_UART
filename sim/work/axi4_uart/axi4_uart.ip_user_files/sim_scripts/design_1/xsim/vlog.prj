@@ -1,0 +1,39 @@
+sv xil_defaultlib --include "/home/hieu/Tools/vivado/Vivado/2023.1/data/xilinx_vip/include" --include "../../../../axi4_uart.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../axi4_uart.gen/sources_1/bd/design_1/ipshared/aed8/hdl" --include "../../../../axi4_uart.gen/sources_1/bd/design_1/ipshared/1b7e/hdl/verilog" --include "../../../../axi4_uart.gen/sources_1/bd/design_1/ipshared/122e/hdl/verilog" --include "../../../../axi4_uart.gen/sources_1/bd/design_1/ipshared/affe/hdl/verilog" --include "../../../../axi4_uart.gen/sources_1/bd/design_1/ipshared/20d0/hdl/verilog" \
+"../../../bd/design_1/ipshared/4b06/src/common_pkg.sv" \
+"../../../bd/design_1/ipshared/4b06/src/axi4_lite.sv" \
+"../../../bd/design_1/ipshared/4b06/src/baud_generator.sv" \
+"../../../bd/design_1/ipshared/4b06/src/ff.sv" \
+"../../../bd/design_1/ipshared/4b06/src/parity.sv" \
+"../../../bd/design_1/ipshared/4b06/src/piso.sv" \
+"../../../bd/design_1/ipshared/4b06/src/receiver_controller.sv" \
+"../../../bd/design_1/ipshared/4b06/src/receiver_fifo.sv" \
+"../../../bd/design_1/ipshared/4b06/src/shift_register.sv" \
+"../../../bd/design_1/ipshared/4b06/src/synchronizer.sv" \
+"../../../bd/design_1/ipshared/4b06/src/transmitter_controller.sv" \
+"../../../bd/design_1/ipshared/4b06/src/transmitter_fifo.sv" \
+"../../../bd/design_1/ipshared/4b06/src/uart_receiver.sv" \
+"../../../bd/design_1/ipshared/4b06/src/uart_rx_top.sv" \
+"../../../bd/design_1/ipshared/4b06/src/uart_transmitter.sv" \
+"../../../bd/design_1/ipshared/4b06/src/uart_tx_top.sv" \
+"../../../bd/design_1/ipshared/4b06/src/axi4_uart.sv" \
+"../../../bd/design_1/ip/design_1_axi4_uart_0_0/sim/design_1_axi4_uart_0_0.sv" \
+
+verilog xil_defaultlib --include "/home/hieu/Tools/vivado/Vivado/2023.1/data/xilinx_vip/include" --include "../../../../axi4_uart.gen/sources_1/bd/design_1/ipshared/ec67/hdl" --include "../../../../axi4_uart.gen/sources_1/bd/design_1/ipshared/aed8/hdl" --include "../../../../axi4_uart.gen/sources_1/bd/design_1/ipshared/1b7e/hdl/verilog" --include "../../../../axi4_uart.gen/sources_1/bd/design_1/ipshared/122e/hdl/verilog" --include "../../../../axi4_uart.gen/sources_1/bd/design_1/ipshared/affe/hdl/verilog" --include "../../../../axi4_uart.gen/sources_1/bd/design_1/ipshared/20d0/hdl/verilog" \
+"../../../bd/design_1/ip/design_1_processing_system7_0_0/sim/design_1_processing_system7_0_0.v" \
+"../../../bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_0/sim/bd_f60c_ila_lib_0.v" \
+"../../../bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_1/bd_f60c_g_inst_0_gigantic_mux.v" \
+"../../../bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_1/sim/bd_f60c_g_inst_0.v" \
+"../../../bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_2/sim/bd_f60c_slot_0_aw_0.v" \
+"../../../bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_3/sim/bd_f60c_slot_0_w_0.v" \
+"../../../bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_4/sim/bd_f60c_slot_0_b_0.v" \
+"../../../bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_5/sim/bd_f60c_slot_0_ar_0.v" \
+"../../../bd/design_1/ip/design_1_system_ila_0_0/bd_0/ip/ip_6/sim/bd_f60c_slot_0_r_0.v" \
+"../../../bd/design_1/ip/design_1_system_ila_0_0/bd_0/sim/bd_f60c.v" \
+"../../../bd/design_1/ip/design_1_system_ila_0_0/sim/design_1_system_ila_0_0.v" \
+"../../../bd/design_1/ip/design_1_auto_pc_0/sim/design_1_auto_pc_0.v" \
+"../../../bd/design_1/sim/design_1.v" \
+
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

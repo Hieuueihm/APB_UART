@@ -1,0 +1,503 @@
+
+*** Running vivado
+    with args -log design_1_axi4_uart_0_0.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_axi4_uart_0_0.tcl
+
+
+****** Vivado v2023.1 (64-bit)
+  **** SW Build 3865809 on Sun May  7 15:04:56 MDT 2023
+  **** IP Build 3864474 on Sun May  7 20:36:21 MDT 2023
+  **** SharedData Build 3865790 on Sun May 07 13:33:03 MDT 2023
+    ** Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+    ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+
+source design_1_axi4_uart_0_0.tcl -notrace
+create_project: Time (s): cpu = 00:00:09 ; elapsed = 00:00:10 . Memory (MB): peak = 1276.492 ; gain = 0.023 ; free physical = 1970 ; free virtual = 6524
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/hieu/Workspace/APB_UART/sim/ip_repo'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/home/hieu/Tools/vivado/Vivado/2023.1/data/ip'.
+INFO: [IP_Flow 19-6924] IPCACHE: Running cache check for IP inst: design_1_axi4_uart_0_0
+Command: synth_design -top design_1_axi4_uart_0_0 -part xc7z020clg400-2 -incremental_mode off -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
+INFO: [Device 21-403] Loading part xc7z020clg400-2
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 21118
+INFO: [Synth 8-11241] undeclared symbol 'start_pulse', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_lite.sv:246]
+INFO: [Synth 8-11241] undeclared symbol 'negedge_start', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/transmitter_controller.sv:46]
+INFO: [Synth 8-11241] undeclared symbol 'clk_1x', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:48]
+INFO: [Synth 8-11241] undeclared symbol 'clk_2x', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:49]
+INFO: [Synth 8-11241] undeclared symbol 'data_receive_en', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:52]
+INFO: [Synth 8-11241] undeclared symbol 'shift_receive_en', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:53]
+INFO: [Synth 8-11241] undeclared symbol 'receive_data_fi', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:55]
+INFO: [Synth 8-11241] undeclared symbol 'receive_total_fi_i', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:56]
+INFO: [Synth 8-11241] undeclared symbol 'start_bit_detected', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:58]
+INFO: [Synth 8-11241] undeclared symbol 'parity_check', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:62]
+INFO: [Synth 8-11241] undeclared symbol 'parity_bit', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:67]
+INFO: [Synth 8-11241] undeclared symbol 'parity_err', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:71]
+INFO: [Synth 8-11241] undeclared symbol 'stop_bit_1_check', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:74]
+INFO: [Synth 8-11241] undeclared symbol 'stop_bit_2_check', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:75]
+INFO: [Synth 8-11241] undeclared symbol 'stop_bit_err', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:79]
+INFO: [Synth 8-11241] undeclared symbol 'fifo_tx_pop', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_tx_top.sv:25]
+INFO: [Synth 8-11241] undeclared symbol 'cts_sync', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_tx_top.sv:41]
+INFO: [Synth 8-11241] undeclared symbol 'negedge_write_data_en', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_tx_top.sv:45]
+INFO: [Synth 8-11241] undeclared symbol 'cts_n', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_tx_top.sv:47]
+INFO: [Synth 8-11241] undeclared symbol 'negedge_tx_busy', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_tx_top.sv:82]
+INFO: [Synth 8-11241] undeclared symbol 'cpu_write_tdr', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:96]
+INFO: [Synth 8-11241] undeclared symbol 'cpu_read_rdr', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:98]
+INFO: [Synth 8-11241] undeclared symbol 'cpu_read_lsr', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:99]
+INFO: [Synth 8-11241] undeclared symbol 'cpu_read_iir', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:100]
+INFO: [Synth 8-11241] undeclared symbol 'lsr1_set', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:115]
+INFO: [Synth 8-11241] undeclared symbol 'lsr2_set', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:116]
+INFO: [Synth 8-11241] undeclared symbol 'lsr3_set', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:117]
+INFO: [Synth 8-11241] undeclared symbol 'lsr4_set', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:118]
+INFO: [Synth 8-11241] undeclared symbol 'lsr5_set', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:119]
+INFO: [Synth 8-11241] undeclared symbol 'lsr6_set', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:120]
+INFO: [Synth 8-11241] undeclared symbol 'lsr0_reset', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:131]
+INFO: [Synth 8-11241] undeclared symbol 'lsr1_reset', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:132]
+INFO: [Synth 8-11241] undeclared symbol 'lsr2_reset', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:133]
+INFO: [Synth 8-11241] undeclared symbol 'lsr3_reset', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:134]
+INFO: [Synth 8-11241] undeclared symbol 'lsr4_reset', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:135]
+INFO: [Synth 8-11241] undeclared symbol 'lsr5_reset', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:136]
+INFO: [Synth 8-11241] undeclared symbol 'lsr6_reset', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:137]
+INFO: [Synth 8-11241] undeclared symbol 'fifo_rx_pop_ready', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:154]
+INFO: [Synth 8-11241] undeclared symbol 'tick_tx', assumed default net type 'wire' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:164]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:14 . Memory (MB): peak = 2031.441 ; gain = 387.637 ; free physical = 116 ; free virtual = 4517
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'design_1_axi4_uart_0_0' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ip/design_1_axi4_uart_0_0/synth/design_1_axi4_uart_0_0.sv:53]
+INFO: [Synth 8-6157] synthesizing module 'axi4_uart' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:4]
+INFO: [Synth 8-6157] synthesizing module 'axi4_lite' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_lite.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'axi4_lite' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_lite.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'baud_generator' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/baud_generator.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'baud_generator' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/baud_generator.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'uart_tx_top' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_tx_top.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'synchronizer' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/synchronizer.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'synchronizer' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/synchronizer.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'transmitter_fifo' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/transmitter_fifo.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'transmitter_fifo' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/transmitter_fifo.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'uart_transmitter' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_transmitter.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'parity' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/parity.sv:2]
+INFO: [Synth 8-226] default block is never used [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/parity.sv:12]
+INFO: [Synth 8-6155] done synthesizing module 'parity' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/parity.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'transmitter_controller' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/transmitter_controller.sv:3]
+INFO: [Synth 8-226] default block is never used [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/transmitter_controller.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'transmitter_controller' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/transmitter_controller.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'piso' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/piso.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'ff' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/ff.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'ff' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/ff.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'piso' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/piso.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'uart_transmitter' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_transmitter.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'uart_tx_top' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_tx_top.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'uart_rx_top' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_rx_top.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'uart_receiver' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'shift_register' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/shift_register.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'shift_register' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/shift_register.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'receiver_controller' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/receiver_controller.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'receiver_controller' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/receiver_controller.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'uart_receiver' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_receiver.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'receiver_fifo' [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/receiver_fifo.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'receiver_fifo' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/receiver_fifo.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'uart_rx_top' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/uart_rx_top.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'axi4_uart' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ipshared/4b06/src/axi4_uart.sv:4]
+INFO: [Synth 8-6155] done synthesizing module 'design_1_axi4_uart_0_0' (0#1) [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ip/design_1_axi4_uart_0_0/synth/design_1_axi4_uart_0_0.sv:53]
+WARNING: [Synth 8-7129] Port s_axi_awaddr[31] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[30] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[29] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[28] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[27] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[26] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[25] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[24] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[23] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[22] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[21] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[20] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[19] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[18] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[17] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[16] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[15] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[14] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[13] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[12] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[31] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[30] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[29] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[28] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[27] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[26] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[25] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[24] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[23] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[22] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[21] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[20] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[19] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[18] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[17] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[16] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[15] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[14] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[13] in module axi4_lite is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[12] in module axi4_lite is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:17 . Memory (MB): peak = 2107.379 ; gain = 463.574 ; free physical = 134 ; free virtual = 4322
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:17 . Memory (MB): peak = 2125.191 ; gain = 481.387 ; free physical = 128 ; free virtual = 4316
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:17 . Memory (MB): peak = 2125.191 ; gain = 481.387 ; free physical = 128 ; free virtual = 4316
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2125.191 ; gain = 0.000 ; free physical = 124 ; free virtual = 4312
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ip/design_1_axi4_uart_0_0/src/cs.xdc] for cell 'inst'
+Finished Parsing XDC File [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.gen/sources_1/bd/design_1/ip/design_1_axi4_uart_0_0/src/cs.xdc] for cell 'inst'
+Parsing XDC File [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.runs/design_1_axi4_uart_0_0_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.runs/design_1_axi4_uart_0_0_synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2220.918 ; gain = 0.000 ; free physical = 115 ; free virtual = 4282
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.09 . Memory (MB): peak = 2220.918 ; gain = 0.000 ; free physical = 126 ; free virtual = 4284
+INFO: [Designutils 20-5008] Incremental synthesis strategy off
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:16 ; elapsed = 00:00:26 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 163 ; free virtual = 4281
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7z020clg400-2
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:16 ; elapsed = 00:00:26 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 163 ; free virtual = 4281
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property KEEP_HIERARCHY = SOFT for inst. (constraint file  /home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.runs/design_1_axi4_uart_0_0_synth_1/dont_touch.xdc, line 9).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:16 ; elapsed = 00:00:26 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 163 ; free virtual = 4281
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'wr_state_reg' in module 'axi4_lite'
+INFO: [Synth 8-802] inferred FSM for state register 'rd_state_reg' in module 'axi4_lite'
+INFO: [Synth 8-802] inferred FSM for state register 'current_state_reg' in module 'transmitter_controller'
+INFO: [Synth 8-802] inferred FSM for state register 'current_state_reg' in module 'receiver_controller'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 WR_IDLE |                             0001 |                               00
+                WR_READY |                             0010 |                               01
+                 WR_DATA |                             0100 |                               10
+                 WR_DONE |                             1000 |                               11
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'wr_state_reg' using encoding 'one-hot' in module 'axi4_lite'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                 RD_IDLE |                              001 |                               00
+                RD_READY |                              010 |                               01
+                 RD_DONE |                              100 |                               10
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'rd_state_reg' using encoding 'one-hot' in module 'axi4_lite'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                              000 |                              000
+                     CTS |                              001 |                              001
+                    WAIT |                              010 |                              010
+             TRANS_START |                              011 |                              011
+              TRANS_DATA |                              100 |                              100
+            TRANS_PARITY |                              101 |                              101
+              TRANS_STOP |                              110 |                              110
+                  FINISH |                              111 |                              111
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'current_state_reg' using encoding 'sequential' in module 'transmitter_controller'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                              000 |                              000
+                     RTS |                              001 |                              001
+                    SCAN |                              010 |                              010
+              WAIT_START |                              011 |                              011
+            RECEIVE_DATA |                              100 |                              100
+          RECEIVE_PARITY |                              101 |                              101
+            RECEIVE_STOP |                              110 |                              110
+                  FINISH |                              111 |                              111
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'current_state_reg' using encoding 'sequential' in module 'receiver_controller'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:17 ; elapsed = 00:00:27 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 160 ; free virtual = 4281
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   32 Bit       Adders := 2     
+	   3 Input    6 Bit       Adders := 1     
+	   2 Input    5 Bit       Adders := 3     
+	   2 Input    4 Bit       Adders := 10    
+	   4 Input    4 Bit       Adders := 1     
+	   3 Input    4 Bit       Adders := 1     
++---XORs : 
+	   2 Input      1 Bit         XORs := 1     
++---XORs : 
+	                8 Bit    Wide XORs := 2     
+	                7 Bit    Wide XORs := 1     
+	                6 Bit    Wide XORs := 1     
+	                5 Bit    Wide XORs := 1     
++---Registers : 
+	               32 Bit    Registers := 13    
+	               14 Bit    Registers := 1     
+	               12 Bit    Registers := 2     
+	               10 Bit    Registers := 1     
+	                8 Bit    Registers := 4     
+	                5 Bit    Registers := 2     
+	                4 Bit    Registers := 11    
+	                3 Bit    Registers := 1     
+	                1 Bit    Registers := 43    
++---RAMs : 
+	              128 Bit	(16 X 8 bit)          RAMs := 2     
++---Muxes : 
+	   2 Input   32 Bit        Muxes := 13    
+	   4 Input   32 Bit        Muxes := 7     
+	   3 Input   32 Bit        Muxes := 2     
+	   9 Input   14 Bit        Muxes := 1     
+	   9 Input   10 Bit        Muxes := 1     
+	   4 Input    8 Bit        Muxes := 2     
+	   2 Input    8 Bit        Muxes := 2     
+	   4 Input    4 Bit        Muxes := 3     
+	   2 Input    4 Bit        Muxes := 2     
+	   3 Input    3 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 33    
+	   8 Input    3 Bit        Muxes := 2     
+	   4 Input    3 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 26    
+	   4 Input    1 Bit        Muxes := 1     
+	   6 Input    1 Bit        Muxes := 2     
+	   5 Input    1 Bit        Muxes := 3     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 220 (col length:60)
+BRAMs: 280 (col length: RAMB18 60 RAMB36 30)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+WARNING: [Synth 8-7129] Port s_axi_awaddr[31] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[30] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[29] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[28] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[27] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[26] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[25] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[24] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[23] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[22] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[21] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[20] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[19] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[18] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[17] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[16] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[15] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[14] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[13] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_awaddr[12] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[31] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[30] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[29] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[28] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[27] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[26] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[25] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[24] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[23] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[22] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[21] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[20] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[19] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[18] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[17] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[16] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[15] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[14] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[13] in module axi4_uart is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_axi_araddr[12] in module axi4_uart is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:22 ; elapsed = 00:00:32 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 133 ; free virtual = 4260
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Preliminary Mapping Report (see note below)
++------------+---------------------------------------+-----------+----------------------+-------------+
+|Module Name | RTL Object                            | Inference | Size (Depth x Width) | Primitives  | 
++------------+---------------------------------------+-----------+----------------------+-------------+
+|inst        | uart_rx_top_inst/fifo_rx_inst/mem_reg | Implied   | 16 x 8               | RAM32M x 2  | 
+|inst        | uart_tx_top_inst/fifo_tx_inst/mem_reg | Implied   | 16 x 8               | RAM32M x 2  | 
++------------+---------------------------------------+-----------+----------------------+-------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:27 ; elapsed = 00:00:38 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 119 ; free virtual = 4136
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:30 ; elapsed = 00:00:41 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 119 ; free virtual = 4136
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Distributed RAM: Final Mapping Report
++------------+---------------------------------------+-----------+----------------------+-------------+
+|Module Name | RTL Object                            | Inference | Size (Depth x Width) | Primitives  | 
++------------+---------------------------------------+-----------+----------------------+-------------+
+|inst        | uart_rx_top_inst/fifo_rx_inst/mem_reg | Implied   | 16 x 8               | RAM32M x 2  | 
+|inst        | uart_tx_top_inst/fifo_tx_inst/mem_reg | Implied   | 16 x 8               | RAM32M x 2  | 
++------------+---------------------------------------+-----------+----------------------+-------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:30 ; elapsed = 00:00:42 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 119 ; free virtual = 4136
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:35 ; elapsed = 00:00:47 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 348 ; free virtual = 4367
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:35 ; elapsed = 00:00:47 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 348 ; free virtual = 4367
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:35 ; elapsed = 00:00:47 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 348 ; free virtual = 4367
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:35 ; elapsed = 00:00:47 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 348 ; free virtual = 4367
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:35 ; elapsed = 00:00:47 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 348 ; free virtual = 4367
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:35 ; elapsed = 00:00:47 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 348 ; free virtual = 4367
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |CARRY4   |    26|
+|2     |LUT1     |    27|
+|3     |LUT2     |    34|
+|4     |LUT3     |    63|
+|5     |LUT4     |    74|
+|6     |LUT5     |    57|
+|7     |LUT6     |   153|
+|8     |MUXF7    |     3|
+|9     |RAM32M   |     2|
+|10    |RAM32X1D |     4|
+|11    |FDRE     |   464|
+|12    |FDSE     |    12|
++------+---------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:35 ; elapsed = 00:00:47 . Memory (MB): peak = 2220.918 ; gain = 577.113 ; free physical = 348 ; free virtual = 4367
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 41 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:33 ; elapsed = 00:00:44 . Memory (MB): peak = 2220.918 ; gain = 481.387 ; free physical = 348 ; free virtual = 4367
+Synthesis Optimization Complete : Time (s): cpu = 00:00:35 ; elapsed = 00:00:47 . Memory (MB): peak = 2220.926 ; gain = 577.113 ; free physical = 348 ; free virtual = 4367
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2220.926 ; gain = 0.000 ; free physical = 630 ; free virtual = 4649
+INFO: [Netlist 29-17] Analyzing 35 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2220.926 ; gain = 0.000 ; free physical = 630 ; free virtual = 4649
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 6 instances were transformed.
+  RAM32M => RAM32M (RAMD32(x6), RAMS32(x2)): 2 instances
+  RAM32X1D => RAM32X1D (RAMD32(x2)): 4 instances
+
+Synth Design complete | Checksum: 48664cb6
+INFO: [Common 17-83] Releasing license: Synthesis
+102 Infos, 81 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:44 ; elapsed = 00:00:53 . Memory (MB): peak = 2220.926 ; gain = 919.652 ; free physical = 630 ; free virtual = 4649
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 1699.978; main = 1401.184; forked = 338.370
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3207.453; main = 2220.922; forked = 986.531
+INFO: [Common 17-1381] The checkpoint '/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.runs/design_1_axi4_uart_0_0_synth_1/design_1_axi4_uart_0_0.dcp' has been generated.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP design_1_axi4_uart_0_0, cache-ID = 15dd188602eb6f20
+INFO: [Coretcl 2-1174] Renamed 23 cell refs.
+INFO: [Common 17-1381] The checkpoint '/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.runs/design_1_axi4_uart_0_0_synth_1/design_1_axi4_uart_0_0.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file design_1_axi4_uart_0_0_utilization_synth.rpt -pb design_1_axi4_uart_0_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sun Jun 22 12:03:44 2025...

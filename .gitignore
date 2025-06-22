@@ -1,9 +1,9 @@
 sim/work/*.vcd
 sim/work/work
 sim/work/[^.]*
-.vscode/
+.vscode
 !sim/work/vsim_directed.sh
 !sim/work/vsim_uvm.sh
 !sim/work/xrun_directed.sh
 !sim/work/xrun_uvm.sh
-sim/work
+!sim/work/axi4_uart

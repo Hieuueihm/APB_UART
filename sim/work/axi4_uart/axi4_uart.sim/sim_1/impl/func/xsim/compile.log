@@ -1,0 +1,27 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "/home/hieu/Workspace/APB_UART/sim/work/axi4_uart/axi4_uart.sim/sim_1/impl/func/xsim/tb_axi4_uart_func_impl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module axi4_lite
+INFO: [VRFC 10-311] analyzing module axi4_uart
+INFO: [VRFC 10-311] analyzing module baud_generator
+INFO: [VRFC 10-311] analyzing module ff
+INFO: [VRFC 10-311] analyzing module ff_0
+INFO: [VRFC 10-311] analyzing module ff_1
+INFO: [VRFC 10-311] analyzing module ff_2
+INFO: [VRFC 10-311] analyzing module ff_3
+INFO: [VRFC 10-311] analyzing module ff_4
+INFO: [VRFC 10-311] analyzing module ff_5
+INFO: [VRFC 10-311] analyzing module ff_6
+INFO: [VRFC 10-311] analyzing module piso
+INFO: [VRFC 10-311] analyzing module receiver_controller
+INFO: [VRFC 10-311] analyzing module receiver_fifo
+INFO: [VRFC 10-311] analyzing module shift_register
+INFO: [VRFC 10-311] analyzing module synchronizer
+INFO: [VRFC 10-311] analyzing module synchronizer_7
+INFO: [VRFC 10-311] analyzing module transmitter_controller
+INFO: [VRFC 10-311] analyzing module transmitter_fifo
+INFO: [VRFC 10-311] analyzing module uart_receiver
+INFO: [VRFC 10-311] analyzing module uart_rx_top
+INFO: [VRFC 10-311] analyzing module uart_transmitter
+INFO: [VRFC 10-311] analyzing module uart_tx_top
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/home/hieu/Workspace/APB_UART/sim/src/tb_axi4_uart.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_axi4_uart
