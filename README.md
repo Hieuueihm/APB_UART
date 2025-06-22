@@ -89,16 +89,17 @@ Before running the simulation, make sure you have:
 ```bash
 git clone https://github.com/Hieuueihm/APB_UART.git
 cd APB_UART
+mkdir sim/work
 ```
 
 ### 🛠 Using QuestaSim
 
 ```bash
 cd sim/work
-./vsim_uvm.sh
+source ../scripts/vsim_uvm.sh
 ```
 ### 🛠 Cadence Xcelium
 ```
 cd sim/work
-./xrun_uvm.sh
+source ../scripts/xrun_uvm.sh
 ```
