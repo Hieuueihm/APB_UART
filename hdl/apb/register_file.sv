@@ -43,56 +43,56 @@ module register_file (
         ocr_o[1] <= 1'b0; 
       end
       if (en_i & wr_rd_i) begin  // Write
-  unique case (addr_i)
-    ADDR_TDR: begin
-      if (byte_strobe_i[0]) tdr_o[7:0]    <= pwdata_i[7:0];
-      if (byte_strobe_i[1]) tdr_o[15:8]   <= pwdata_i[15:8];
-      if (byte_strobe_i[2]) tdr_o[23:16]  <= pwdata_i[23:16];
-      if (byte_strobe_i[3]) tdr_o[31:24]  <= pwdata_i[31:24];
-    end
+        unique case (addr_i)
+          ADDR_TDR: begin
+            if (byte_strobe_i[0]) tdr_o[7:0]    <= pwdata_i[7:0];
+            if (byte_strobe_i[1]) tdr_o[15:8]   <= pwdata_i[15:8];
+            if (byte_strobe_i[2]) tdr_o[23:16]  <= pwdata_i[23:16];
+            if (byte_strobe_i[3]) tdr_o[31:24]  <= pwdata_i[31:24];
+          end
 
  
 
-    ADDR_LCR: begin
-      if (byte_strobe_i[0]) lcr_o[7:0]    <= pwdata_i[7:0];
-      if (byte_strobe_i[1]) lcr_o[15:8]   <= pwdata_i[15:8];
-      if (byte_strobe_i[2]) lcr_o[23:16]  <= pwdata_i[23:16];
-      if (byte_strobe_i[3]) lcr_o[31:24]  <= pwdata_i[31:24];
-    end
+        ADDR_LCR: begin
+          if (byte_strobe_i[0]) lcr_o[7:0]    <= pwdata_i[7:0];
+          if (byte_strobe_i[1]) lcr_o[15:8]   <= pwdata_i[15:8];
+          if (byte_strobe_i[2]) lcr_o[23:16]  <= pwdata_i[23:16];
+          if (byte_strobe_i[3]) lcr_o[31:24]  <= pwdata_i[31:24];
+        end
 
-    ADDR_OCR: begin
-      if (byte_strobe_i[0]) ocr_o[7:0]    <= pwdata_i[7:0];
-      if (byte_strobe_i[1]) ocr_o[15:8]   <= pwdata_i[15:8];
-      if (byte_strobe_i[2]) ocr_o[23:16]  <= pwdata_i[23:16];
-      if (byte_strobe_i[3]) ocr_o[31:24]  <= pwdata_i[31:24];
-    end
-
-
-    ADDR_FCR: begin
-      if (byte_strobe_i[0]) fcr_o[7:0]    <= pwdata_i[7:0];
-      if (byte_strobe_i[1]) fcr_o[15:8]   <= pwdata_i[15:8];
-      if (byte_strobe_i[2]) fcr_o[23:16]  <= pwdata_i[23:16];
-      if (byte_strobe_i[3]) fcr_o[31:24]  <= pwdata_i[31:24];
-    end
+        ADDR_OCR: begin
+          if (byte_strobe_i[0]) ocr_o[7:0]    <= pwdata_i[7:0];
+          if (byte_strobe_i[1]) ocr_o[15:8]   <= pwdata_i[15:8];
+          if (byte_strobe_i[2]) ocr_o[23:16]  <= pwdata_i[23:16];
+          if (byte_strobe_i[3]) ocr_o[31:24]  <= pwdata_i[31:24];
+        end
 
 
-    ADDR_IER: begin
-      if (byte_strobe_i[0]) ier_o[7:0]    <= pwdata_i[7:0];
-      if (byte_strobe_i[1]) ier_o[15:8]   <= pwdata_i[15:8];
-      if (byte_strobe_i[2]) ier_o[23:16]  <= pwdata_i[23:16];
-      if (byte_strobe_i[3]) ier_o[31:24]  <= pwdata_i[31:24];
-    end
+        ADDR_FCR: begin
+          if (byte_strobe_i[0]) fcr_o[7:0]    <= pwdata_i[7:0];
+          if (byte_strobe_i[1]) fcr_o[15:8]   <= pwdata_i[15:8];
+          if (byte_strobe_i[2]) fcr_o[23:16]  <= pwdata_i[23:16];
+          if (byte_strobe_i[3]) fcr_o[31:24]  <= pwdata_i[31:24];
+        end
 
-    ADDR_HCR: begin
-      if (byte_strobe_i[0]) hcr_o[7:0]    <= pwdata_i[7:0];
-      if (byte_strobe_i[1]) hcr_o[15:8]   <= pwdata_i[15:8];
-      if (byte_strobe_i[2]) hcr_o[23:16]  <= pwdata_i[23:16];
-      if (byte_strobe_i[3]) hcr_o[31:24]  <= pwdata_i[31:24];
-    end
-    default: addr_err_o <= 1'b1;
 
-  endcase
-end else if (en_i & !wr_rd_i) begin  // Read
+        ADDR_IER: begin
+          if (byte_strobe_i[0]) ier_o[7:0]    <= pwdata_i[7:0];
+          if (byte_strobe_i[1]) ier_o[15:8]   <= pwdata_i[15:8];
+          if (byte_strobe_i[2]) ier_o[23:16]  <= pwdata_i[23:16];
+          if (byte_strobe_i[3]) ier_o[31:24]  <= pwdata_i[31:24];
+        end
+
+      ADDR_HCR: begin
+        if (byte_strobe_i[0]) hcr_o[7:0]    <= pwdata_i[7:0];
+        if (byte_strobe_i[1]) hcr_o[15:8]   <= pwdata_i[15:8];
+        if (byte_strobe_i[2]) hcr_o[23:16]  <= pwdata_i[23:16];
+        if (byte_strobe_i[3]) hcr_o[31:24]  <= pwdata_i[31:24];
+      end
+      default: addr_err_o <= 1'b1;
+
+    endcase
+    end else if (en_i & !wr_rd_i) begin  // Read
         unique case (addr_i)
           ADDR_TDR: prdata_o <= tdr_o;
           ADDR_RDR: prdata_o <= rdr_i;
