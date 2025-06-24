@@ -123,7 +123,7 @@ module axi4_lite (
 
             end
             WR_READY: begin
-            	s_axi_awready = 1'b1;
+                s_axi_awready = 1'b1;
             end
             WR_DATA: begin
                     s_axi_wready = 1;
@@ -210,7 +210,7 @@ module axi4_lite (
               
             end
             RD_READY: begin
-            	s_axi_arready = 1'b1;
+                s_axi_arready = 1'b1;
             end
 
             RD_DONE: begin
